@@ -1,1 +1,260 @@
-<!DOCTYPE html><html lang='es'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Technical Center Pay</title><link rel='stylesheet' href='css/style.css'></head><body><header class='hero'><img src='assets/logo.jpeg' class='logo'><h1>TECHNICAL CENTER PAY</h1><p>Pago seguro por transferencia y Mercado Pago</p></header><section class='container card'><h2>Monto a pagar</h2><input id='amount' placeholder='Ej. 1850'><button id='whatsapp'>Enviar comprobante por WhatsApp</button></section><section class='container grid'><article class='card'><h3>Nu México</h3><p>Bryant Dylan León Durán</p><code>638180010196712539</code><button onclick="copyText('638180010196712539')">Copiar cuenta</button></article><article class='card'><h3>Mifel</h3><p>Bryant Dylan León Durán</p><code>042180010088161897</code><button onclick="copyText('042180010088161897')">Copiar cuenta</button></article></section><section class='container card'><h2>Mercado Pago</h2><a class='btn' href='https://link.mercadopago.com.mx/technicalcenter'>Pagar con tarjeta</a></section><section class='container card'><h2>Promociones</h2><div id='promotions'></div></section><section id='admin' class='container card hidden'><h2>Panel de Promociones</h2><input id='title' placeholder='Título'><textarea id='description' placeholder='Descripción'></textarea><input id='image' type='file' accept='image/*'><button id='publish'>Publicar</button></section><button class='floating' id='floatingWA'>WhatsApp</button><script src='js/app.js'></script></body></html>
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Technical Center Pay | Pagos Seguros</title>
+  <meta name="description" content="Realiza tu pago de forma rápida y segura en Technical Center. Transferencia Nu, Mifel y Mercado Pago." />
+  <meta name="theme-color" content="#009BFF" />
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icon-192.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+
+<body>
+
+<div id="particles"></div>
+
+<header class="hero">
+
+  <nav class="navbar">
+    <img src="assets/logo.png" class="logo" alt="Technical Center Logo">
+
+    <div class="nav-buttons">
+      <a href="#pagos">Pagos</a>
+      <a href="#promociones">Promociones</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </nav>
+
+  <section class="hero-content">
+
+    <span class="badge">🔒 Pago Seguro</span>
+
+    <h1>
+      TECHNICAL CENTER <br>
+      <span>PAY</span>
+    </h1>
+
+    <p>
+      Centro especializado en reparación de celulares y tecnología.
+      Paga por transferencia o con tarjeta en segundos.
+    </p>
+
+    <a href="#pagos" class="hero-button">
+      Realizar Pago
+    </a>
+
+  </section>
+
+</header>
+
+<main>
+
+  <section id="pagos" class="payment-section">
+
+    <div class="section-title">
+      <h2>¿Cuánto vas a pagar?</h2>
+      <p>Ingresa el monto y elige tu método de pago.</p>
+    </div>
+
+    <div class="amount-card glass">
+      <label>Monto</label>
+
+      <input
+        id="paymentAmount"
+        type="number"
+        placeholder="1850"
+      />
+
+      <button id="sendWhatsapp">
+        Enviar comprobante por WhatsApp
+      </button>
+    </div>
+
+    <div class="cards-grid">
+
+      <article class="payment-card nu glass">
+        <div class="card-header">
+          <h3>Nu México</h3>
+          <span>Transferencia SPEI</span>
+        </div>
+
+        <p class="owner">Bryant Dylan León Durán</p>
+
+        <div class="account-number" id="nuAccount">
+          638180010196712539
+        </div>
+
+        <button class="copy-button" data-copy="638180010196712539">
+          Copiar Cuenta
+        </button>
+      </article>
+
+      <article class="payment-card mifel glass">
+        <div class="card-header">
+          <h3>Banca Mifel</h3>
+          <span>Transferencia SPEI</span>
+        </div>
+
+        <p class="owner">Bryant Dylan León Durán</p>
+
+        <div class="account-number" id="mifelAccount">
+          042180010088161897
+        </div>
+
+        <button class="copy-button" data-copy="042180010088161897">
+          Copiar CLABE
+        </button>
+      </article>
+
+    </div>
+
+    <article class="mercado-card glass">
+
+      <div>
+        <span class="badge blue">Tarjeta Visa · Mastercard · AMEX</span>
+        <h3>Pagar con Mercado Pago</h3>
+        <p>Pago inmediato con tarjeta o saldo Mercado Pago.</p>
+      </div>
+
+      <a
+        class="mercado-button"
+        href="https://link.mercadopago.com.mx/technicalcenter"
+        target="_blank"
+      >
+        Abrir Mercado Pago
+      </a>
+
+    </article>
+
+  </section>
+
+  <section class="qr-section">
+
+    <div class="glass qr-card">
+
+      <div class="qr-info">
+        <span class="badge">Escanea y paga</span>
+
+        <h2>QR Oficial Technical Center</h2>
+
+        <p>
+          Escanea este código QR para abrir la página de pagos desde cualquier celular.
+        </p>
+
+        <div class="landing-url">
+          https://tcisolutions.github.io/pagos/
+        </div>
+      </div>
+
+      <div class="qr-image">
+        <img src="assets/qr_tc.png" alt="QR Technical Center">
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="promociones" class="promo-section">
+
+    <div class="section-title">
+      <h2>Promociones</h2>
+      <p>Las promociones más recientes de Technical Center.</p>
+    </div>
+
+    <div id="promoContainer" class="promo-slider"></div>
+
+    <div class="promo-controls">
+      <button id="prevPromo">←</button>
+      <button id="nextPromo">→</button>
+    </div>
+
+  </section>
+
+  <section class="why-section">
+
+    <div class="section-title">
+      <h2>¿Por qué pagar en Technical Center?</h2>
+    </div>
+
+    <div class="benefits-grid">
+
+      <div class="glass benefit">
+        <h3>⚡ Pago inmediato</h3>
+        <p>Confirma tu pago en segundos por WhatsApp.</p>
+      </div>
+
+      <div class="glass benefit">
+        <h3>🔒 Seguro</h3>
+        <p>Tus pagos llegan directamente a nuestras cuentas oficiales.</p>
+      </div>
+
+      <div class="glass benefit">
+        <h3>💳 Tarjeta o Transferencia</h3>
+        <p>Elige el método que prefieras.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="contacto" class="contact-section">
+
+    <div class="glass contact-card">
+
+      <span class="badge">Contacto</span>
+
+      <h2>¿Ya realizaste tu pago?</h2>
+
+      <p>Envíanos tu comprobante para confirmar tu reparación.</p>
+
+      <a
+        class="whatsapp-button"
+        href="https://wa.me/524431922958"
+        target="_blank"
+      >
+        WhatsApp 443 192 2958
+      </a>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="footer">
+
+  <img src="assets/logo.png" alt="Logo Technical Center">
+
+  <h3>TECHNICAL CENTER</h3>
+
+  <p>Tecnología en nuestras manos, confianza en tu elección.</p>
+
+  <small>© 2026 Technical Center · Morelia, Michoacán.</small>
+
+</footer>
+
+<div id="toast"></div>
+
+<button id="floatingWhatsapp" aria-label="WhatsApp">
+  💬
+</button>
+
+<script src="js/app.js"></script>
+<script src="js/payments.js"></script>
+<script src="js/promotions.js"></script>
+<script src="js/particles.js"></script>
+<script src="js/pwa.js"></script>
+
+</body>
+</html>
