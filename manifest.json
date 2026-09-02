@@ -1,10 +1,10 @@
 {
   "name": "Technical Center Pay",
-  "short_name": "Technical Center",
+  "short_name": "TC Pay",
   "start_url": "/pagos/",
   "display": "standalone",
-  "background_color": "#050816",
   "theme_color": "#009BFF",
+  "background_color": "#040814",
   "icons": [
     {
       "src": "assets/icon-192.png",
