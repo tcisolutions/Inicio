@@ -1,1 +1,1 @@
-URL admin: #admin\nContraseña: TC2026*\n
+URL admin: añade #admin a la URL. Contraseña: TC2026*.
