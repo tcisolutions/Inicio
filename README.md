@@ -1,1 +1,1 @@
-# pagos
+Panel de promociones: agrega #admin al final de la URL e ingresa la contraseña TC2026*.
