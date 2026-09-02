@@ -1,395 +1,444 @@
 /* ==========================================================
-   TECHNICAL CENTER PAY V10 PRO
-   Panel de Promociones
+   TECHNICAL CENTER PAY 2026
+   PROMOTIONS.JS
+   Panel Administrador de Promociones
 ========================================================== */
 
 const ADMIN_PASSWORD = "TC2026*";
-const STORAGE_KEY = "tc_promotions_v10";
+const STORAGE_KEY = "tc_promotions_v2";
 
 const promoContainer = document.getElementById("promoContainer");
-const prevPromo = document.getElementById("prevPromo");
-const nextPromo = document.getElementById("nextPromo");
+const adminPanel = document.getElementById("adminPanel");
+const adminList = document.getElementById("promoListAdmin");
 
-/* =======================
-   PROMOCIONES POR DEFECTO
-======================= */
+const btnPublish = document.getElementById("publishPromo");
+const btnPrev = document.getElementById("prevPromo");
+const btnNext = document.getElementById("nextPromo");
+
+// ======================
+// PROMOCIONES INICIALES
+// ======================
 
 const defaultPromotions = [
   {
-    id:1,
-    title:"Cambio de Cristal iPhone 16 Pro Max",
-    description:"Instalación profesional y garantía incluida.",
-    price:"Desde $1,999 MXN",
-    image:"assets/promos/promo1.webp",
-    active:true
+    id: 1,
+    title: "Cambio de Cristal iPhone 16 Pro Max",
+    description: "Cristal Premium + Garantía de instalación.",
+    price: "Desde $1,999 MXN",
+    image: "assets/promos/promo1.webp",
+    active: true
   },
   {
-    id:2,
-    title:"Cambio de batería Samsung",
-    description:"Baterías originales y compatibles premium.",
-    price:"Desde $699 MXN",
-    image:"assets/promos/promo2.webp",
-    active:true
+    id: 2,
+    title: "Cambio de batería Samsung",
+    description: "Baterías de alta calidad y garantía.",
+    price: "Desde $699 MXN",
+    image: "assets/promos/promo2.webp",
+    active: true
   },
   {
-    id:3,
-    title:"Reparación Nintendo Switch",
-    description:"Centro de carga, HDMI y microsoldadura.",
-    price:"Diagnóstico GRATIS",
-    image:"assets/promos/promo3.webp",
-    active:true
+    id: 3,
+    title: "Nintendo Switch HDMI",
+    description: "Reemplazo de HDMI y reparación de puerto.",
+    price: "Diagnóstico GRATIS",
+    image: "assets/promos/promo3.webp",
+    active: true
   }
 ];
 
-/* =======================
-      BASE LOCAL
-======================= */
+// ======================
+// BASE LOCAL
+// ======================
 
 function getPromotions(){
 
-  const saved = localStorage.getItem(STORAGE_KEY);
+    const data = localStorage.getItem(STORAGE_KEY);
 
-  if(saved) return JSON.parse(saved);
+    if(data) return JSON.parse(data);
 
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(defaultPromotions));
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(defaultPromotions)
+    );
 
-  return defaultPromotions;
-
-}
-
-function savePromotions(promos){
-
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(promos));
+    return defaultPromotions;
 
 }
 
-/* =======================
-      RENDER
-======================= */
+function savePromotions(list){
 
-let currentPromo = 0;
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(list)
+    );
+
+}
+
+// ======================
+// RENDER PROMOCIONES
+// ======================
 
 function renderPromotions(){
 
-  const promotions = getPromotions().filter(p=>p.active);
+    promoContainer.innerHTML = "";
 
-  promoContainer.innerHTML = "";
+    const promotions = getPromotions();
 
-  promotions.forEach((promo,index)=>{
+    promotions
+        .filter(p => p.active)
+        .forEach((promo,index)=>{
 
-    promoContainer.innerHTML +=
-    `
-      <article class="promo-card glass">
+        promoContainer.innerHTML += `
 
-          <img src="${promo.image}" alt="${promo.title}">
+        <article class="promo-card glass fade-up">
 
-          <div class="promo-info">
+            <img src="${promo.image}" alt="${promo.title}">
 
-              <span>PROMOCIÓN</span>
+            <div class="promo-info">
 
-              <h3>${promo.title}</h3>
+                <span>PROMOCIÓN</span>
 
-              <p>${promo.description}</p>
+                <h3>${promo.title}</h3>
 
-              <div class="price">${promo.price}</div>
+                <p>${promo.description}</p>
 
-              <button
-                class="promo-button"
-                onclick="promoWhatsapp(${index})"
-              >
-                  Solicitar Promoción
-              </button>
+                <div class="price">${promo.price}</div>
 
-          </div>
+                <button
+                    class="promo-button"
+                    onclick="sendPromoWhatsapp(${index})"
+                >
+                    Solicitar Promoción
+                </button>
 
-      </article>
-    `;
+            </div>
 
-  });
+        </article>
+
+        `;
+
+    });
 
 }
 
 renderPromotions();
 
-/* =======================
-   WHATSAPP PROMOCIÓN
-======================= */
+// ======================
+// WHATSAPP PROMO
+// ======================
 
-window.promoWhatsapp = function(index){
+window.sendPromoWhatsapp = function(index){
 
-  const promo = getPromotions().filter(p=>p.active)[index];
+    const promo = getPromotions()
+        .filter(p=>p.active)[index];
 
-  const message =
-`Hola Technical Center 👋
+    const message = `Hola Technical Center 👋
 
-Estoy interesado en la promoción:
+Estoy interesado en esta promoción:
 
 📱 ${promo.title}
 
 💲 ${promo.price}
 
-Quiero más información.`;
+Quisiera más información.`;
 
-  window.open(
-    `https://wa.me/524431922958?text=${encodeURIComponent(message)}`,
-    "_blank"
-  );
+    window.open(
+      `https://wa.me/524431922958?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
 
-}
+};
 
-/* =======================
-   CARRUSEL
-======================= */
+// ======================
+// CARRUSEL
+// ======================
 
-nextPromo.addEventListener("click",()=>{
+btnNext.addEventListener("click",()=>{
 
-  promoContainer.scrollBy({
-    left:340,
-    behavior:"smooth"
-  });
-
-});
-
-prevPromo.addEventListener("click",()=>{
-
-  promoContainer.scrollBy({
-    left:-340,
-    behavior:"smooth"
-  });
+    promoContainer.scrollBy({
+        left:340,
+        behavior:"smooth"
+    });
 
 });
 
-/* Cambio automático cada 6 segundos */
+btnPrev.addEventListener("click",()=>{
+
+    promoContainer.scrollBy({
+        left:-340,
+        behavior:"smooth"
+    });
+
+});
+
+// Auto Scroll
 
 setInterval(()=>{
 
-  promoContainer.scrollBy({
-    left:340,
-    behavior:"smooth"
-  });
+    promoContainer.scrollBy({
+        left:340,
+        behavior:"smooth"
+    });
 
-},6000);
+},7000);
 
-/* =======================
-   PANEL ADMINISTRADOR
-======================= */
+// ======================
+// ADMINISTRADOR
+// ======================
 
-const isAdmin = location.hash === "#admin";
+window.openAdmin = function(){
 
-if(isAdmin){
+    const password = prompt(
+        "Contraseña del Administrador"
+    );
 
-  const password = prompt("Contraseña del Administrador");
+    if(password !== ADMIN_PASSWORD){
 
-  if(password !== ADMIN_PASSWORD){
+        showToast("Contraseña incorrecta");
 
-    alert("Acceso denegado.");
+        return;
 
-  }else{
+    }
 
-    createAdminPanel();
+    adminPanel.classList.remove("hidden");
 
-  }
+    adminPanel.scrollIntoView({
+        behavior:"smooth"
+    });
 
-}
+    loadAdminList();
 
-/* =======================
-   CREAR PANEL
-======================= */
+};
 
-function createAdminPanel(){
+// ======================
+// PUBLICAR PROMOCIÓN
+// ======================
 
-  const section = document.createElement("section");
+btnPublish.addEventListener("click",()=>{
 
-  section.className="admin-panel glass";
+    const title =
+        document.getElementById("promoTitle").value.trim();
 
-  section.innerHTML=
-  `
-  <div class="admin-title">
+    const price =
+        document.getElementById("promoPrice").value.trim();
 
-      <h2>Panel de Promociones</h2>
+    const description =
+        document.getElementById("promoDescription").value.trim();
 
-      <p>Publica promociones sin editar código.</p>
+    const imageInput =
+        document.getElementById("promoImage");
 
-  </div>
+    const active =
+        document.getElementById("promoActive").checked;
 
-  <div class="admin-grid">
+    if(
+        !title ||
+        !price ||
+        !description ||
+        imageInput.files.length===0
+    ){
 
-      <input id="promoTitle" placeholder="Título de la promoción">
+        showToast("Completa todos los campos.");
 
-      <input id="promoPrice" placeholder="Precio">
+        return;
 
-      <textarea
-          id="promoDescription"
-          placeholder="Descripción..."
-      ></textarea>
+    }
 
-      <input
-          id="promoImage"
-          type="file"
-          accept="image/*"
-      >
+    const reader = new FileReader();
 
-      <button id="publishPromo">
-          Publicar Promoción
-      </button>
+    reader.onload = function(e){
 
-  </div>
+        const promotions = getPromotions();
 
-  <div id="promoListAdmin"></div>
-  `;
+        promotions.unshift({
 
-  document.body.appendChild(section);
+            id:Date.now(),
 
-  loadAdminPromotions();
+            title,
 
-  document
-    .getElementById("publishPromo")
-    .onclick = publishPromotion;
+            price,
 
-}
+            description,
 
-/* =======================
-     PUBLICAR
-======================= */
+            image:e.target.result,
 
-function publishPromotion(){
+            active
 
-  const title = promoTitle.value.trim();
-  const price = promoPrice.value.trim();
-  const description = promoDescription.value.trim();
-  const image = promoImage.files[0];
+        });
 
-  if(!title || !price || !description || !image){
+        savePromotions(promotions);
 
-      showToast("Completa todos los campos","#DC2626");
-      return;
+        renderPromotions();
 
-  }
+        loadAdminList();
 
-  const reader = new FileReader();
+        clearForm();
 
-  reader.onload = event=>{
+        showToast("Promoción publicada.");
 
-      const promotions = getPromotions();
+    }
 
-      promotions.unshift({
+    reader.readAsDataURL(imageInput.files[0]);
 
-          id:Date.now(),
+});
 
-          title,
+// ======================
+// LIMPIAR FORMULARIO
+// ======================
 
-          price,
+function clearForm(){
 
-          description,
-
-          image:event.target.result,
-
-          active:true
-
-      });
-
-      savePromotions(promotions);
-
-      renderPromotions();
-
-      loadAdminPromotions();
-
-      promoTitle.value="";
-      promoPrice.value="";
-      promoDescription.value="";
-      promoImage.value="";
-
-      showToast("Promoción publicada","#16A34A");
-
-  };
-
-  reader.readAsDataURL(image);
+    promoTitle.value="";
+    promoPrice.value="";
+    promoDescription.value="";
+    promoImage.value="";
+    promoActive.checked=true;
 
 }
 
-/* =======================
-   LISTA ADMIN
-======================= */
+// ======================
+// LISTA ADMIN
+// ======================
 
-function loadAdminPromotions(){
+function loadAdminList(){
 
-  const promotions = getPromotions();
+    adminList.innerHTML="";
 
-  promoListAdmin.innerHTML="";
+    const promotions = getPromotions();
 
-  promotions.forEach(promo=>{
+    promotions.forEach(promo=>{
 
-      promoListAdmin.innerHTML +=
-      `
-      <div class="admin-promo">
+        adminList.innerHTML += `
 
-          <img src="${promo.image}">
+        <div class="admin-promo glass">
 
-          <div>
+            <img src="${promo.image}">
 
-              <strong>${promo.title}</strong>
+            <div class="admin-info">
 
-              <p>${promo.price}</p>
+                <strong>${promo.title}</strong>
 
-          </div>
+                <small>${promo.price}</small>
 
-          <button onclick="togglePromo(${promo.id})">
+            </div>
 
-              ${promo.active ? "Ocultar":"Mostrar"}
+            <button
+                class="toggle-btn"
+                onclick="togglePromotion(${promo.id})"
+            >
+                ${promo.active ? "Ocultar":"Mostrar"}
+            </button>
 
-          </button>
+            <button
+                class="delete-btn"
+                onclick="deletePromotion(${promo.id})"
+            >
+                Eliminar
+            </button>
 
-          <button onclick="deletePromo(${promo.id})">
+        </div>
 
-              Eliminar
+        `;
 
-          </button>
-
-      </div>
-      `;
-
-  });
-
-}
-
-/* =======================
-     OCULTAR
-======================= */
-
-window.togglePromo = function(id){
-
-  const promotions = getPromotions();
-
-  const promo = promotions.find(p=>p.id===id);
-
-  promo.active = !promo.active;
-
-  savePromotions(promotions);
-
-  renderPromotions();
-
-  loadAdminPromotions();
+    });
 
 }
 
-/* =======================
-      ELIMINAR
-======================= */
+// ======================
+// ACTIVAR / DESACTIVAR
+// ======================
 
-window.deletePromo = function(id){
+window.togglePromotion = function(id){
 
-  const answer = confirm("¿Eliminar promoción?");
+    const promotions = getPromotions();
 
-  if(!answer) return;
+    const promo = promotions.find(p=>p.id===id);
 
-  const promotions = getPromotions().filter(p=>p.id!==id);
+    promo.active = !promo.active;
 
-  savePromotions(promotions);
+    savePromotions(promotions);
 
-  renderPromotions();
+    renderPromotions();
 
-  loadAdminPromotions();
+    loadAdminList();
 
-  showToast("Promoción eliminada","#DC2626");
+    showToast("Promoción actualizada.");
+
+}
+
+// ======================
+// ELIMINAR
+// ======================
+
+window.deletePromotion = function(id){
+
+    const answer = confirm(
+        "¿Eliminar esta promoción?"
+    );
+
+    if(!answer) return;
+
+    const promotions = getPromotions()
+        .filter(p=>p.id!==id);
+
+    savePromotions(promotions);
+
+    renderPromotions();
+
+    loadAdminList();
+
+    showToast("Promoción eliminada.");
+
+}
+
+// ======================
+// EXPORTAR RESPALDO JSON
+// ======================
+
+window.exportPromotions = function(){
+
+    const data = JSON.stringify(
+        getPromotions(),
+        null,
+        2
+    );
+
+    const blob = new Blob([data],{
+        type:"application/json"
+    });
+
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+
+    link.download = "promociones_tc.json";
+
+    link.click();
+
+}
+
+// ======================
+// IMPORTAR RESPALDO JSON
+// ======================
+
+window.importPromotions = function(file){
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+        const promotions = JSON.parse(e.target.result);
+
+        savePromotions(promotions);
+
+        renderPromotions();
+
+        loadAdminList();
+
+        showToast("Promociones restauradas.");
+
+    }
+
+    reader.readAsText(file);
 
 }

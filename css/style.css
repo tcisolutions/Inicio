@@ -346,3 +346,33 @@ body{
     text-align:center;
   }
 }
+
+.admin-actions{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.admin-actions .btn-secondary{
+    flex:1;
+    text-align:center;
+}
+
+.toggle-btn{
+    background:#0EA5E9;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.delete-btn{
+    background:#DC2626;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+}
