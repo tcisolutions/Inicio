@@ -1,19 +1,144 @@
-<!doctype html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Technical Center Pay</title>
-<link rel="stylesheet" href="css/style.css"></head>
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Technical Center Pay | Pagos Seguros</title>
+
+  <meta name="description" content="Realiza tu pago de forma segura en Technical Center.">
+  <meta name="theme-color" content="#009BFF">
+
+  <link rel="manifest" href="manifest.json">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+
 <body>
-<header class="hero"><div class="overlay"></div><div class="hero-content">
-<h1>TECHNICAL CENTER PAY</h1>
-<p>Tecnología en nuestras manos, confianza en tu elección.</p>
-<a class="btn" href="#pagos">REALIZAR PAGO</a></div></header>
+
+<div id="particles"></div>
+
+<header class="hero">
+
+  <nav class="navbar">
+
+    <div class="brand">
+      <img src="assets/logo.png" class="logo" alt="Technical Center">
+      <span>TECHNICAL CENTER</span>
+    </div>
+
+    <div class="menu">
+      <a href="#pagos">Pagos</a>
+      <a href="#promociones">Promociones</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+
+  </nav>
+
+  <section class="hero-content">
+
+    <span class="hero-badge">PAGOS SEGUROS • MORELIA, MICHOACÁN</span>
+
+    <h1>
+      TECHNICAL CENTER
+      <span>PAY</span>
+    </h1>
+
+    <p>
+      Paga la reparación de tu equipo de forma rápida y segura mediante transferencia bancaria o tarjeta con Mercado Pago.
+    </p>
+
+    <a href="#pagos" class="btn-primary">
+      REALIZAR PAGO
+    </a>
+
+  </section>
+
+</header>
+
 <main>
-<section id="pagos" class="section"><h2>Monto a pagar</h2><input id="monto" placeholder="$ 0.00"><button onclick="wa()">Enviar comprobante por WhatsApp</button></section>
-<section class="cards">
-<div class="card nu"><h3>Nu México</h3><p>Bryant Dylan León Durán</p><code id="nu">638180010196712539</code><button onclick="copy('638180010196712539')">Copiar cuenta</button></div>
-<div class="card mifel"><h3>Banca Mifel</h3><p>Bryant Dylan León Durán</p><code id="mifel">042180010088161897</code><button onclick="copy('042180010088161897')">Copiar CLABE</button></div>
-</section>
-<section class="section mercado"><h2>Pago con tarjeta</h2><a class="btn" target="_blank" href="https://link.mercadopago.com.mx/technicalcenter">Pagar con Mercado Pago</a></section>
-<section class="section promo"><h2>Promociones</h2><div id="promoList"></div><button onclick="admin()">Administrar promociones</button></section>
-<footer>WhatsApp 443 192 2958 • Morelia, Michoacán</footer>
-</main><script src="js/app.js"></script></body></html>
+
+  <section id="pagos" class="section payment">
+
+    <div class="title">
+      <h2>¿Cuánto vas a pagar?</h2>
+      <p>Ingresa el monto y envía tu comprobante automáticamente por WhatsApp.</p>
+    </div>
+
+    <div class="glass amount-box">
+
+      <label>Monto en pesos mexicanos</label>
+
+      <input
+        id="paymentAmount"
+        type="number"
+        placeholder="1850"
+      >
+
+      <button id="sendWhatsapp" class="btn-green">
+        ENVIAR COMPROBANTE POR WHATSAPP
+      </button>
+
+    </div>
+
+    <div class="cards-grid">
+
+      <article class="glass pay-card nu-card">
+
+        <div class="pay-top">
+          <h3>NU MÉXICO</h3>
+          <span>SPEI</span>
+        </div>
+
+        <p class="owner">Bryant Dylan León Durán</p>
+
+        <div class="account-number">638180010196712539</div>
+
+        <button class="copy-button" data-copy="638180010196712539">
+          Copiar Cuenta
+        </button>
+
+      </article>
+
+      <article class="glass pay-card mifel-card">
+
+        <div class="pay-top">
+          <h3>BANCA MIFEL</h3>
+          <span>SPEI</span>
+        </div>
+
+        <p class="owner">Bryant Dylan León Durán</p>
+
+        <div class="account-number">042180010088161897</div>
+
+        <button class="copy-button" data-copy="042180010088161897">
+          Copiar CLABE
+        </button>
+
+      </article>
+
+    </div>
+
+    <div class="glass mercado-box">
+
+      <div>
+        <small>Tarjetas Visa • Mastercard • AMEX</small>
+        <h3>Pagar con Mercado Pago</h3>
+      </div>
+
+      <a href="https://link.mercadopago.com.mx/technicalcenter"
+         target="_blank"
+         class="btn-blue">
+         PAGAR CON TARJETA
+      </a>
+
+    </div>
+
+  </section>
