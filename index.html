@@ -63,6 +63,208 @@
 
 </header>
 
+  <!-- ========================================================= -->
+  <!-- QR TECHNICAL CENTER -->
+  <!-- ========================================================= -->
+
+  <section class="section qr-section">
+
+    <div class="glass qr-box">
+
+      <div class="qr-info">
+
+        <span class="badge-blue">ESCANEA Y PAGA</span>
+
+        <h2>QR Oficial Technical Center</h2>
+
+        <p>
+          Escanea este código desde cualquier teléfono y abre la página oficial
+          de pagos de Technical Center.
+        </p>
+
+        <div class="url-box">
+          https://tcisolutions.github.io/pagos/
+        </div>
+
+        <button id="shareLanding" class="btn-secondary">
+          Compartir Landing
+        </button>
+
+      </div>
+
+      <div class="qr-image">
+        <img src="assets/qr_tc.png" alt="QR Technical Center">
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- PROMOCIONES -->
+  <!-- ========================================================= -->
+
+  <section id="promociones" class="section promotions">
+
+    <div class="title">
+      <h2>🔥 Promociones de Technical Center</h2>
+      <p>Siempre encontrarás aquí nuestras promociones más recientes.</p>
+    </div>
+
+    <div class="promo-controls">
+      <button id="prevPromo">←</button>
+      <button id="nextPromo">→</button>
+    </div>
+
+    <div id="promoContainer" class="promo-slider">
+      <!-- promotions.js agrega las promociones aquí -->
+    </div>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- PANEL ADMINISTRADOR -->
+  <!-- ========================================================= -->
+
+  <section id="adminPanel" class="section admin hidden">
+
+    <div class="glass admin-box">
+
+      <div class="admin-header">
+
+        <h2>Panel de Promociones</h2>
+
+        <p>
+          Publica promociones desde tu celular sin modificar código.
+        </p>
+
+      </div>
+
+      <div class="admin-form">
+
+        <input
+          id="promoTitle"
+          placeholder="Título de la promoción"
+        >
+
+        <input
+          id="promoPrice"
+          placeholder="Precio"
+        >
+
+        <textarea
+          id="promoDescription"
+          placeholder="Descripción"
+        ></textarea>
+
+        <input
+          id="promoImage"
+          type="file"
+          accept="image/*"
+        >
+
+        <div class="switch-row">
+
+          <label>
+            <input id="promoActive" type="checkbox" checked>
+            Promoción Activa
+          </label>
+
+        </div>
+
+        <button id="publishPromo" class="btn-blue">
+          Publicar Promoción
+        </button>
+
+      </div>
+
+      <hr>
+
+      <h3 class="admin-subtitle">Promociones Publicadas</h3>
+
+      <div id="promoListAdmin" class="admin-list">
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- BENEFICIOS -->
+  <!-- ========================================================= -->
+
+  <section class="section benefits">
+
+    <div class="title">
+      <h2>¿Por qué pagar en Technical Center?</h2>
+    </div>
+
+    <div class="benefits-grid">
+
+      <div class="glass benefit-card">
+        <div class="icon">⚡</div>
+        <h3>Pago Inmediato</h3>
+        <p>
+          Tu pago se confirma rápidamente por WhatsApp.
+        </p>
+      </div>
+
+      <div class="glass benefit-card">
+        <div class="icon">🔒</div>
+        <h3>100% Seguro</h3>
+        <p>
+          Transferencias únicamente a nuestras cuentas oficiales.
+        </p>
+      </div>
+
+      <div class="glass benefit-card">
+        <div class="icon">💳</div>
+        <h3>Tarjeta o Transferencia</h3>
+        <p>
+          Elige el método de pago que prefieras.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ========================================================= -->
+  <!-- CONTACTO -->
+  <!-- ========================================================= -->
+
+  <section id="contacto" class="section contact">
+
+    <div class="glass contact-box">
+
+      <span class="badge-blue">CONTACTO</span>
+
+      <h2>¿Ya realizaste tu pago?</h2>
+
+      <p>
+        Envíanos tu comprobante para confirmar la reparación de tu equipo.
+      </p>
+
+      <div class="contact-buttons">
+
+        <a href="https://wa.me/524431922958" target="_blank" class="btn-green">
+          WhatsApp 443 192 2958
+        </a>
+
+        <a href="tel:+524431922958" class="btn-secondary">
+          Llamar al Taller
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
 <main>
 
   <section id="pagos" class="section payment">
