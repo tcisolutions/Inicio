@@ -6,7 +6,7 @@
     "precioAnterior": 2699,
     "precio": 1999,
     "descuento": 25,
-    "imagen": "assets/promos/iphone16-cristal.webp",
+   "imagen":"assets/promos/iphone16-cristal.webp",
     "categoria": "iPhone",
     "activo": true
   },
@@ -17,7 +17,7 @@
     "precioAnterior": 1799,
     "precio": 1399,
     "descuento": 20,
-    "imagen": "assets/promos/oled-iphone.webp",
+    "imagen":"assets/promos/oled-iphone.webp",
     "categoria": "iPhone",
     "activo": true
   },
@@ -28,7 +28,7 @@
     "precioAnterior": 899,
     "precio": 699,
     "descuento": 22,
-    "imagen": "assets/promos/bateria-samsung.webp",
+    "imagen":"assets/promos/samsung-galaxy.webp",
     "categoria": "Samsung",
     "activo": true
   },
@@ -39,7 +39,7 @@
     "precioAnterior": 750,
     "precio": 550,
     "descuento": 27,
-    "imagen": "assets/promos/centro-carga.webp",
+   "imagen":"assets/promos/humedad.webp",
     "categoria": "Android",
     "activo": true
   },
@@ -61,7 +61,7 @@
     "precioAnterior": 1200,
     "precio": 950,
     "descuento": 20,
-    "imagen": "assets/promos/camara-iphone.webp",
+    "imagen":"assets/promos/accesorios.webp",
     "categoria": "iPhone",
     "activo": true
   }

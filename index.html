@@ -137,17 +137,16 @@
 
     <article class="wallet mercado fade-up">
 
-        <div class="mp-logo">
-    💳 Mercado Pago
-</div>
+    <img src="assets/icons/mercadopago.svg"
+         class="payment-logo">
 
-        <h3>Tarjeta • Débito • Crédito</h3>
+    <h3>Tarjeta • Débito • Crédito</h3>
 
-        <button onclick="openMercadoPago()">
-            Pagar Ahora
-        </button>
+    <button onclick="openMercadoPago()">
+        Pagar Ahora
+    </button>
 
-    </article>
+</article>
 
 </div>
 
@@ -203,25 +202,32 @@
 
 <section class="promotions" id="promociones">
 
-<div class="section-header">
-    <div class="promo-filters">
+    <div class="promo-header fade-up">
 
-<button onclick="filterPromotions('Todos')">Todos</button>
+    <span class="promo-tag">OFERTAS DEL TALLER</span>
 
-<button onclick="filterPromotions('iPhone')">iPhone</button>
-
-<button onclick="filterPromotions('Samsung')">Samsung</button>
-
-<button onclick="filterPromotions('Android')">Android</button>
-
-<button onclick="filterPromotions('Servicio')">Servicio</button>
-
-</div>
     <h2>Promociones Especiales</h2>
-    <button>Ver Todas →</button>
+
+    <div class="promo-line"></div>
+
+    <p>
+        Aprovecha nuestras promociones en pantallas, baterías,
+        centros de carga y microelectrónica.
+    </p>
+
 </div>
 
-<div id="promoGrid" class="promo-grid"></div>
+    <div class="promo-filters fade-up">
+
+        <button onclick="filterPromotions('Todos')" class="active">Todos</button>
+        <button onclick="filterPromotions('iPhone')">iPhone</button>
+        <button onclick="filterPromotions('Samsung')">Samsung</button>
+        <button onclick="filterPromotions('Android')">Android</button>
+        <button onclick="filterPromotions('Servicio')">Servicio</button>
+
+    </div>
+
+    <div id="promoGrid" class="promo-grid"></div>
 
 </section>
 
@@ -231,15 +237,43 @@
 
 <div class="services-grid">
 
-<div class="service">📱 Pantallas</div>
-<div class="service">🔋 Baterías</div>
-<div class="service">🔌 Centros de carga</div>
-<div class="service">📷 Cámaras</div>
-<div class="service">🧠 Microelectrónica</div>
-<div class="service">💻 Software</div>
-
+<div class="service fade-up">
+<div class="service-icon">📱</div>
+<h3>Pantallas</h3>
+<p>OLED, originales y premium.</p>
 </div>
 
+<div class="service fade-up">
+<div class="service-icon">🔋</div>
+<h3>Baterías</h3>
+<p>iPhone, Samsung y Xiaomi.</p>
+</div>
+
+<div class="service fade-up">
+<div class="service-icon">🔌</div>
+<h3>Centro de carga</h3>
+<p>USB-C, Lightning y Micro USB.</p>
+</div>
+
+<div class="service fade-up">
+<div class="service-icon">📷</div>
+<h3>Cámaras</h3>
+<p>Frontal y trasera.</p>
+</div>
+
+<div class="service fade-up">
+<div class="service-icon">🧠</div>
+<h3>Microelectrónica</h3>
+<p>Soldadura y Face ID.</p>
+</div>
+
+<div class="service fade-up">
+<div class="service-icon">💻</div>
+<h3>Software</h3>
+<p>Android, iOS y Tablets.</p>
+</div>
+
+</div>
 </section>
 
 <section class="benefits fade-up">
@@ -297,6 +331,19 @@ Enviar Comprobante
 <p class="copyright">
 © 2026 Technical Center. Todos los derechos reservados.
 </p>
+
+<div class="footer-brand">
+
+    <img src="assets/logo/logo_white.png" class="footer-logo">
+
+    <h3>TECHNICAL CENTER</h3>
+
+    <p>Tecnología en nuestras manos.</p>
+
+</div>
+
+<img src="assets/qr/qr_tc.png"
+     alt="QR Oficial Technical Center">
 
 </footer>
 

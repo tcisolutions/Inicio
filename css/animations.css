@@ -105,19 +105,95 @@
     background:rgba(2,6,23,.9);
 }
 
-/* ---------- Títulos ---------- */
-section h2{
-    position:relative;
-    display:inline-block;
+
+/* ==========================================
+   ENCABEZADO PROMOCIONES V8
+========================================== */
+
+.promotions{
+    padding:90px 8% 70px;
 }
 
-section h2::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-10px;
-    width:60%;
-    height:3px;
+.promo-header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.promo-tag{
+    color:#38BDF8;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:12px;
+}
+
+.promo-header h2{
+    color:white;
+    font-size:56px;
+    line-height:1.1;
+    margin:0;
+    font-weight:800;
+}
+
+.promo-line{
+    width:140px;
+    height:4px;
+    border-radius:999px;
+    margin:22px 0 28px;
     background:linear-gradient(90deg,#009BFF,#38BDF8);
-    border-radius:10px;
+    box-shadow:0 0 18px rgba(0,155,255,.45);
+}
+
+.promo-header p{
+    max-width:720px;
+    color:#94A3B8;
+    font-size:18px;
+    line-height:32px;
+    margin:0;
+}
+
+.promo-filters{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-bottom:55px;
+}
+
+.promo-filters button{
+    padding:12px 22px;
+    border-radius:30px;
+    background:rgba(8,17,32,.7);
+    border:1px solid rgba(56,189,248,.18);
+    color:#E2E8F0;
+    transition:.3s;
+}
+
+.promo-filters button.active,
+.promo-filters button:hover{
+    background:linear-gradient(90deg,#009BFF,#2563EB);
+    color:white;
+    border-color:#38BDF8;
+    box-shadow:0 0 20px rgba(0,155,255,.25);
+}
+
+@media(max-width:768px){
+
+    .promo-header h2{
+        font-size:38px;
+    }
+
+    .promo-header p{
+        font-size:16px;
+        line-height:28px;
+        padding:0 10px;
+    }
+
+    .promo-line{
+        width:110px;
+    }
 }

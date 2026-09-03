@@ -15,19 +15,54 @@ document.getElementById("saveBtn").onclick=()=>{
  title.value=price.value=description.value="";
 };
 
-function render(){
- promoList.innerHTML=promos.map((p,i)=>`
- <div class="promo-item">
-   <div>
-     <strong>${p.title}</strong><br>
-     ${p.price}<br>
-     <small>${p.description}</small>
-   </div>
-   <div class="actions">
-     <button onclick="toggle(${i})">${p.active?'Ocultar':'Mostrar'}</button>
-     <button onclick="removePromo(${i})">Eliminar</button>
-   </div>
- </div>`).join("");
+function renderPromotions(list){
+
+    promoGrid.innerHTML="";
+
+    list.forEach(promo=>{
+      // Mostrar inmediatamente las promociones
+document.querySelectorAll("#promoGrid .fade-up").forEach(card => {
+    card.classList.add("visible");
+});
+
+        const image = promo.imagen || "https://placehold.co/600x600/081120/38BDF8?text=Technical+Center";
+
+        promoGrid.innerHTML += `
+
+        <article class="promo-card fade-up">
+
+            <div class="promo-image">
+                <img src="${image}" alt="${promo.titulo}">
+                <span class="promo-discount">-${promo.descuento}%</span>
+            </div>
+
+            <div class="promo-body">
+
+                <span class="promo-category">${promo.categoria}</span>
+
+                <h3>${promo.titulo}</h3>
+
+                <p>${promo.descripcion}</p>
+
+                <div class="prices">
+                    <span class="old-price">$${promo.precioAnterior}</span>
+                    <span class="new-price">$${promo.precio}</span>
+                </div>
+
+                <button class="btn primary"
+                    onclick="sendPromo('${promo.titulo}','${promo.precio}')">
+
+                    Solicitar por WhatsApp
+
+                </button>
+
+            </div>
+
+        </article>`;
+
+    });
+
+    activateFadeObserver();
 }
 
 window.toggle=(i)=>{promos[i].active=!promos[i].active;render();}
