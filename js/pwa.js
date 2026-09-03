@@ -1,15 +1,17 @@
 
-let deferredPrompt;
-
-window.addEventListener("beforeinstallprompt",(e)=>{
-  e.preventDefault();
-  deferredPrompt=e;
-
-  const btn=document.getElementById("installApp");
-  if(btn) btn.style.display="inline-flex";
+let promptEvent;
+window.addEventListener('beforeinstallprompt',e=>{
+ e.preventDefault();
+ promptEvent=e;
+ const b=document.getElementById('installApp');
+ if(b) b.style.display='inline-flex';
 });
-
-function installApp(){
-  if(!deferredPrompt) return;
-  deferredPrompt.prompt();
+window.installApp=async()=>{
+ if(!promptEvent) return;
+ promptEvent.prompt();
+ await promptEvent.userChoice;
+ promptEvent=null;
+}
+if('serviceWorker' in navigator){
+ navigator.serviceWorker.register('sw.js');
 }
