@@ -1,52 +1,342 @@
-
 <!DOCTYPE html>
 <html lang="es-MX">
 <head>
+<div class="system-status" id="systemStatus">
+
+    <span class="status-dot"></span>
+
+    <div>
+        <strong>Estado del sistema</strong>
+        <p id="statusText">Verificando conexión...</p>
+    </div>
+
+</div>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Panel Administrador - Technical Center</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Panel Administrativo | Technical Center</title>
+
+<!-- Technical Center Icon Pack -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/logo/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/logo/apple-touch-icon.png">
+
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/mobile.css">
 <link rel="stylesheet" href="css/admin.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
-<header class="topbar">
-  <h1>Technical Center Admin</h1>
-  <button id="publishBtn">Publicar Cambios</button>
-</header>
 
-<main class="container">
-  <section class="card">
-    <h2>Nueva Promoción</h2>
-    <input id="title" placeholder="Título de la promoción">
-    <input id="price" placeholder="Precio">
-    <textarea id="description" placeholder="Descripción"></textarea>
-    <input id="image" type="file" accept="image/*">
-    <button id="saveBtn">Guardar Promoción</button>
-  </section>
+<body class="admin-body">
 
-  <section class="card">
-    <h2>Banner Principal</h2>
-    <input id="bannerTitle" placeholder="Título del banner">
-    <textarea id="bannerText" placeholder="Texto del banner"></textarea>
-    <button id="bannerBtn">Actualizar Banner</button>
-  </section>
+<div class="admin-bg"></div>
 
-  <section class="promo-banner fade-up">
+<!-- LOGIN -->
+<section id="loginScreen" class="login-screen">
 
-    <div class="promo-banner-content">
+    <div class="login-card">
 
-        <span>🔥 PROMOCIÓN DE LA SEMANA</span>
+        <img src="assets/logo/logo.png" class="login-logo">
 
-        <h2>20% de descuento en baterías Samsung y centros de carga.</h2>
+        <span class="login-tag">
+            PANEL PRIVADO
+        </span>
 
-        <button class="btn primary" onclick="filterPromotions('Samsung')">
-            Ver promoción
-        </button>
+        <h1>Technical Center Admin</h1>
+
+        <p>
+            Acceso exclusivo para administrar promociones,
+            cuentas bancarias y configuración de Technical Center Pay.
+        </p>
+
+        <form id="loginForm">
+
+            <label>Usuario</label>
+
+            <input
+                id="user"
+                type="text"
+                placeholder="BryantTC"
+                required
+            >
+
+            <label>Contraseña</label>
+
+            <input
+                id="pass"
+                type="password"
+                placeholder="********"
+                required
+            >
+
+            <button class="login-btn" type="submit">
+                Ingresar al Panel
+            </button>
+
+            <small id="loginError"></small>
+
+        </form>
 
     </div>
 
 </section>
-</main>
 
+<!-- PANEL -->
+<section id="dashboard" class="dashboard hidden">
+
+<header class="admin-header">
+
+    <div class="admin-brand">
+
+        <img src="assets/logo/logo.png">
+
+        <div>
+
+            <h2>TECHNICAL CENTER</h2>
+
+            <span>Administrador de Promociones</span>
+
+        </div>
+
+    </div>
+
+    <button id="logoutBtn" class="logout-btn">
+        Cerrar Sesión
+    </button>
+
+</header>
+
+<!-- TARJETAS -->
+<section class="stats-grid">
+
+<div class="stat-card blue">
+<h3>Promociones</h3>
+<h1 id="statPromos">0</h1>
+<span>Publicadas actualmente</span>
+</div>
+
+<div class="stat-card green">
+<h3>WhatsApp</h3>
+<h1>443 192 2958</h1>
+<span>Número principal</span>
+</div>
+
+<div class="stat-card orange">
+<h3>Bancos</h3>
+<h1>3</h1>
+<span>NU, Mifel y Mercado Pago</span>
+</div>
+
+<div class="stat-card purple">
+<h3>Estado</h3>
+<h1>ONLINE</h1>
+<span>Landing activa</span>
+</div>
+
+</section>
+
+<!-- NUEVA PROMOCIÓN -->
+<div class="editor-options">
+
+    <label>
+        <input type="checkbox" id="promoActiva" checked>
+        Promoción activa.
+    </label>
+
+    <label>
+        Color del botón.
+        <input type="color" id="promoColor" value="#009BFF">
+    </label>
+
+</div>
+
+<section class="panel-card">
+
+<div class="panel-title">
+<h2>Nueva Promoción</h2>
+<p>Publica promociones sin escribir código.</p>
+</div>
+
+<div class="promo-form">
+
+<div class="input-group">
+<label>Título</label>
+<input id="tituloPromo" placeholder="Cambio de Cristal iPhone 16 Pro Max">
+</div>
+
+<div class="input-group">
+<label>Descripción</label>
+<textarea id="descripcionPromo" rows="3"></textarea>
+</div>
+
+<div class="double-input">
+
+<div class="input-group">
+<label>Precio anterior</label>
+<input id="precioAnterior" type="number">
+</div>
+
+<div class="input-group">
+<label>Precio nuevo</label>
+<input id="precioNuevo" type="number">
+</div>
+
+</div>
+
+<div class="double-input">
+
+<div class="input-group">
+<label>Descuento</label>
+<input id="descuentoPromo" placeholder="-25%">
+</div>
+
+<div class="input-group">
+<label>Categoría</label>
+
+<select id="categoriaPromo">
+
+<option value="iphone">iPhone</option>
+<option value="samsung">Samsung</option>
+<option value="android">Android</option>
+<option value="servicio">Servicio</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label>Imagen de la promoción</label>
+
+<input id="imagenPromo" type="file" accept="image/*">
+
+</div>
+
+<div id="previewContainer" class="preview-image"></div>
+
+<button id="guardarPromo" class="primary-btn">
+Publicar Promoción
+</button>
+
+<button id="publicarGitHubBtn" class="primary-btn secondary-btn">
+    ☁️ Publicar cambios en la página
+</button>
+
+<!-- VISTA PREVIA EN TIEMPO REAL -->
+<div class="live-preview">
+
+    <h3>Vista previa de la promoción</h3>
+
+    <div id="promoPreviewCard" class="preview-card"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- PROMOCIONES -->
+<section class="panel-card">
+
+<div class="panel-title">
+<h2>Promociones Publicadas</h2>
+<p>Edita o elimina promociones.</p>
+</div>
+
+<div id="listaPromociones" class="admin-promos">
+
+<!-- Se cargan automáticamente -->
+
+</div>
+
+</section>
+
+<!-- CONFIGURACIÓN PAGOS -->
+<section class="panel-card">
+
+<div class="panel-title">
+<h2>Configuración de Pagos</h2>
+<p>Actualiza cuentas y enlaces.</p>
+</div>
+
+<div class="config-grid">
+
+<div class="input-group">
+<label>Número WhatsApp</label>
+<input id="configWhatsapp" value="4431922958">
+</div>
+
+<div class="input-group">
+<label>Cuenta NU</label>
+<input id="configNu" value="631880010196712539">
+</div>
+
+<div class="input-group">
+<label>CLABE Banco Mifel</label>
+<input id="configMifel" value="042180010088161897">
+</div>
+
+<div class="input-group">
+<label>Mercado Pago</label>
+<input id="configMP" placeholder="https://mpago.la/...">
+</div>
+
+</div>
+
+<div class="input-group">
+<label>QR Oficial</label>
+<input id="qrInput" type="file" accept="image/*">
+</div>
+
+<button class="primary-btn">
+Guardar Configuración
+</button>
+
+</section>
+
+<!-- BANNER -->
+<section class="panel-card">
+
+<div class="panel-title">
+<h2>Banner Principal</h2>
+<p>Cambia la imagen principal de la Landing.</p>
+</div>
+
+<input id="bannerInput" type="file" accept="image/*">
+
+<div id="bannerPreview" class="banner-preview"></div>
+
+<button class="primary-btn">
+Actualizar Banner
+</button>
+
+</section>
+
+<footer class="admin-footer">
+
+<img src="assets/logo/logo.png">
+
+<p>
+Technical Center Pay — Panel Administrativo 2026
+</p>
+
+</footer>
+
+</section>
+
+<script src="js/github.js"></script>
 <script src="js/admin.js"></script>
+
+<script>
+if('serviceWorker' in navigator){
+   navigator.serviceWorker.register('sw.js');
+}
+</script>
+
 </body>
 </html>

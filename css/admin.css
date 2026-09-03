@@ -1,9 +1,658 @@
+/* ==========================================================
+   TECHNICAL CENTER PAY V9
+   ADMIN.CSS COMPLETO
+========================================================== */
 
-body{margin:0;background:#020617;color:#fff;font-family:Inter,Arial,sans-serif}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:20px;background:#081221;position:sticky;top:0}
-.container{max-width:1100px;margin:auto;padding:30px}
-.card{background:#0f172a;padding:24px;border-radius:22px;margin-bottom:24px;border:1px solid #1d4ed8}
-input,textarea{width:100%;padding:14px;margin:12px 0;background:#081221;border:1px solid #1E40AF;color:white;border-radius:12px}
-button{background:#009BFF;color:#fff;border:none;padding:14px 20px;border-radius:12px;font-weight:bold;cursor:pointer}
-.promo-item{display:flex;justify-content:space-between;align-items:center;padding:16px;border:1px solid #1E40AF;border-radius:12px;margin-top:12px}
-.actions button{margin-left:10px}
+:root{
+    --bg:#020617;
+    --card:#07111F;
+    --card2:#0B1729;
+    --border:#14365C;
+    --primary:#009BFF;
+    --primary2:#2563EB;
+    --text:#F8FAFC;
+    --gray:#94A3B8;
+    --green:#22C55E;
+    --orange:#F59E0B;
+    --purple:#8B5CF6;
+    --red:#EF4444;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body.admin-body{
+    background:linear-gradient(180deg,#020617,#041021,#020617);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+.admin-bg{
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(0,155,255,.20),transparent 35%),
+        radial-gradient(circle at 80% 10%,rgba(37,99,235,.18),transparent 35%),
+        radial-gradient(circle at 50% 90%,rgba(0,155,255,.12),transparent 40%);
+    pointer-events:none;
+    z-index:0;
+}
+
+/* LOGIN */
+.login-screen{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    position:relative;
+    z-index:2;
+}
+
+.login-card{
+    width:100%;
+    max-width:470px;
+    padding:45px;
+    border-radius:32px;
+    background:rgba(7,17,31,.85);
+    backdrop-filter:blur(30px);
+    border:1px solid rgba(56,189,248,.15);
+    box-shadow:
+        0 0 50px rgba(0,155,255,.18),
+        inset 0 0 30px rgba(255,255,255,.02);
+}
+
+.login-logo{
+    width:160px;
+    display:block;
+    margin:auto auto 25px;
+}
+
+.login-tag{
+    color:#38BDF8;
+    letter-spacing:4px;
+    font-size:12px;
+    font-weight:700;
+    display:block;
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.login-card h1{
+    text-align:center;
+    font-size:32px;
+    margin-bottom:14px;
+}
+
+.login-card p{
+    text-align:center;
+    color:var(--gray);
+    line-height:28px;
+    margin-bottom:30px;
+}
+
+.login-card label{
+    display:block;
+    margin-bottom:8px;
+    color:#CBD5E1;
+    font-size:14px;
+}
+
+.login-card input{
+    width:100%;
+    margin-bottom:18px;
+    padding:15px 18px;
+    border-radius:16px;
+    background:#06101D;
+    border:1px solid var(--border);
+    color:white;
+    font-size:15px;
+}
+
+.login-card input:focus{
+    outline:none;
+    border-color:var(--primary);
+    box-shadow:0 0 20px rgba(0,155,255,.25);
+}
+
+.login-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:16px;
+    cursor:pointer;
+    color:white;
+    font-weight:700;
+    font-size:15px;
+    background:linear-gradient(90deg,var(--primary),var(--primary2));
+}
+
+.login-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(0,155,255,.30);
+}
+
+#loginError{
+    color:#EF4444;
+    display:block;
+    text-align:center;
+    margin-top:15px;
+    min-height:18px;
+}
+
+.hidden{
+    display:none;
+}
+
+/* DASHBOARD */
+.dashboard{
+    position:relative;
+    z-index:2;
+    padding:40px 5%;
+}
+
+.admin-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    padding:22px 28px;
+    margin-bottom:35px;
+    border-radius:26px;
+    background:rgba(7,17,31,.80);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(56,189,248,.15);
+}
+
+.admin-brand{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.admin-brand img{
+    width:68px;
+}
+
+.admin-brand h2{
+    font-size:22px;
+    letter-spacing:2px;
+}
+
+.admin-brand span{
+    color:#38BDF8;
+    font-size:13px;
+    letter-spacing:3px;
+}
+
+.logout-btn{
+    padding:13px 22px;
+    border-radius:14px;
+    border:none;
+    cursor:pointer;
+    color:white;
+    background:linear-gradient(90deg,#EF4444,#DC2626);
+}
+
+/* STATS */
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+    margin-bottom:35px;
+}
+
+.stat-card{
+    padding:25px;
+    border-radius:26px;
+    background:rgba(7,17,31,.82);
+    border:1px solid rgba(56,189,248,.12);
+    backdrop-filter:blur(18px);
+}
+
+.stat-card h3{
+    color:#CBD5E1;
+    font-size:14px;
+    margin-bottom:12px;
+}
+
+.stat-card h1{
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.stat-card span{
+    color:#94A3B8;
+    font-size:13px;
+}
+
+.blue h1{color:#38BDF8;}
+.green h1{color:#22C55E;}
+.orange h1{color:#F59E0B;}
+.purple h1{color:#A855F7;}
+
+/* TARJETAS */
+.panel-card{
+    background:rgba(7,17,31,.82);
+    border:1px solid rgba(56,189,248,.12);
+    backdrop-filter:blur(18px);
+    border-radius:30px;
+    padding:35px;
+    margin-bottom:30px;
+}
+
+.panel-title{
+    margin-bottom:30px;
+}
+
+.panel-title h2{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.panel-title p{
+    color:#94A3B8;
+}
+
+/* FORMULARIOS */
+.promo-form,
+.config-grid{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.double-input{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.input-group label{
+    color:#CBD5E1;
+    margin-bottom:8px;
+    font-size:14px;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select{
+    background:#06101D;
+    color:white;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:15px 18px;
+    font-size:15px;
+}
+
+.input-group textarea{
+    resize:vertical;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus{
+    outline:none;
+    border-color:#38BDF8;
+    box-shadow:0 0 15px rgba(0,155,255,.25);
+}
+
+input[type=file]{
+    padding:14px;
+    background:#041322;
+}
+
+/* BOTONES */
+.primary-btn{
+    padding:17px;
+    border:none;
+    cursor:pointer;
+    color:white;
+    font-size:15px;
+    font-weight:700;
+    border-radius:16px;
+    background:linear-gradient(90deg,var(--primary),var(--primary2));
+}
+
+.primary-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(0,155,255,.30);
+}
+
+/* PREVIEW */
+.preview-image,
+.banner-preview{
+    margin-top:10px;
+    min-height:160px;
+    border:2px dashed rgba(56,189,248,.25);
+    border-radius:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:#041322;
+}
+
+.preview-image img,
+.banner-preview img{
+    width:100%;
+    object-fit:cover;
+}
+
+/* LISTA PROMOS */
+.admin-promos{
+    display:grid;
+    gap:18px;
+}
+
+.admin-promo-card{
+    display:grid;
+    grid-template-columns:120px 1fr auto;
+    gap:20px;
+    padding:20px;
+    border-radius:22px;
+    background:#041322;
+    border:1px solid rgba(56,189,248,.12);
+}
+
+.admin-promo-card img{
+    width:120px;
+    height:120px;
+    border-radius:18px;
+    object-fit:cover;
+}
+
+.admin-promo-info h3{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.admin-promo-info p{
+    color:#94A3B8;
+    margin-bottom:12px;
+}
+
+.price-admin{
+    color:#38BDF8;
+    font-size:28px;
+    font-weight:800;
+}
+
+.admin-actions{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    justify-content:center;
+}
+
+.edit-btn,
+.delete-btn{
+    padding:11px 18px;
+    border:none;
+    color:white;
+    cursor:pointer;
+    border-radius:12px;
+}
+
+.edit-btn{
+    background:#2563EB;
+}
+
+.delete-btn{
+    background:#EF4444;
+}
+
+/* FOOTER */
+.admin-footer{
+    text-align:center;
+    padding:50px 20px;
+    color:#64748B;
+}
+
+.admin-footer img{
+    width:120px;
+    margin-bottom:20px;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+
+.double-input{
+    grid-template-columns:1fr;
+}
+
+.admin-header{
+    flex-direction:column;
+    text-align:center;
+}
+
+.admin-brand{
+    flex-direction:column;
+}
+
+.admin-promo-card{
+    grid-template-columns:1fr;
+}
+
+.admin-promo-card img{
+    width:100%;
+    height:220px;
+}
+
+.admin-actions{
+    flex-direction:row;
+}
+
+.edit-btn,
+.delete-btn{
+    flex:1;
+}
+
+}
+
+@media(max-width:600px){
+
+.dashboard{
+    padding:20px;
+}
+
+.login-card{
+    padding:30px 24px;
+}
+
+.login-logo{
+    width:120px;
+}
+
+.login-card h1{
+    font-size:26px;
+}
+
+.panel-card{
+    padding:22px;
+}
+
+.panel-title h2{
+    font-size:24px;
+}
+
+.stat-card h1{
+    font-size:30px;
+}
+
+.admin-brand h2{
+    font-size:18px;
+}
+
+.admin-brand img{
+    width:58px;
+}
+
+.primary-btn,
+.logout-btn{
+    width:100%;
+}
+
+}
+
+/* ==============================================
+   ESTADO DEL SISTEMA
+============================================== */
+
+.system-status{
+
+margin-bottom:28px;
+padding:18px 20px;
+border-radius:20px;
+display:flex;
+align-items:center;
+gap:18px;
+background:rgba(6,16,29,.8);
+border:1px solid rgba(56,189,248,.15);
+
+}
+
+.status-dot{
+width:14px;
+height:14px;
+border-radius:50%;
+background:#F59E0B;
+box-shadow:0 0 15px #F59E0B;
+}
+
+.status-dot.online{
+background:#22C55E;
+box-shadow:0 0 15px #22C55E;
+}
+
+.status-dot.offline{
+background:#EF4444;
+box-shadow:0 0 15px #EF4444;
+}
+
+.system-status strong{
+display:block;
+font-size:15px;
+}
+
+.system-status p{
+margin-top:4px;
+color:#94A3B8;
+font-size:13px;
+}
+
+/* ==============================================
+   EDITOR PROMOCIONES
+============================================== */
+
+.editor-options{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:20px;
+padding:20px;
+border-radius:18px;
+background:#041322;
+margin-top:10px;
+}
+
+.editor-options label{
+font-size:14px;
+color:#CBD5E1;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.editor-options input[type=color]{
+width:42px;
+height:42px;
+border:none;
+background:none;
+padding:0;
+}
+
+/* ==============================================
+   VISTA PREVIA PROMOCIÓN
+============================================== */
+
+.live-preview{
+margin-top:40px;
+padding:25px;
+border-radius:24px;
+background:#041322;
+border:1px solid rgba(56,189,248,.15);
+}
+
+.live-preview h3{
+margin-bottom:18px;
+font-size:22px;
+color:#38BDF8;
+}
+
+.preview-card{
+background:#07111F;
+border-radius:24px;
+padding:20px;
+border:1px solid rgba(56,189,248,.15);
+}
+
+.preview-card img{
+width:100%;
+height:210px;
+object-fit:cover;
+border-radius:18px;
+margin-bottom:18px;
+}
+
+.preview-category{
+font-size:12px;
+letter-spacing:2px;
+text-transform:uppercase;
+color:#38BDF8;
+}
+
+.preview-title{
+font-size:26px;
+font-weight:700;
+margin:12px 0;
+}
+
+.preview-desc{
+color:#CBD5E1;
+line-height:28px;
+margin-bottom:15px;
+}
+
+.preview-price{
+font-size:34px;
+font-weight:800;
+color:#22C55E;
+}
+
+.preview-old{
+text-decoration:line-through;
+color:#64748B;
+margin-bottom:10px;
+}
+
+.preview-badge{
+display:inline-block;
+padding:8px 14px;
+border-radius:999px;
+background:#009BFF22;
+color:#38BDF8;
+font-weight:700;
+margin-bottom:15px;
+}

@@ -1,9 +1,34 @@
+const CACHE_NAME = "technical-center-pay-v10";
 
-const CACHE='tc-pay-v1';
-const FILES=['./','index.html','css/style.css','js/app.js'];
-self.addEventListener('install',e=>{
- e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)));
+const urlsToCache = [
+  "./",
+  "./index.html",
+  "./admin.html",
+  "./manifest.json",
+  "./css/style.css",
+  "./css/mobile.css",
+  "./css/admin.css",
+  "./js/payments.js",
+  "./js/promotions.js",
+  "./js/admin.js",
+  "./assets/logo/logo_192.png",
+  "./assets/logo/logo_512.png",
+  "./assets/logo/favicon-32.png",
+  "./assets/logo/apple-touch-icon.png"
+];
+
+self.addEventListener("install",e=>{
+
+    e.waitUntil(
+        caches.open(CACHE).then(cache=>cache.addAll(FILES))
+    );
+
 });
-self.addEventListener('fetch',e=>{
- e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));
+
+self.addEventListener("fetch",e=>{
+
+    e.respondWith(
+        caches.match(e.request).then(res=>res || fetch(e.request))
+    );
+
 });

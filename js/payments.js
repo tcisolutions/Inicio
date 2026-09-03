@@ -1,3 +1,29 @@
+/* ==========================================
+   CONFIGURACIÓN DINÁMICA
+========================================== */
+
+let CONFIG = {};
+
+async function loadConfig(){
+
+    try{
+
+        const res = await fetch("data/config.json");
+
+        CONFIG = await res.json();
+
+        console.log("Configuración cargada",CONFIG);
+
+    }catch(err){
+
+        console.error("No se pudo cargar config.json",err);
+
+    }
+
+}
+
+loadConfig();
+
 console.log("✅ payments.js cargado correctamente");
 /* ==============================
    TECHNICAL CENTER PAY PRO

@@ -104,12 +104,23 @@ window.filterPromotions = function (categoria) {
   renderPromotions(promotions.filter((p) => p.categoria === categoria));
 };
 
-window.sendPromo = function (titulo, precio) {
-  const texto = encodeURIComponent(
-`Hola Technical Center 👋\n\nMe interesa la promoción:\n\n📱 ${titulo}\n💰 $${precio} MXN.`);
+window.sendPromo=function(nombre,precio){
 
-  window.open(`https://wa.me/524431922958?text=${texto}`, "_blank");
-};
+    const telefono = CONFIG.whatsapp || "4431922958";
+
+    const mensaje=encodeURIComponent(
+`Hola Technical Center 👋
+
+Me interesa la promoción:
+
+📱 ${nombre}
+💰 $${precio} MXN.`);
+
+    window.open(
+        `https://wa.me/52${telefono}?text=${mensaje}`,
+        "_blank"
+    );
+}
 
 // Esperar a que exista el HTML
 window.addEventListener("DOMContentLoaded", () => {

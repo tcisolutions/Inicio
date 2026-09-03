@@ -7,7 +7,7 @@
 // =========================
 // CONFIGURACIÓN
 // =========================
-const WHATSAPP = "524431922958";
+
 const LANDING_URL = "https://tcisolutions.github.io/pagos/";
 
 // =========================
