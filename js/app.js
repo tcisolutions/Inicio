@@ -1,1 +1,29 @@
-const PASS='TC2026*',KEY='tc_promos_v9';const q=(s)=>document.querySelector(s);window.copyText=(t)=>navigator.clipboard.writeText(t);const list=q('#promotions');function load(){const p=JSON.parse(localStorage.getItem(KEY)||'[]');list.innerHTML='';if(!p.length)list.innerHTML='<p>No hay promociones.</p>';p.forEach((x,i)=>list.innerHTML+=`<div class="promo"><img src="${x.img}"><h3>${x.title}</h3><p>${x.desc}</p><button onclick="delPromo(${i})">Eliminar</button></div>`)}window.delPromo=(i)=>{const p=JSON.parse(localStorage.getItem(KEY)||'[]');p.splice(i,1);localStorage.setItem(KEY,JSON.stringify(p));load();};if(location.hash==='#admin'){if(prompt('Contraseña')===PASS)q('#admin').classList.remove('hidden');}q('#publish').onclick=()=>{const f=q('#image').files[0];if(!f)return;const r=new FileReader();r.onload=e=>{const p=JSON.parse(localStorage.getItem(KEY)||'[]');p.unshift({title:q('#title').value,desc:q('#description').value,img:e.target.result});localStorage.setItem(KEY,JSON.stringify(p));load();};r.readAsDataURL(f);};q('#whatsapp').onclick=()=>{const m=q('#amount').value||'';open('https://wa.me/524431922958?text='+encodeURIComponent('Hola Technical Center, ya realicé mi pago. Monto: $'+m),'_blank');};q('#floatingWA').onclick=()=>q('#whatsapp').click();load();
+const observer = new IntersectionObserver((entries)=>{
+
+  entries.forEach(entry=>{
+
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+    }
+
+  });
+
+},{
+  threshold:.15
+});
+
+document.querySelectorAll(
+  ".glass,.fade-up,.fade-left,.fade-right,.zoom-in"
+).forEach(el=>observer.observe(el));
+
+window.addEventListener("scroll",()=>{
+
+  const nav = document.querySelector(".navbar");
+
+  if(window.scrollY>60){
+    nav.classList.add("scrolled");
+  }else{
+    nav.classList.remove("scrolled");
+  }
+
+});

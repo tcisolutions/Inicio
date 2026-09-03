@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical Center | Panel Administrador</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/mobile.css">
+<link rel="stylesheet" href="css/animations.css">
+<style>
+body{background:#020617;color:#fff;font-family:Inter,sans-serif;margin:0;padding:24px}
+.login,.panel{max-width:600px;margin:auto;background:rgba(15,23,42,.8);backdrop-filter:blur(20px);border:1px solid rgba(56,189,248,.2);border-radius:24px;padding:28px;box-shadow:0 0 30px rgba(0,155,255,.15)}
+.hidden{display:none}
+input,textarea{width:100%;padding:14px;border-radius:14px;border:1px solid #334155;background:#0f172a;color:#fff;margin-top:10px;box-sizing:border-box}
+textarea{min-height:120px;resize:vertical}
+button{width:100%;padding:15px;border:none;border-radius:14px;font-weight:700;cursor:pointer;margin-top:16px}
+.primary{background:linear-gradient(90deg,#009BFF,#2563EB);color:white}
+.secondary{background:#1e293b;color:white}
+.logout{background:#DC2626}
+.preview{margin-top:16px;width:100%;border-radius:18px;display:none}
+.item{display:flex;gap:12px;align-items:center;background:#0f172a;padding:10px;border-radius:14px;margin-top:12px}
+.item img{width:70px;height:70px;object-fit:cover;border-radius:12px}
+.item button{width:auto;padding:8px 12px;margin:0}
+</style>
+</head>
+<body>
+
+<div class="login" id="loginCard">
+<h2>🔐 Panel Administrador</h2>
+<p>Technical Center Pay</p>
+<input id="user" placeholder="Usuario">
+<input id="pass" type="password" placeholder="Contraseña">
+<button class="primary" id="loginBtn">Entrar</button>
+</div>
+
+<div class="panel hidden" id="panelCard">
+<h2>📢 Nueva Promoción</h2>
+
+<input id="title" placeholder="Título de la promoción">
+<input id="price" placeholder="Precio">
+<textarea id="description" placeholder="Descripción"></textarea>
+<input id="image" type="file" accept="image/*">
+<img id="preview" class="preview">
+
+<button class="primary" id="savePromo">Publicar Promoción</button>
+<button class="secondary" id="exportBtn">Descargar Respaldo</button>
+<button class="logout" id="logoutBtn">Cerrar sesión</button>
+
+<hr style="margin:30px 0;border-color:#1e293b">
+
+<h3>Promociones publicadas</h3>
+<div id="promoList"></div>
+</div>
+
+<script>
+const USER='technicalcenter';
+const PASS='TC2026*';
+const STORAGE='tc_promos_admin';
+
+const loginCard=document.getElementById('loginCard');
+const panelCard=document.getElementById('panelCard');
+const promoList=document.getElementById('promoList');
+const preview=document.getElementById('preview');
+
+if(localStorage.getItem('tc_session')==='ok'){
+ loginCard.classList.add('hidden');
+ panelCard.classList.remove('hidden');
+ loadPromos();
+}
+
+document.getElementById('loginBtn').onclick=()=>{
+ if(user.value===USER && pass.value===PASS){
+   localStorage.setItem('tc_session','ok');
+   loginCard.classList.add('hidden');
+   panelCard.classList.remove('hidden');
+   loadPromos();
+ }else{
+   alert('Usuario o contraseña incorrectos');
+ }
+}
+
+document.getElementById('logoutBtn').onclick=()=>{
+ localStorage.removeItem('tc_session');
+ location.reload();
+}
+
+image.onchange=e=>{
+ const file=e.target.files[0];
+ if(!file) return;
+ const reader=new FileReader();
+ reader.onload=x=>{
+   preview.src=x.target.result;
+   preview.style.display='block';
+ }
+ reader.readAsDataURL(file);
+}
+
+function getPromos(){
+ return JSON.parse(localStorage.getItem(STORAGE)||'[]');
+}
+
+function savePromos(data){
+ localStorage.setItem(STORAGE,JSON.stringify(data));
+ loadPromos();
+}
+
+savePromo.onclick=()=>{
+ if(!title.value||!price.value||!description.value||!preview.src){
+   alert('Completa todos los campos.');
+   return;
+ }
+
+ const promos=getPromos();
+ promos.unshift({
+   id:Date.now(),
+   title:title.value,
+   price:price.value,
+   description:description.value,
+   image:preview.src,
+   active:true,
+   date:new Date().toLocaleDateString('es-MX')
+ });
+
+ savePromos(promos);
+
+ title.value='';
+ price.value='';
+ description.value='';
+ image.value='';
+ preview.src='';
+ preview.style.display='none';
+
+ alert('Promoción guardada.');
+}
+
+function loadPromos(){
+ promoList.innerHTML='';
+ const promos=getPromos();
+ promos.forEach(p=>{
+   promoList.innerHTML+=`\n   <div class="item">\n      <img src="${p.image}">\n      <div style="flex:1">\n        <strong>${p.title}</strong><br>\n        <small>${p.price}</small>\n      </div>\n      <button onclick="removePromo(${p.id})">🗑</button>\n   </div>`;
+ });
+}
+
+window.removePromo=id=>{
+ const promos=getPromos().filter(x=>x.id!==id);
+ savePromos(promos);
+}
+
+exportBtn.onclick=()=>{
+ const blob=new Blob([JSON.stringify(getPromos(),null,2)],{type:'application/json'});
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);
+ a.download='promociones_tc.json';
+ a.click();
+}
+</script>
+
+</body>
+</html>
