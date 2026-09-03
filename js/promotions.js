@@ -1,13 +1,13 @@
 
-const promociones=[
- {titulo:"Cambio de Cristal iPhone 16 Pro Max",precio:"Desde $1,999 MXN"},
- {titulo:"Pantalla OLED iPhone",precio:"Desde $1,299 MXN"},
- {titulo:"Cambio de Batería Samsung",precio:"Desde $699 MXN"},
- {titulo:"Limpieza por Humedad",precio:"$450 MXN"},
- {titulo:"Centro de Carga Tipo C",precio:"Desde $550 MXN"},
- {titulo:"Reemplazo de Cámara iPhone",precio:"Cotiza por WhatsApp"}
+const promos=[
+["Cambio de Cristal iPhone 16 Pro Max","Desde $1,999 MXN"],
+["Cambio de Batería Samsung","Desde $699 MXN"],
+["Pantallas OLED iPhone","Desde $1,299 MXN"],
+["Centro de Carga Tipo C","Desde $550 MXN"],
+["Limpieza por Humedad","$450 MXN"],
+["Reemplazo de Cámara iPhone","Cotiza por WhatsApp"]
 ];
-const box=document.getElementById("promoContainer");
-if(box){
- box.innerHTML=promociones.map(p=>`<div class="promo-card"><h3>${p.titulo}</h3><p>${p.precio}</p><button class="btn">Solicitar por WhatsApp</button></div>`).join("");
+const grid=document.getElementById("promoContainer");
+if(grid){
+grid.innerHTML=promos.map(p=>`<div class="card"><h3>${p[0]}</h3><p>${p[1]}</p><a class="btn" href="https://wa.me/524431922958" target="_blank">Solicitar</a></div>`).join("");
 }

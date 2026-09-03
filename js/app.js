@@ -1,6 +1,1 @@
-
-window.addEventListener('scroll',()=>{
- const nav=document.querySelector('.navbar');
- if(window.scrollY>40){nav.style.background='rgba(2,6,23,.85)';}
- else{nav.style.background='rgba(2,6,23,.55)';}
-});
+window.addEventListener('scroll',()=>{document.querySelector('.navbar').style.background=window.scrollY>40?'rgba(2,6,23,.9)':'rgba(2,6,23,.6)';});

@@ -1,72 +1,61 @@
 
 <!doctype html>
-<html lang='es-MX'>
+<html lang="es-MX">
 <head>
-<meta charset='utf-8'>
-<meta name='viewport' content='width=device-width,initial-scale=1'>
-<title>Technical Center Pay 1.0</title>
-<link rel='stylesheet' href='css/style.css'>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical Center Pay PRO</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/mobile.css">
+<link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
-<header class='navbar'>
-  <strong>TECHNICAL CENTER</strong>
-  <nav>
-    <a href='#pagos'>Pagos</a>
-    <a href='#qr'>QR</a>
-    <a href='#promociones'>Promociones</a>
-    <a href='admin.html'>Admin</a>
-  </nav>
+<header class="navbar">
+<div class="brand">TECHNICAL CENTER PAY</div>
+<nav>
+<a href="#pagos">Pagos</a>
+<a href="#qr">QR</a>
+<a href="#promociones">Promociones</a>
+<a href="admin.html">Admin</a>
+</nav>
 </header>
 
-<section class='hero'>
-  <h1>TECHNICAL CENTER PAY</h1>
-  <p>Paga tu reparación de iPhone, Samsung, Xiaomi, Motorola o Tablet de forma rápida y segura.</p>
-  <a class='btn' href='#pagos'>REALIZAR PAGO</a>
+<section class="hero">
+<div class="hero-card">
+<h1>TECHNICAL CENTER PAY</h1>
+<p>Landing oficial de pagos para Technical Center.</p>
+<a class="btn" href="#pagos">Realizar Pago</a>
+</div>
 </section>
 
-<section id='pagos' class='section'>
-  <h2>Métodos de Pago</h2>
-  <div class='grid'>
-    <div class='wallet nu'>
-      <small>NU MÉXICO</small>
-      <h3>Bryant Dylan León Durán</h3>
-      <h2>638180010196712539</h2>
-    </div>
-    <div class='wallet mifel'>
-      <small>BANCA MIFEL</small>
-      <h3>Bryant Dylan León Durán</h3>
-      <h2>042180010088161897</h2>
-    </div>
-  </div>
-
-  <div class='card' style='margin-top:30px'>
-    <h2>Mercado Pago</h2>
-    <p>Paga con tarjeta de crédito, débito o saldo Mercado Pago.</p>
-    <a class='btn' href='https://link.mercadopago.com.mx/technicalcenter' target='_blank'>PAGAR CON MERCADO PAGO</a>
-  </div>
+<section id="pagos" class="section">
+<h2>Métodos de pago</h2>
+<div class="cards">
+<div class="wallet nu"><small>NU MÉXICO</small><h3>Bryant Dylan León Durán</h3><code>638180010196712539</code></div>
+<div class="wallet mifel"><small>BANCO MIFEL</small><h3>Bryant Dylan León Durán</h3><code>042180010088161897</code></div>
+</div>
 </section>
 
-<section id='qr' class='section'>
-  <div class='card qr-box'>
-    <div>
-      <h2>QR Oficial de Technical Center</h2>
-      <p>Reemplaza el cuadro de la derecha con el archivo <code>assets/qr_tc.png</code>.</p>
-      <p><strong>URL oficial:</strong> https://tcisolutions.github.io/pagos/</p>
-    </div>
-    <div class='qr-placeholder'>QR</div>
-  </div>
+<section id="qr" class="section">
+<div class="qr-box">
+<div>
+<h2>QR Oficial</h2>
+<p>Coloca assets/qr_tc.png.</p>
+<p>URL oficial: https://tcisolutions.github.io/pagos/</p>
+</div>
+<div class="qr-placeholder">QR</div>
+</div>
 </section>
 
-<section id='promociones' class='section'>
-  <h2>Promociones</h2>
-  <div id='promoContainer' class='grid'></div>
+<section id="promociones" class="section">
+<h2>Promociones</h2>
+<div id="promoContainer" class="promo-grid"></div>
 </section>
 
-<footer>
-  <strong>Technical Center</strong><br>
-  WhatsApp: 443 192 2958 · Morelia, Michoacán.
-</footer>
+<footer>Technical Center · WhatsApp 443 192 2958</footer>
 
-<script src='js/promotions.js'></script>
+<script src="js/payments.js"></script>
+<script src="js/promotions.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
