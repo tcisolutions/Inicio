@@ -142,6 +142,158 @@
 
 </section>
 
+<!-- =========================================================
+     MÉTODOS DE PAGO - TECHNICAL CENTER
+========================================================== -->
+
+<section class="section fade-up" id="metodosPago">
+
+    <div class="title">
+        <div class="badge-info">
+            💳 Métodos de Pago Disponibles
+        </div>
+
+        <h2>Elige cómo deseas pagar</h2>
+
+        <p>
+            Todos los pagos llegan directamente a la cuenta oficial de
+            <strong>Technical Center</strong>.
+        </p>
+    </div>
+
+    <div class="cards-grid">
+
+        <!-- ================= NU MÉXICO ================= -->
+
+        <article class="pay-card nu-card glow-card">
+
+            <div class="pay-top">
+                <h3>Nu México</h3>
+                <span>Transferencia SPEI</span>
+            </div>
+
+            <p class="owner">
+                Bryant Dylan León Durán
+            </p>
+
+            <div class="account-number" id="nuAccount">
+                638180010196712539
+            </div>
+
+            <button
+                class="copy-button"
+                onclick="copyAccount(
+                '638180010196712539',
+                'Cuenta Nu copiada correctamente.'
+                )">
+
+                📋 Copiar Cuenta Nu
+
+            </button>
+
+        </article>
+
+        <!-- ================= MIFEL ================= -->
+
+        <article class="pay-card mifel-card glow-card">
+
+            <div class="pay-top">
+                <h3>Banco Mifel</h3>
+                <span>Transferencia SPEI</span>
+            </div>
+
+            <p class="owner">
+                Bryant Dylan León Durán
+            </p>
+
+            <div class="account-number" id="mifelAccount">
+                042180010088161897
+            </div>
+
+            <button
+                class="copy-button"
+                onclick="copyAccount(
+                '042180010088161897',
+                'Cuenta Mifel copiada correctamente.'
+                )">
+
+                📋 Copiar Cuenta Mifel
+
+            </button>
+
+        </article>
+
+    </div>
+
+    <!-- ================= MERCADO PAGO ================= -->
+
+    <div class="glass mercado-box glow-card">
+
+        <div>
+
+            <small>PAGO CON TARJETA</small>
+
+            <h3>Mercado Pago</h3>
+
+            <p>
+                Puedes pagar con tarjeta de crédito, débito, saldo de Mercado Pago o meses sin intereses (si aplica).
+            </p>
+
+            <button
+                class="btn-primary"
+                style="margin-top:22px;"
+                onclick="openMercadoPago()">
+
+                💳 Pagar con Mercado Pago
+
+            </button>
+
+        </div>
+
+        <div style="text-align:center;">
+
+            <img
+                src="assets/logo-mercadopago.png"
+                alt="Mercado Pago"
+                style="width:150px;max-width:100%;">
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     ENVIAR COMPROBANTE
+========================================================== -->
+
+<section class="section fade-up" id="comprobante">
+
+    <div class="glass contact-box glow-card">
+
+        <div class="badge-success">
+            ✅ Pago realizado
+        </div>
+
+        <h2>¿Ya realizaste tu pago?</h2>
+
+        <p>
+            Presiona el siguiente botón para enviar tu comprobante directamente por WhatsApp junto con el monto que ingresaste.
+        </p>
+
+        <button
+            class="btn-green"
+            style="margin-top:30px;"
+            onclick="sendReceiptWhatsapp()">
+
+            📲 Enviar comprobante por WhatsApp
+
+        </button>
+
+    </div>
+
+</section>
+
 <section class="section fade-up">
 
 <div class="glass contact-box glow-card">

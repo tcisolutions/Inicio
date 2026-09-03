@@ -1,351 +1,132 @@
 /* ==========================================================
-   TECHNICAL CENTER PAY 2026
+   TECHNICAL CENTER PAY
    payments.js
-   Sistema completo de pagos
 ========================================================== */
 
-// ================= CONFIGURACIÓN =================
+const MERCADO_PAGO =
+"https://link.mercadopago.com.mx/technicalcenter";
 
-const TC_CONFIG = {
-    whatsapp: "524431922958",
-    negocio: "Technical Center",
-    mercadoPago: "https://link.mercadopago.com.mx/technicalcenter",
+const WHATSAPP =
+"524431922958";
 
-    cuentas: {
-        nu: {
-            banco: "Nu México",
-            numero: "638180010196712539"
-        },
-        mifel: {
-            banco: "Banca Mifel",
-            numero: "042180010088161897"
-        }
-    }
-};
+/* COPIAR CUENTA */
 
-// ================= ELEMENTOS =================
+function copyAccount(number,message){
 
-const amountInput = document.getElementById("paymentAmount");
-const whatsappButton = document.getElementById("sendWhatsapp");
-const mercadoButton = document.querySelector(".btn-blue");
-const copyButtons = document.querySelectorAll(".copy-button");
+    navigator.clipboard.writeText(number);
 
-const toast = document.getElementById("toast");
-const toastMessage = document.getElementById("toastMessage");
-
-const successModal = document.getElementById("successModal");
-const closeModal = document.getElementById("closeModal");
-
-// ================= TOAST =================
-
-function showToast(message){
-
-    toastMessage.textContent = message;
-
-    toast.classList.add("show");
-
-    setTimeout(()=>{
-        toast.classList.remove("show");
-    },2200);
+    showToast(message,"success");
 
 }
 
-// ================= FORMATO MONEDA =================
+/* MERCADO PAGO */
 
-amountInput.addEventListener("input", ()=>{
+function openMercadoPago(){
 
-    let value = amountInput.value.replace(/\D/g,'');
+    window.open(
+        MERCADO_PAGO,
+        "_blank"
+    );
 
-    if(value===""){
-        amountInput.value="";
-        return;
+}
+
+/* OBTENER MONTO */
+
+function getAmount(){
+
+    const amount =
+    document.getElementById("paymentAmount");
+
+    if(!amount.value){
+
+        showToast(
+            "Ingresa el monto del pago.",
+            "error"
+        );
+
+        return null;
+
     }
 
-    amountInput.value = Number(value);
+    return amount.value;
 
-});
+}
 
-// ================= COPIAR CUENTAS =================
+/* WHATSAPP COMPROBANTE */
 
-copyButtons.forEach(button=>{
+function sendReceiptWhatsapp(){
 
-    button.addEventListener("click",()=>{
+    const amount = getAmount();
 
-        navigator.clipboard.writeText(button.dataset.copy);
+    if(!amount) return;
 
-        button.innerHTML = "✔ Copiado";
-
-        showToast("Cuenta copiada al portapapeles.");
-
-        setTimeout(()=>{
-
-            if(button.dataset.copy===TC_CONFIG.cuentas.nu.numero){
-
-                button.innerHTML="Copiar Cuenta";
-
-            }else{
-
-                button.innerHTML="Copiar CLABE";
-
-            }
-
-        },1800);
-
-    });
-
-});
-
-// ================= MENSAJE WHATSAPP =================
-
-function generarMensajePago(){
-
-    const monto = amountInput.value || "0";
-
-    return `Hola Technical Center 👋
+    const text =
+`Hola Technical Center 👋
 
 Ya realicé mi pago.
 
-💵 Monto: $${monto} MXN
+💵 Monto: $${amount} MXN
 
-Adjunto mi comprobante para confirmar la reparación de mi equipo.
+Adjunto mi comprobante de pago para validar la reparación.
 
-Muchas gracias.`;
-
-}
-
-// ================= ENVIAR WHATSAPP =================
-
-whatsappButton.addEventListener("click",()=>{
-
-    const mensaje = encodeURIComponent(generarMensajePago());
+Gracias.`;
 
     window.open(
-        `https://wa.me/${TC_CONFIG.whatsapp}?text=${mensaje}`,
-        "_blank"
+      `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`,
+      "_blank"
     );
 
-    guardarUltimoPago("Transferencia");
+}
 
-    mostrarModal();
+/* TOAST */
 
-});
+function showToast(message,type="success"){
 
-// ================= MERCADO PAGO =================
+    const toast =
+    document.getElementById("toast");
 
-mercadoButton.addEventListener("click",()=>{
+    const text =
+    document.getElementById("toastMessage");
 
-    guardarUltimoPago("Mercado Pago");
+    text.textContent = message;
 
-});
+    toast.className="toast show "+type;
 
-// ================= MODAL =================
-
-function mostrarModal(){
-
-    successModal.classList.remove("hidden");
+    setTimeout(()=>{
+        toast.className="toast";
+    },2500);
 
 }
 
-closeModal.addEventListener("click",()=>{
+/* COMPARTIR LANDING */
 
-    successModal.classList.add("hidden");
+function shareLanding(){
 
-});
+    const url =
+    "https://tcisolutions.github.io/pagos/";
 
-// ================= HISTORIAL =================
+    if(navigator.share){
 
-function guardarUltimoPago(metodo){
-
-    const pago = {
-
-        fecha:new Date().toLocaleString("es-MX"),
-
-        monto: amountInput.value,
-
-        metodo
-
-    };
-
-    localStorage.setItem("ultimoPagoTC",JSON.stringify(pago));
-
-}
-
-function cargarUltimoPago(){
-
-    const pago = JSON.parse(localStorage.getItem("ultimoPagoTC"));
-
-    if(!pago) return;
-
-    console.log("Último pago:",pago);
-
-}
-
-cargarUltimoPago();
-
-// ================= COMPARTIR LANDING =================
-
-const shareButton = document.getElementById("shareLanding");
-
-if(shareButton){
-
-    shareButton.addEventListener("click", async ()=>{
-
-        const url = "https://tcisolutions.github.io/pagos/";
-
-        if(navigator.share){
-
-            await navigator.share({
-
-                title:"Technical Center Pay",
-
-                text:"Realiza tu pago aquí.",
-
-                url
-
-            });
-
-        }else{
-
-            navigator.clipboard.writeText(url);
-
-            showToast("Link copiado.");
-
-        }
-
-    });
-
-}
-
-// ================= BOTÓN FLOTANTE =================
-
-const floatingWhatsapp = document.getElementById("floatingWhatsapp");
-
-floatingWhatsapp.addEventListener("click",()=>{
-
-    const mensaje = encodeURIComponent(
-        "Hola Technical Center, necesito ayuda con mi reparación."
-    );
-
-    window.open(
-        `https://wa.me/${TC_CONFIG.whatsapp}?text=${mensaje}`,
-        "_blank"
-    );
-
-});
-
-// ================= EFECTO SCROLL =================
-
-const observer = new IntersectionObserver(entries=>{
-
-    entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-
-            entry.target.classList.add("visible");
-
-        }
-
-    });
-
-},{threshold:.2});
-
-document.querySelectorAll(".glass,.pay-card,.promo-card,.benefit-card")
-.forEach(el=>observer.observe(el));
-
-// ================= RELOJ FOOTER =================
-
-const footerBottom = document.querySelector(".footer-bottom");
-
-if(footerBottom){
-
-    const reloj = document.createElement("span");
-
-    reloj.id="clock";
-
-    footerBottom.appendChild(reloj);
-
-    setInterval(()=>{
-
-        reloj.textContent = new Date().toLocaleTimeString("es-MX");
-
-    },1000);
-
-}
-
-// ================= BOTÓN VOLVER ARRIBA =================
-
-const topButton = document.createElement("button");
-
-topButton.id="backTop";
-
-topButton.innerHTML="↑";
-
-document.body.appendChild(topButton);
-
-window.addEventListener("scroll",()=>{
-
-    if(window.scrollY>500){
-
-        topButton.classList.add("show");
+        navigator.share({
+            title:"Technical Center",
+            text:"Realiza tu pago aquí.",
+            url:url
+        });
 
     }else{
 
-        topButton.classList.remove("show");
+        navigator.clipboard.writeText(url);
+
+        showToast(
+          "Link copiado al portapapeles."
+        );
 
     }
 
-});
+    <div id="toast" class="toast">
+    <span id="toastMessage">
+        Listo
+    </span>
+</div>
 
-topButton.onclick=()=>{
-
-    window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
-
-    });
-
-};
-
-// ================= SALUDO AUTOMÁTICO =================
-
-window.addEventListener("load",()=>{
-
-    const hora = new Date().getHours();
-
-    let saludo = "Bienvenido a Technical Center";
-
-    if(hora<12){
-
-        saludo="☀ Buenos días, bienvenido a Technical Center";
-
-    }else if(hora<19){
-
-        saludo="👋 Buenas tardes, bienvenido a Technical Center";
-
-    }else{
-
-        saludo="🌙 Buenas noches, bienvenido a Technical Center";
-
-    }
-
-    showToast(saludo);
-
-});
-
-// ================= ATAJOS DE TECLADO =================
-
-window.addEventListener("keydown",(e)=>{
-
-    if(e.key==="Enter" && document.activeElement===amountInput){
-
-        whatsappButton.click();
-
-    }
-
-});
-
-// ================= PREPARADO PARA FUTURAS FUNCIONES =================
-
-window.TC = TC_CONFIG;
+}
