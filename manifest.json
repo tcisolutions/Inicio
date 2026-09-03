@@ -1,1 +1,13 @@
-{"name":"Technical Center Pay PRO 2.0","short_name":"TC PAY","display":"standalone","theme_color":"#009BFF","background_color":"#020617"}
+
+{
+  "name":"Technical Center Pay PRO",
+  "short_name":"TC PAY",
+  "start_url":"./index.html",
+  "display":"standalone",
+  "background_color":"#020617",
+  "theme_color":"#009BFF",
+  "icons":[
+    {"src":"assets/icon192.png","sizes":"192x192","type":"image/png"},
+    {"src":"assets/icon512.png","sizes":"512x512","type":"image/png"}
+  ]
+}
