@@ -2,162 +2,77 @@
 <!DOCTYPE html>
 <html lang="es-MX">
 <head>
-
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#009BFF">
-
-<link rel="stylesheet" href="css/mobile.css">
-<link rel="stylesheet" href="css/animations.css">
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Technical Center Pay PRO</title>
-<style>
-:root{
- --bg:#020617;--card:#0f172a;--blue:#009BFF;--cyan:#38BDF8;--text:#fff;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:linear-gradient(#04111f,#020617);color:var(--text);}
-header{position:fixed;top:0;width:100%;padding:18px 40px;background:rgba(2,6,23,.7);backdrop-filter:blur(12px);display:flex;justify-content:space-between;align-items:center;z-index:99}
-nav a{color:white;text-decoration:none;margin-left:20px}
-.hero{min-height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;padding:120px 20px;background:radial-gradient(circle,#082f49,#020617)}
-.hero h1{font-size:64px;background:linear-gradient(90deg,#fff,#38BDF8);-webkit-background-clip:text;color:transparent}
-.hero p{max-width:700px;margin:20px auto;font-size:20px;color:#cbd5e1}
-.btn{display:inline-block;background:linear-gradient(90deg,#009BFF,#2563EB);padding:16px 28px;border-radius:14px;color:#fff;text-decoration:none;font-weight:bold}
-section{max-width:1200px;margin:auto;padding:80px 20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-.wallet{padding:28px;border-radius:22px}
-.nu{background:linear-gradient(135deg,#4C1D95,#7C3AED)}
-.mifel{background:linear-gradient(135deg,#1D4ED8,#0284C7)}
-.card{background:#0f172a;border:1px solid #1d4ed8;border-radius:20px;padding:24px}
-.qr{display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:center}
-.qr-box{width:300px;height:300px;border:2px dashed var(--cyan);display:flex;justify-content:center;align-items:center;border-radius:22px;font-size:36px;color:var(--cyan)}
-.promo{background:#13233B;padding:20px;border-radius:20px}
-footer{text-align:center;padding:40px;color:#94a3b8}
-.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:#fff;padding:14px 18px;border-radius:999px;text-decoration:none;font-weight:bold}
-@media(max-width:768px){
-.hero h1{font-size:42px}
-.qr{grid-template-columns:1fr}
-.qr-box{margin:auto}
-header{padding:16px 20px}
-}
-</style>
+<title>Technical Center Pay PRO v5</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
-
-<header>
-  <h2>TECHNICAL CENTER</h2>
+<header class="navbar">
+  <div class="logo">TECHNICAL CENTER</div>
   <nav>
     <a href="#pagos">Pagos</a>
-    <a href="#qr">QR</a>
     <a href="#promociones">Promociones</a>
+    <a href="#contacto">Contacto</a>
   </nav>
 </header>
 
 <section class="hero">
-  <div>
+  <div class="glass">
+    <span class="badge">PAGOS OFICIALES · MORELIA, MICHOACÁN</span>
     <h1>TECHNICAL CENTER PAY</h1>
-    <p>Pagos oficiales para reparaciones de iPhone, Samsung, Xiaomi, Motorola y Tablets.</p>
-    <a class="btn" href="#pagos">REALIZAR PAGO</a>
+    <p>Paga tu reparación de iPhone, Samsung, Xiaomi, Motorola y Tablets de forma rápida y segura.</p>
+    <div class="hero-buttons">
+      <a class="btn primary" href="#pagos">Realizar Pago</a>
+      <button class="btn secondary" id="installApp" style="display:none" onclick="installApp()">Instalar App</button>
+    </div>
   </div>
 </section>
 
-<section id="pagos">
+<section id="pagos" class="container">
   <h2>Métodos de Pago</h2>
-  <div class="grid">
-    <div class="wallet nu">
+  <div class="wallet-grid">
+    <article class="wallet nu">
       <small>NU MÉXICO</small>
       <h3>Bryant Dylan León Durán</h3>
-      <h2>638180010196712539</h2>
-      <button class="btn" onclick="copyText('638180010196712539')">Copiar Cuenta</button>
-    </div>
-
-    <div class="wallet mifel">
+      <code>638180010196712539</code>
+      <button onclick="copyAccount('638180010196712539')">Copiar Cuenta</button>
+    </article>
+    <article class="wallet mifel">
       <small>BANCO MIFEL</small>
       <h3>Bryant Dylan León Durán</h3>
-      <h2>042180010088161897</h2>
-      <button class="btn" onclick="copyText('042180010088161897')">Copiar CLABE</button>
-    </div>
+      <code>042180010088161897</code>
+      <button onclick="copyAccount('042180010088161897')">Copiar CLABE</button>
+    </article>
   </div>
 
-  <div class="card" style="margin-top:30px;text-align:center">
-    <h2>Mercado Pago</h2>
-    <p>Tarjeta • Débito • Crédito • Saldo Mercado Pago</p>
-    <button class="btn" onclick="window.open('https://link.mercadopago.com.mx/technicalcenter','_blank')">
-      PAGAR CON MERCADO PAGO
-    </button>
-  </div>
+  <article class="glass mercado">
+    <h3>Mercado Pago</h3>
+    <p>Tarjetas, débito, crédito y saldo Mercado Pago.</p>
+    <button class="btn primary" onclick="openMercadoPago()">Pagar con Mercado Pago</button>
+  </article>
 </section>
 
-<section id="qr">
-  <div class="card qr">
-    <div>
-      <h2>QR Oficial Technical Center</h2>
-      <p>Escanea este código para abrir la página oficial de pagos.</p>
-      <p><strong>Sitio:</strong> https://tcisolutions.github.io/pagos/</p>
-      <button class="btn" onclick="copyText('https://tcisolutions.github.io/pagos/')">Copiar Enlace</button>
-    </div>
-    <div class="qr-box">QR</div>
-  </div>
+<section id="promociones" class="container">
+  <h2>Promociones</h2>
+  <div id="promoGrid" class="promo-grid"></div>
 </section>
 
-<section id="promociones">
-  <h2>Promociones del Mes</h2>
-  <div class="grid" id="promoGrid"></div>
-</section>
-
-<section>
-  <h2>¿Por qué pagar en Technical Center?</h2>
-  <div class="grid">
-    <div class="card"><h3>⚡ Pago inmediato</h3><p>Validación rápida para iniciar la reparación.</p></div>
-    <div class="card"><h3>🔒 Pago seguro</h3><p>Transferencias protegidas y Mercado Pago.</p></div>
-    <div class="card"><h3>🛠 Garantía</h3><p>Todos nuestros trabajos incluyen garantía.</p></div>
-    <div class="card"><h3>📱 Apple & Android</h3><p>Especialistas en microelectrónica y reparación.</p></div>
-  </div>
+<section id="contacto" class="container glass">
+  <h2>Contáctanos</h2>
+  <p>WhatsApp: <strong>443 192 2958</strong></p>
+  <p>Morelia, Michoacán.</p>
 </section>
 
 <footer>
-  <h3>Technical Center</h3>
-  <p>WhatsApp: 443 192 2958</p>
-  <p>Morelia, Michoacán</p>
   <p>© 2026 Technical Center. Todos los derechos reservados.</p>
 </footer>
 
-<a class="whatsapp" href="https://wa.me/524431922958">WhatsApp</a>
-
-<script>
-const promociones=[
-["Cambio de Cristal iPhone 16 Pro Max","Desde $1,999 MXN"],
-["Cambio de Batería Samsung","Desde $699 MXN"],
-["Pantallas OLED iPhone","Desde $1,299 MXN"],
-["Centro de Carga Tipo-C","Desde $550 MXN"],
-["Limpieza por Humedad","$450 MXN"],
-["Reemplazo de Cámara iPhone","Cotizar por WhatsApp"]
-];
-document.getElementById("promoGrid").innerHTML=promociones.map(p=>`
-<div class="promo">
-<h3>${p[0]}</h3>
-<p>${p[1]}</p>
-<a class="btn" href="https://wa.me/524431922958">Solicitar</a>
-</div>`).join("");
-
-function copyText(text){
- navigator.clipboard.writeText(text);
- alert("Copiado: "+text);
-}
-</script>
-
-
+<script src="js/app.js"></script>
+<script src="js/payments.js"></script>
+<script src="js/promotions.js"></script>
 <script src="js/pwa.js"></script>
-
-<button id="installApp"
-        onclick="installApp()"
-        style="display:none">
-    Instalar App
-</button>
-
-<script src="js/particles.js"></script>
-<script src="js/app-effects.js"></script>
-
 </body>
 </html>

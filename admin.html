@@ -3,39 +3,19 @@
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Panel Administrador - Technical Center</title>
-<link rel="stylesheet" href="css/admin.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Administrador</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header class="topbar">
-  <h1>Technical Center Admin</h1>
-  <button id="publishBtn">Publicar Cambios</button>
-</header>
-
-<main class="container">
-  <section class="card">
-    <h2>Nueva Promoción</h2>
-    <input id="title" placeholder="Título de la promoción">
-    <input id="price" placeholder="Precio">
-    <textarea id="description" placeholder="Descripción"></textarea>
-    <input id="image" type="file" accept="image/*">
-    <button id="saveBtn">Guardar Promoción</button>
-  </section>
-
-  <section class="card">
-    <h2>Banner Principal</h2>
-    <input id="bannerTitle" placeholder="Título del banner">
-    <textarea id="bannerText" placeholder="Texto del banner"></textarea>
-    <button id="bannerBtn">Actualizar Banner</button>
-  </section>
-
-  <section class="card">
-    <h2>Promociones Publicadas</h2>
-    <div id="promoList"></div>
-  </section>
-</main>
-
-<script src="js/admin.js"></script>
+<div class="container">
+  <h1>Panel Administrador Technical Center</h1>
+  <div class="glass">
+    <input placeholder="Título de promoción">
+    <input placeholder="Precio">
+    <textarea placeholder="Descripción"></textarea>
+    <button class="btn primary">Guardar Promoción</button>
+  </div>
+</div>
 </body>
 </html>
