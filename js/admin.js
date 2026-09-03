@@ -8,7 +8,9 @@ const LOGIN_PASS = "TC2026@Morelia";
 
 const STORAGE_KEY = "technical_center_promos";
 
-let promociones = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+let promociones = JSON.parse(
+    localStorage.getItem("tc_promociones")
+) || [];
 let editIndex = null;
 
 const loginScreen = document.getElementById("loginScreen");
@@ -30,6 +32,7 @@ const categoria = document.getElementById("categoriaPromo");
 const imagenInput = document.getElementById("imagenPromo");
 
 const guardarBtn = document.getElementById("guardarPromo");
+
 const logoutBtn = document.getElementById("logoutBtn");
 const previewCard = document.getElementById("promoPreviewCard");
 const promoColor = document.getElementById("promoColor");
@@ -93,6 +96,11 @@ imagenInput?.addEventListener("change",e=>{
     reader.readAsDataURL(file);
 
 });
+
+
+/* ==========================================================
+   GUARDAR PROMOCIÓN
+========================================================== */
 
 /* ==========================================================
    CREAR / EDITAR PROMOCIÓN
@@ -233,7 +241,7 @@ window.eliminarPromo=function(index){
 ========================================================== */
 
 function guardarLocal(){
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(promociones));
+    localStorage.setItem("tc_promociones",JSON.stringify(promociones));
 }
 
 /* ==========================================================
@@ -337,36 +345,58 @@ function exportarPromociones(){
    PUBLICAR EN GITHUB (Preparado para Cloudflare)
 ========================================================== */
 
-async function publicarGitHub(){
 
-    toast("☁️ Publicando promociones...");
+async function publicarGitHub() {
 
-    try{
+    promociones = JSON.parse(localStorage.getItem("tc_promociones")) || [];
 
-        const response = await fetch(window.TC_CONFIG.workerURL,{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
+    if(promociones.length===0){
+        toast("⚠️ No hay promociones para publicar.");
+        return;
+    }
+
+    toast("☁️ Publicando cambios...");
+
+    try {
+
+        const response = await fetch(window.TC_CONFIG.workerURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
             },
-            body:JSON.stringify(promociones)
+            body: JSON.stringify(promociones)
         });
 
         const result = await response.json();
 
-        if(result.success){
+        console.log("Respuesta Worker:", result);
+
+        // GitHub responde con {content:{}, commit:{}}
+        if (response.ok && (result.commit || result.content || result.success)) {
+
             toast("✅ Promociones publicadas correctamente.");
-            console.log(result);
-        }else{
-            toast("❌ Error al publicar en GitHub.");
-            console.error(result);
+
+            // Guardar también localmente para que no se pierdan en el panel
+            localStorage.setItem(
+                "tc_promociones",
+                JSON.stringify(promociones)
+            );
+
+            return;
+
         }
 
-    }catch(error){
+        toast("❌ Error al publicar.");
+
+        console.error(result);
+
+    } catch (error) {
 
         console.error(error);
-        toast("❌ No se pudo conectar con Cloudflare.");
+        toast("❌ No se pudo conectar con GitHub.");
 
     }
+
 }
 
 /* ==========================================================
