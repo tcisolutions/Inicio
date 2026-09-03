@@ -400,13 +400,19 @@ async function publicarGitHub() {
 }
 
 /* ==========================================================
-   BOTÓN PUBLICAR
+   BOTÓN PUBLICAR GITHUB
 ========================================================== */
 
-const publicarGitHubBtn = document.getElementById("publicarGitHubBtn");
+window.addEventListener("DOMContentLoaded", () => {
 
-publicarGitHubBtn?.addEventListener("click", publicarGitHub);
+    const publicarGitHubBtn =
+        document.getElementById("publicarGitHubBtn");
 
+    if (publicarGitHubBtn) {
+        publicarGitHubBtn.addEventListener("click", publicarGitHub);
+    }
+
+});
 /* ==========================================================
    VISTA PREVIA DEL BANNER
 ========================================================== */
