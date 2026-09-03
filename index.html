@@ -325,3 +325,202 @@
 </div>
 
 </section>
+
+<!-- =========================================================
+     QR OFICIAL DE PAGOS
+========================================================== -->
+
+<section class="section qr-section fade-up" id="qrPago">
+
+    <div class="glass qr-box glow-card">
+
+        <div class="qr-info">
+
+            <div class="badge-info">
+                📷 Escanea y paga en segundos
+            </div>
+
+            <h2>Código QR Oficial</h2>
+
+            <p>
+                Este código QR abre directamente la página oficial de pagos de
+                <strong>Technical Center</strong>.
+            </p>
+
+            <div class="url-box">
+                https://tcisolutions.github.io/pagos/
+            </div>
+
+            <button
+                class="btn-primary"
+                id="shareLanding"
+                onclick="shareLanding()">
+                📤 Compartir página de pagos
+            </button>
+
+        </div>
+
+        <div class="qr-image">
+            <img src="assets/qr_tc.png"
+                 alt="QR Technical Center">
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     BANNER DE PROMOCIÓN DINÁMICO
+========================================================== -->
+
+<section class="section fade-up">
+
+    <div class="promo-banner" id="promoBanner">
+
+        <div class="banner-content">
+
+            <span id="bannerText">
+                🎒 REGRESO A CLASES • 20% de descuento en cambio de batería Samsung durante septiembre.
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     PROMOCIONES
+========================================================== -->
+
+<section class="section promotions fade-up" id="promociones">
+
+    <div class="title">
+
+        <div class="badge-info">
+            🔥 Promociones Vigentes
+        </div>
+
+        <h2>Ofertas disponibles en Technical Center</h2>
+
+        <p>
+            Aprovecha nuestras promociones en reparación de iPhone, Samsung, Xiaomi, Motorola y más.
+        </p>
+
+    </div>
+
+    <div class="promo-controls">
+        <button id="prevPromo">❮</button>
+        <button id="nextPromo">❯</button>
+    </div>
+
+    <div class="promo-slider" id="promoContainer">
+
+        <!-- Se llenará automáticamente desde promociones.js -->
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     BENEFICIOS
+========================================================== -->
+
+<section class="section fade-up">
+
+    <div class="title">
+
+        <div class="badge-info">
+            ⭐ ¿Por qué pagar con Technical Center?
+        </div>
+
+        <h2>Confianza, rapidez y seguridad.</h2>
+
+    </div>
+
+    <div class="benefits-grid">
+
+        <article class="glass benefit-card glow-card">
+            <div class="icon">🔒</div>
+            <h3>Pago Seguro</h3>
+            <p>
+                Tus pagos llegan directamente a la cuenta oficial de Bryant Dylan León Durán.
+            </p>
+        </article>
+
+        <article class="glass benefit-card glow-card">
+            <div class="icon">⚡</div>
+            <h3>Validación Inmediata</h3>
+            <p>
+                Envía tu comprobante por WhatsApp y validamos tu pago rápidamente.
+            </p>
+        </article>
+
+        <article class="glass benefit-card glow-card">
+            <div class="icon">🛡️</div>
+            <h3>Garantía Technical Center</h3>
+            <p>
+                Todas nuestras reparaciones incluyen garantía según el servicio realizado.
+            </p>
+        </article>
+
+        <article class="glass benefit-card glow-card">
+            <div class="icon">📱</div>
+            <h3>Especialistas Apple & Android</h3>
+            <p>
+                Reparación profesional de iPhone, Samsung, Xiaomi, Motorola, Huawei y Tablets.
+            </p>
+        </article>
+
+        <article class="glass benefit-card glow-card">
+            <div class="icon">💳</div>
+            <h3>Múltiples Métodos de Pago</h3>
+            <p>
+                Transferencia SPEI, Mercado Pago, tarjetas de crédito y débito.
+            </p>
+        </article>
+
+        <article class="glass benefit-card glow-card">
+            <div class="icon">🧰</div>
+            <h3>Refacciones Premium</h3>
+            <p>
+                Trabajamos con refacciones de alta calidad y equipos profesionales.
+            </p>
+        </article>
+
+    </div>
+
+</section>
+
+    <!-- TOAST -->
+    <div id="toast" class="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    <div id="backTop">
+        ⬆️
+    </div>
+
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
+    <a class="whatsapp-float"
+       href="https://wa.me/524431922958"
+       target="_blank">
+
+        <span class="whatsapp-text">
+            ¿Necesitas ayuda?
+        </span>
+
+        <img src="assets/whatsapp.png" alt="WhatsApp">
+
+    </a>
+
+    <!-- JAVASCRIPT -->
+    <script src="js/payments.js"></script>
+    <script src="js/promotions.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/pwa.js"></script>
+
+</body>
+</html>
