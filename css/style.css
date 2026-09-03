@@ -255,11 +255,13 @@ margin-bottom:20px;
 
 .hero h1 span{
 
-background:linear-gradient(90deg,#38BDF8,#009BFF);
+    background:linear-gradient(90deg,#38BDF8,#009BFF);
 
--webkit-background-clip:text;
+    background-clip:text;
+    -webkit-background-clip:text;
 
-color:transparent;
+    color:transparent;
+    -webkit-text-fill-color:transparent;
 
 }
 
@@ -923,4 +925,116 @@ text-align:center;
 
 color:#64748B;
 
+}
+
+/* =====================================
+   APP.JS ESTILOS
+===================================== */
+
+.navbar-scroll{
+    background:rgba(2,6,23,.95);
+    box-shadow:0 15px 40px rgba(0,155,255,.15);
+}
+
+.tc-toast{
+    position:fixed;
+    left:50%;
+    bottom:30px;
+    transform:translateX(-50%) translateY(50px);
+    background:#081120;
+    border:1px solid #009BFF;
+    padding:16px 22px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    z-index:99999;
+    opacity:0;
+    transition:.35s;
+    box-shadow:0 20px 45px rgba(0,155,255,.15);
+}
+
+.tc-toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+.toast-icon{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:#009BFF;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-weight:bold;
+}
+
+#backTop{
+    position:fixed;
+    right:25px;
+    bottom:100px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:linear-gradient(180deg,#009BFF,#2563EB);
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+    z-index:999;
+}
+
+#backTop.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.whatsapp-float{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    width:62px;
+    height:62px;
+    border-radius:50%;
+    background:#22C55E;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:28px;
+    box-shadow:0 15px 35px rgba(34,197,94,.35);
+    z-index:999;
+    animation:whatsappPulse 2s infinite;
+}
+
+@keyframes whatsappPulse{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.08)}
+    100%{transform:scale(1)}
+}
+
+.fade-up{
+    opacity:0;
+    transform:translateY(40px);
+    transition:.8s ease;
+}
+
+.fade-up.visible{
+    opacity:1;
+    transform:none;
+}
+
+body.loaded .hero-content{
+    animation:heroFade 1s ease forwards;
+}
+
+@keyframes heroFade{
+    from{opacity:0;transform:translateY(30px)}
+    to{opacity:1;transform:none}
 }
