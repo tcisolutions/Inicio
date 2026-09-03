@@ -1,10 +1,72 @@
 
-<!doctype html><html lang="es-MX"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Technical Center Pay 1.0</title><link rel="stylesheet" href="css/style.css"></head><body>
-<header class="navbar"><strong>TECHNICAL CENTER</strong><nav><a href="#pagos">Pagos</a> <a href="#promociones">Promos</a> <a href="admin.html">Admin</a></nav></header>
-<section class="hero"><h1>TECHNICAL CENTER PAY</h1><p>Landing premium de pagos para tu taller de reparación en Morelia.</p><p><a class="btn" href="#pagos">REALIZAR PAGO</a></p></section>
-<section class="section" id="pagos"><h2>Métodos de pago</h2><div class="grid"><div class="card"><h3>Nu México</h3><p>Bryant Dylan León Durán</p><code>638180010196712539</code></div><div class="card"><h3>Banco Mifel</h3><p>Bryant Dylan León Durán</p><code>042180010088161897</code></div></div></section>
-<section class="section"><div class="card"><h2>Mercado Pago</h2><button class="btn" onclick="window.open('https://link.mercadopago.com.mx/technicalcenter','_blank')">PAGAR CON TARJETA</button></div></section>
-<section class="section"><div class="grid"><div><h2>QR Oficial</h2><p>Reemplaza assets/qr_tc.png por tu QR.</p></div><div class="qr">QR 300x300</div></div></section>
-<section class="section" id="promociones"><h2>Promociones</h2><div id="promoContainer" class="grid"></div></section>
-<footer>WhatsApp 443 192 2958 · Technical Center · Morelia, Michoacán</footer>
-<script src="js/promotions.js"></script></body></html>
+<!doctype html>
+<html lang='es-MX'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Technical Center Pay 1.0</title>
+<link rel='stylesheet' href='css/style.css'>
+</head>
+<body>
+<header class='navbar'>
+  <strong>TECHNICAL CENTER</strong>
+  <nav>
+    <a href='#pagos'>Pagos</a>
+    <a href='#qr'>QR</a>
+    <a href='#promociones'>Promociones</a>
+    <a href='admin.html'>Admin</a>
+  </nav>
+</header>
+
+<section class='hero'>
+  <h1>TECHNICAL CENTER PAY</h1>
+  <p>Paga tu reparación de iPhone, Samsung, Xiaomi, Motorola o Tablet de forma rápida y segura.</p>
+  <a class='btn' href='#pagos'>REALIZAR PAGO</a>
+</section>
+
+<section id='pagos' class='section'>
+  <h2>Métodos de Pago</h2>
+  <div class='grid'>
+    <div class='wallet nu'>
+      <small>NU MÉXICO</small>
+      <h3>Bryant Dylan León Durán</h3>
+      <h2>638180010196712539</h2>
+    </div>
+    <div class='wallet mifel'>
+      <small>BANCA MIFEL</small>
+      <h3>Bryant Dylan León Durán</h3>
+      <h2>042180010088161897</h2>
+    </div>
+  </div>
+
+  <div class='card' style='margin-top:30px'>
+    <h2>Mercado Pago</h2>
+    <p>Paga con tarjeta de crédito, débito o saldo Mercado Pago.</p>
+    <a class='btn' href='https://link.mercadopago.com.mx/technicalcenter' target='_blank'>PAGAR CON MERCADO PAGO</a>
+  </div>
+</section>
+
+<section id='qr' class='section'>
+  <div class='card qr-box'>
+    <div>
+      <h2>QR Oficial de Technical Center</h2>
+      <p>Reemplaza el cuadro de la derecha con el archivo <code>assets/qr_tc.png</code>.</p>
+      <p><strong>URL oficial:</strong> https://tcisolutions.github.io/pagos/</p>
+    </div>
+    <div class='qr-placeholder'>QR</div>
+  </div>
+</section>
+
+<section id='promociones' class='section'>
+  <h2>Promociones</h2>
+  <div id='promoContainer' class='grid'></div>
+</section>
+
+<footer>
+  <strong>Technical Center</strong><br>
+  WhatsApp: 443 192 2958 · Morelia, Michoacán.
+</footer>
+
+<script src='js/promotions.js'></script>
+</body>
+</html>
