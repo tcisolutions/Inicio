@@ -119,3 +119,35 @@ window.addEventListener("DOMContentLoaded", () => {
 
   renderPromotions(promotions);
 });
+
+// Carrusel automático solo en celular
+window.addEventListener("load", ()=>{
+
+    const grid = document.querySelector(".promo-grid");
+
+    if(!grid) return;
+
+    if(window.innerWidth > 768) return;
+
+    let step = 0;
+
+    setInterval(()=>{
+
+        const card = grid.querySelector(".promo-card");
+
+        if(!card) return;
+
+        step += card.offsetWidth + 18;
+
+        if(step >= grid.scrollWidth-grid.clientWidth){
+            step = 0;
+        }
+
+        grid.scrollTo({
+            left:step,
+            behavior:"smooth"
+        });
+
+    },3500);
+
+});
