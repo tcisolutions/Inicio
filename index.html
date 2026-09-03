@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <html lang="es-MX">
 <head>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#009BFF">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Technical Center Pay PRO</title>
@@ -139,6 +143,15 @@ function copyText(text){
  alert("Copiado: "+text);
 }
 </script>
+
+
+<script src="js/pwa.js"></script>
+
+<button id="installApp"
+        onclick="installApp()"
+        style="display:none">
+    Instalar App
+</button>
 
 </body>
 </html>
