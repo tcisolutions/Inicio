@@ -1,14 +1,148 @@
+/* ==========================================
+   TECHNICAL CENTER PAY PRO
+   mobile.css
+========================================== */
 
-/* Mobile layout */
-@media (max-width: 768px){
-  .navbar{padding:14px 18px;}
-  .hero{padding:110px 18px 70px;}
-  .hero h1{font-size:42px;line-height:1.05;}
-  .hero p{font-size:16px;}
-  .hero-buttons{flex-direction:column;}
-  .hero-buttons .btn{width:100%;}
-  .wallet-grid,.promo-grid,.features{grid-template-columns:1fr;}
-  .qr-card{grid-template-columns:1fr;}
-  .qr-image{max-width:260px;margin:auto;}
-  footer .footer-grid{grid-template-columns:1fr;text-align:center;}
+@media(max-width:1024px){
+
+.hero{
+    grid-template-columns:1fr;
+    text-align:center;
+    padding-top:140px;
+    gap:50px;
+}
+
+.hero-device img{
+    max-width:340px;
+}
+
+.wallet-grid,
+.services-grid,
+.benefit-grid,
+.footer-grid{
+    grid-template-columns:1fr 1fr;
+}
+
+.qr-card{
+    grid-template-columns:1fr;
+    text-align:center;
+}
+
+}
+
+@media(max-width:768px){
+
+.navbar{
+    width:94%;
+    padding:14px 18px;
+}
+
+nav{
+    display:none;
+}
+
+.hero h1{
+    font-size:52px;
+    line-height:58px;
+}
+
+.hero p{
+    font-size:17px;
+    line-height:28px;
+}
+
+.hero-buttons{
+    justify-content:center;
+}
+
+.wallet-grid,
+.services-grid,
+.benefit-grid,
+.footer-grid{
+    grid-template-columns:1fr;
+}
+
+.wallet{
+    padding:28px;
+}
+
+.payments,
+.promotions,
+.services,
+.benefits,
+.qr-section,
+.main-banner{
+    padding:70px 24px;
+}
+
+.qr-image img{
+    width:220px;
+}
+
+.banner-content{
+    padding:35px;
+}
+
+.banner-content h2{
+    font-size:38px;
+}
+
+.contact-section{
+    margin:50px 20px;
+    padding:40px 25px;
+}
+
+.whatsapp-float{
+    width:58px;
+    height:58px;
+    font-size:26px;
+}
+
+#backTop{
+    width:50px;
+    height:50px;
+}
+
+}
+
+@media(max-width:480px){
+
+.hero h1{
+    font-size:42px;
+    line-height:48px;
+}
+
+.logo-title{
+    font-size:15px;
+}
+
+.logo-subtitle{
+    font-size:10px;
+}
+
+.btn{
+    width:100%;
+}
+
+.hero-buttons{
+    flex-direction:column;
+}
+
+.promo-grid{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    gap:18px;
+    padding-bottom:10px;
+}
+
+.promo-card{
+    min-width:290px;
+    scroll-snap-align:start;
+}
+
+.promo-grid::-webkit-scrollbar{
+    display:none;
+}
+
 }

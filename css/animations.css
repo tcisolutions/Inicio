@@ -1,30 +1,123 @@
+/* ==========================================
+   TECHNICAL CENTER PAY PRO
+   animations.css
+========================================== */
 
-.fade-up{opacity:0;transform:translateY(30px);transition:.6s ease;}
-.fade-up.visible{opacity:1;transform:none;}
-.glow{box-shadow:0 0 35px rgba(0,155,255,.35);}
-.hero::after{
- content:"";
- position:absolute;
- inset:0;
- background:radial-gradient(circle at center, rgba(56,189,248,.08), transparent 70%);
- pointer-events:none;
+/* ---------- Aparición suave ---------- */
+.fade-up{
+    opacity:0;
+    transform:translateY(40px);
+    transition:all .9s cubic-bezier(.22,1,.36,1);
 }
-.wallet:hover,.promo-card:hover{
- transform:translateY(-6px);
- transition:.25s ease;
- box-shadow:0 0 30px rgba(56,189,248,.25);
+
+.fade-up.visible{
+    opacity:1;
+    transform:translateY(0);
 }
-.toast{
- position:fixed;
- bottom:95px;
- left:50%;
- transform:translateX(-50%);
- background:#0F172A;
- border:1px solid #009BFF;
- color:white;
- padding:12px 18px;
- border-radius:12px;
- opacity:0;
- transition:.3s;
+
+/* ---------- Glow Hero ---------- */
+.hero h1{
+    animation:heroGlow 5s ease-in-out infinite alternate;
 }
-.toast.show{opacity:1;}
+
+@keyframes heroGlow{
+    from{
+        text-shadow:0 0 15px rgba(56,189,248,.25);
+    }
+    to{
+        text-shadow:
+            0 0 20px rgba(56,189,248,.55),
+            0 0 45px rgba(0,155,255,.35);
+    }
+}
+
+/* ---------- Botones ---------- */
+.btn{
+    position:relative;
+    overflow:hidden;
+}
+
+.btn::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(255,255,255,.25), transparent 45%);
+    opacity:0;
+    transition:.25s;
+}
+
+.btn:hover::before{
+    opacity:1;
+}
+
+/* ---------- Wallet Hover ---------- */
+.wallet{
+    transform-style:preserve-3d;
+    transition:transform .3s ease, box-shadow .3s ease;
+}
+
+.wallet:hover{
+    box-shadow:0 35px 70px rgba(0,155,255,.25);
+}
+
+/* ---------- Promo Hover ---------- */
+.promo-card img{
+    transition:transform .5s ease;
+}
+
+.promo-card:hover img{
+    transform:scale(1.05);
+}
+
+/* ---------- Glass Shine ---------- */
+.glass::after{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,.08), transparent);
+    transform:translateX(-120%);
+    transition:transform .8s ease;
+    pointer-events:none;
+}
+
+.glass:hover::after{
+    transform:translateX(120%);
+}
+
+/* ---------- WhatsApp ---------- */
+.whatsapp-float:hover{
+    transform:scale(1.08);
+}
+
+/* ---------- Hero Device ---------- */
+.hero-device img{
+    animation:deviceFloat 6s ease-in-out infinite;
+}
+
+@keyframes deviceFloat{
+    0%,100%{ transform:translateY(0px); }
+    50%{ transform:translateY(-18px); }
+}
+
+/* ---------- Navbar Blur ---------- */
+.navbar-scroll{
+    backdrop-filter:blur(28px);
+    background:rgba(2,6,23,.9);
+}
+
+/* ---------- Títulos ---------- */
+section h2{
+    position:relative;
+    display:inline-block;
+}
+
+section h2::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-10px;
+    width:60%;
+    height:3px;
+    background:linear-gradient(90deg,#009BFF,#38BDF8);
+    border-radius:10px;
+}

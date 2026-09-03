@@ -1,9 +1,9 @@
+console.log("✅ payments.js cargado correctamente");
 /* ==============================
    TECHNICAL CENTER PAY PRO
    payments.js (VERSIÓN CORREGIDA)
 ============================== */
 
-const WHATSAPP = "524431922958";
 
 // ⚠️ PON AQUÍ TU LINK REAL DE MERCADO PAGO
 const MERCADO_PAGO =
@@ -25,11 +25,18 @@ window.copyAccount = async function(account){
 
         await navigator.clipboard.writeText(account);
 
-        toast("✅ Cuenta copiada.");
+        showToast("Cuenta copiada correctamente.","#22C55E");
 
-    }catch(e){
+    }catch(err){
 
-        toast("No fue posible copiar la cuenta.","#EF4444");
+        const input=document.createElement("textarea");
+        input.value=account;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+
+        showToast("Cuenta copiada correctamente.","#22C55E");
 
     }
 

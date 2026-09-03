@@ -127,63 +127,6 @@ document.querySelectorAll(".btn").forEach(btn => {
 
 });
 
-// =========================
-// PARTÍCULAS HERO
-// =========================
-const canvas = document.getElementById("particles");
-
-if (canvas) {
-
-    const ctx = canvas.getContext("2d");
-
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-
-    resizeCanvas();
-
-    window.addEventListener("resize", resizeCanvas);
-
-    const particles = [];
-
-    for (let i = 0; i < 90; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            r: Math.random() * 2 + 1,
-            dx: Math.random() * .4 - .2,
-            dy: Math.random() * .6 + .15,
-            alpha: Math.random() * .6 + .2
-        });
-    }
-
-    function drawParticles() {
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        particles.forEach(p => {
-
-            ctx.beginPath();
-            ctx.fillStyle = `rgba(56,189,248,${p.alpha})`;
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fill();
-
-            p.y -= p.dy;
-            p.x += p.dx;
-
-            if (p.y < 0) {
-                p.y = canvas.height;
-                p.x = Math.random() * canvas.width;
-            }
-
-        });
-
-        requestAnimationFrame(drawParticles);
-    }
-
-    drawParticles();
-}
 
 // =========================
 // BOTÓN VOLVER ARRIBA
