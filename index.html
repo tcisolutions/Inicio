@@ -1,78 +1,292 @@
-
 <!DOCTYPE html>
 <html lang="es-MX">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Technical Center Pay PRO v5</title>
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/mobile.css">
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Technical Center Pay | Pagos Oficiales</title>
+
+<meta name="description" content="Paga la reparación de tu equipo de forma rápida y segura en Technical Center Morelia." />
+<meta name="theme-color" content="#009BFF" />
+
+<link rel="icon" href="assets/icons/favicon.png" />
+<link rel="manifest" href="manifest.json" />
+
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/mobile.css" />
+<link rel="stylesheet" href="css/animations.css" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
 </head>
 <body>
-<header class="navbar">
-  <div class="logo">TECHNICAL CENTER</div>
-  <nav>
-    <a href="#pagos">Pagos</a>
-    <a href="#promociones">Promociones</a>
-    <a href="#contacto">Contacto</a>
-  </nav>
+
+  <header class="navbar">
+
+    <div class="logo-area">
+        <img src="assets/logo/logo.svg" alt="Technical Center Logo" class="logo">
+
+        <div>
+            <span class="logo-title">TECHNICAL CENTER</span>
+            <span class="logo-subtitle">PAYMENTS</span>
+        </div>
+    </div>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#pagos">Pagos</a>
+        <a href="#promociones">Promociones</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <a href="https://wa.me/524431922958" class="nav-whatsapp">
+        WhatsApp
+    </a>
+
 </header>
 
-<section class="hero">
-  <div class="glass">
-    <span class="badge">PAGOS OFICIALES · MORELIA, MICHOACÁN</span>
-    <h1>TECHNICAL CENTER PAY</h1>
-    <p>Paga tu reparación de iPhone, Samsung, Xiaomi, Motorola y Tablets de forma rápida y segura.</p>
-    <div class="hero-buttons">
-      <a class="btn primary" href="#pagos">Realizar Pago</a>
-      <button class="btn secondary" id="installApp" style="display:none" onclick="installApp()">Instalar App</button>
+<section class="hero" id="inicio">
+
+    <canvas id="particles"></canvas>
+
+    <div class="hero-content fade-up">
+
+        <span class="hero-location">
+            📍 Morelia, Michoacán
+        </span>
+
+        <h1>
+            TECHNICAL CENTER <span>PAY</span>
+        </h1>
+
+        <p>
+            Pagos oficiales para reparaciones Apple, Samsung, Xiaomi,
+            Motorola y Tablets.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#pagos" class="btn primary">
+                Realizar Pago
+            </a>
+
+            <a href="#promociones" class="btn secondary">
+                Ver Promociones
+            </a>
+
+            <button id="installApp" class="btn install" style="display:none;">
+                Instalar App
+            </button>
+
+        </div>
+
     </div>
-  </div>
+
+    <div class="hero-device fade-up">
+
+        <img src="assets/hero/iphone16.webp" alt="iPhone 16 Pro Max">
+
+    </div>
+
 </section>
 
-<section id="pagos" class="container">
-  <h2>Métodos de Pago</h2>
-  <div class="wallet-grid">
-    <article class="wallet nu">
-      <small>NU MÉXICO</small>
-      <h3>Bryant Dylan León Durán</h3>
-      <code>638180010196712539</code>
-      <button onclick="copyAccount('638180010196712539')">Copiar Cuenta</button>
+<section class="payments" id="pagos">
+
+<h2>Métodos de Pago</h2>
+
+<div class="wallet-grid">
+
+    <article class="wallet nu fade-up">
+
+        <small>NU MÉXICO</small>
+
+        <h3>Cuenta SPEI</h3>
+
+        <code>638180010196712539</code>
+
+        <span>Bryant Dylan León Durán</span>
+
+        <button onclick="copyAccount('638180010196712539')">
+            Copiar Cuenta
+        </button>
+
     </article>
-    <article class="wallet mifel">
-      <small>BANCO MIFEL</small>
-      <h3>Bryant Dylan León Durán</h3>
-      <code>042180010088161897</code>
-      <button onclick="copyAccount('042180010088161897')">Copiar CLABE</button>
+
+    <article class="wallet mifel fade-up">
+
+        <small>BANCA MIFEL</small>
+
+        <h3>CLABE SPEI</h3>
+
+        <code>042180010088161897</code>
+
+        <span>Bryant Dylan León Durán</span>
+
+        <button onclick="copyAccount('042180010088161897')">
+            Copiar CLABE
+        </button>
+
     </article>
-  </div>
 
-  <article class="glass mercado">
-    <h3>Mercado Pago</h3>
-    <p>Tarjetas, débito, crédito y saldo Mercado Pago.</p>
-    <button class="btn primary" onclick="openMercadoPago()">Pagar con Mercado Pago</button>
-  </article>
+    <article class="wallet mercado fade-up">
+
+        <img src="assets/icons/mercadopago.svg" alt="Mercado Pago">
+
+        <h3>Tarjeta • Débito • Crédito</h3>
+
+        <button onclick="openMercadoPago()">
+            Pagar Ahora
+        </button>
+
+    </article>
+
+</div>
+
 </section>
 
-<section id="promociones" class="container">
-  <h2>Promociones</h2>
-  <div id="promoGrid" class="promo-grid"></div>
+<section class="qr-section fade-up">
+
+<div class="qr-card glass">
+
+    <div class="qr-info">
+
+        <span>ESCANEA Y PAGA</span>
+
+        <h2>QR Oficial Technical Center</h2>
+
+        <p>
+            Escanea este código desde cualquier teléfono para abrir
+            la página oficial de pagos.
+        </p>
+
+        <button onclick="copyLandingURL()">
+            Copiar URL
+        </button>
+
+    </div>
+
+    <div class="qr-image">
+
+        <img src="assets/qr/qr_tc.png" alt="QR Oficial">
+
+    </div>
+
+</div>
+
 </section>
 
-<section id="contacto" class="container glass">
-  <h2>Contáctanos</h2>
-  <p>WhatsApp: <strong>443 192 2958</strong></p>
-  <p>Morelia, Michoacán.</p>
+<section class="main-banner fade-up">
+
+<div class="glass banner-content">
+
+    <span>🔥 PROMOCIÓN DEL MES</span>
+
+    <h2>REGRESO A CLASES</h2>
+
+    <p>
+        20% de descuento en baterías Samsung y centros de carga.
+    </p>
+
+</div>
+
+</section>
+
+<section class="promotions" id="promociones">
+
+<div class="section-header">
+    <h2>Promociones Especiales</h2>
+    <button>Ver Todas →</button>
+</div>
+
+<div id="promoGrid" class="promo-grid"></div>
+
+</section>
+
+<section class="services" id="servicios">
+
+<h2>Nuestros Servicios</h2>
+
+<div class="services-grid">
+
+<div class="service">📱 Pantallas</div>
+<div class="service">🔋 Baterías</div>
+<div class="service">🔌 Centros de carga</div>
+<div class="service">📷 Cámaras</div>
+<div class="service">🧠 Microelectrónica</div>
+<div class="service">💻 Software</div>
+
+</div>
+
+</section>
+
+<section class="benefits fade-up">
+
+<h2>¿Por qué confiar en nosotros?</h2>
+
+<div class="benefit-grid">
+
+<div class="benefit-card">⚡ Pago Seguro</div>
+<div class="benefit-card">🚀 Confirmación Inmediata</div>
+<div class="benefit-card">🛡 Garantía</div>
+<div class="benefit-card">📱 Especialistas Apple y Android</div>
+<div class="benefit-card">💳 Múltiples métodos de pago</div>
+<div class="benefit-card">🧰 Reparación Profesional</div>
+
+</div>
+
+</section>
+
+<section id="contacto" class="contact-section glass">
+
+<h2>¿Ya realizaste tu pago?</h2>
+
+<p>
+Envía tu comprobante por WhatsApp para confirmar la reparación.
+</p>
+
+<a href="https://wa.me/524431922958" class="btn primary">
+Enviar Comprobante
+</a>
+
 </section>
 
 <footer>
-  <p>© 2026 Technical Center. Todos los derechos reservados.</p>
+
+<div class="footer-grid">
+
+<div>
+<h3>Technical Center</h3>
+<p>Morelia, Michoacán</p>
+</div>
+
+<div>
+<h3>Contacto</h3>
+<p>443 192 2958</p>
+</div>
+
+<div>
+<h3>Métodos de Pago</h3>
+<p>Nu • Mifel • Mercado Pago</p>
+</div>
+
+</div>
+
+<p class="copyright">
+© 2026 Technical Center. Todos los derechos reservados.
+</p>
+
 </footer>
 
 <script src="js/app.js"></script>
 <script src="js/payments.js"></script>
 <script src="js/promotions.js"></script>
+<script src="js/particles.js"></script>
+<script src="js/toast.js"></script>
 <script src="js/pwa.js"></script>
+
 </body>
 </html>
