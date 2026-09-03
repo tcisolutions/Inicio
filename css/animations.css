@@ -1,1 +1,30 @@
-.hero-card{animation:float 6s ease-in-out infinite}@keyframes float{50%{transform:translateY(-8px)}}
+
+.fade-up{opacity:0;transform:translateY(30px);transition:.6s ease;}
+.fade-up.visible{opacity:1;transform:none;}
+.glow{box-shadow:0 0 35px rgba(0,155,255,.35);}
+.hero::after{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:radial-gradient(circle at center, rgba(56,189,248,.08), transparent 70%);
+ pointer-events:none;
+}
+.wallet:hover,.promo-card:hover{
+ transform:translateY(-6px);
+ transition:.25s ease;
+ box-shadow:0 0 30px rgba(56,189,248,.25);
+}
+.toast{
+ position:fixed;
+ bottom:95px;
+ left:50%;
+ transform:translateX(-50%);
+ background:#0F172A;
+ border:1px solid #009BFF;
+ color:white;
+ padding:12px 18px;
+ border-radius:12px;
+ opacity:0;
+ transition:.3s;
+}
+.toast.show{opacity:1;}
