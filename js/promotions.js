@@ -1,70 +1,41 @@
 /* ==========================================================
    TECHNICAL CENTER PAY 2026
-   PROMOTIONS.JS
-   Panel Administrador + GitHub Pages
+   promotions.js (Versión Cloudflare Worker)
 ========================================================== */
 
-/* ==========================
-   CONFIGURACIÓN GITHUB
-========================== */
+// URL de tu Cloudflare Worker
+const WORKER_URL = "https://technicalcenter-admin.tcmcorreo.workers.dev/";
 
-const GITHUB = {
-    owner: "tcisolutions",
-    repo: "pagos",
-    branch: "main",
-    file: "data/promociones.json",
-
-    // 👇 AQUÍ PEGAS TU TOKEN DE GITHUB
-    token: "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"
-};
-
-/* ==========================
-   CONFIGURACIÓN
-========================== */
-
+// Contraseña del panel
 const ADMIN_PASSWORD = "TC2026*";
 
-const PROMO_URL =
-    "data/promociones.json?v=" + Date.now();
-
-const promoContainer =
-    document.getElementById("promoContainer");
-
-const adminPanel =
-    document.getElementById("adminPanel");
-
-const adminList =
-    document.getElementById("promoListAdmin");
-
-const publishPromo =
-    document.getElementById("publishPromo");
-
-const promoTitle =
-    document.getElementById("promoTitle");
-
-const promoPrice =
-    document.getElementById("promoPrice");
-
-const promoDescription =
-    document.getElementById("promoDescription");
-
-const promoImage =
-    document.getElementById("promoImage");
-
-const promoActive =
-    document.getElementById("promoActive");
+// Archivo JSON publicado en GitHub Pages
+const DATA_URL = "data/promociones.json?v=" + Date.now();
 
 let promotions = [];
 
-/* ==========================
-   CARGAR PROMOCIONES
-========================== */
+// Elementos
+const promoContainer = document.getElementById("promoContainer");
+const adminPanel = document.getElementById("adminPanel");
+const adminList = document.getElementById("promoListAdmin");
+
+const promoTitle = document.getElementById("promoTitle");
+const promoPrice = document.getElementById("promoPrice");
+const promoDescription = document.getElementById("promoDescription");
+const promoImage = document.getElementById("promoImage");
+const promoActive = document.getElementById("promoActive");
+
+const publishButton = document.getElementById("publishPromo");
+
+/* ==========================================
+   CARGAR PROMOCIONES DESDE GITHUB PAGES
+========================================== */
 
 async function loadPromotions(){
 
     try{
 
-        const response = await fetch(PROMO_URL);
+        const response = await fetch(DATA_URL);
 
         promotions = await response.json();
 
@@ -72,7 +43,9 @@ async function loadPromotions(){
 
     }catch(error){
 
-        console.error(error);
+        console.error("No se pudieron cargar promociones", error);
+
+        promotions = [];
 
     }
 
@@ -80,17 +53,19 @@ async function loadPromotions(){
 
 loadPromotions();
 
-/* ==========================
-   RENDER PROMOCIONES
-========================== */
+/* ==========================================
+   RENDER CLIENTES
+========================================== */
 
 function renderPromotions(){
+
+    if(!promoContainer) return;
 
     promoContainer.innerHTML = "";
 
     promotions
-        .filter(item => item.active)
-        .forEach((promo,index)=>{
+    .filter(item => item.active)
+    .forEach((promo,index)=>{
 
         promoContainer.innerHTML += `
 
@@ -109,9 +84,9 @@ function renderPromotions(){
                 <div class="price">${promo.price}</div>
 
                 <button class="promo-button"
-                        onclick="promoWhatsapp(${index})">
+                    onclick="promoWhatsapp(${index})">
 
-                        Solicitar promoción
+                    Solicitar promoción
 
                 </button>
 
@@ -125,45 +100,43 @@ function renderPromotions(){
 
 }
 
-/* ==========================
-   WHATSAPP
-========================== */
+/* ==========================================
+   WHATSAPP PROMOCIÓN
+========================================== */
 
 window.promoWhatsapp = function(index){
 
-    const promo =
-        promotions.filter(p=>p.active)[index];
+    const promo = promotions.filter(p=>p.active)[index];
 
     const text = `Hola Technical Center 👋
 
-Estoy interesado en esta promoción.
+Estoy interesado en la promoción:
 
 📱 ${promo.title}
 
 💲 ${promo.price}
 
-Quisiera más información.`;
+¿Me puedes dar más información?`;
 
     window.open(
-        "https://wa.me/524431922958?text="+
+        "https://wa.me/524431922958?text=" +
         encodeURIComponent(text),
         "_blank"
     );
 
 }
 
-/* ==========================
-   ABRIR PANEL ADMIN
-========================== */
+/* ==========================================
+   LOGIN ADMIN
+========================================== */
 
 window.openAdmin = function(){
 
-    const password =
-        prompt("Contraseña del Administrador");
+    const password = prompt("Contraseña del administrador");
 
-    if(password!==ADMIN_PASSWORD){
+    if(password !== ADMIN_PASSWORD){
 
-        alert("Contraseña incorrecta");
+        alert("Contraseña incorrecta.");
 
         return;
 
@@ -179,11 +152,13 @@ window.openAdmin = function(){
 
 }
 
-/* ==========================
-   LISTA ADMIN
-========================== */
+/* ==========================================
+   LISTA ADMINISTRADOR
+========================================== */
 
 function loadAdminList(){
+
+    if(!adminList) return;
 
     adminList.innerHTML = "";
 
@@ -193,7 +168,7 @@ function loadAdminList(){
 
         <div class="admin-promo glass">
 
-            <img src="${promo.image}">
+            <img src="${promo.image}" class="admin-thumb">
 
             <div class="admin-info">
 
@@ -203,16 +178,14 @@ function loadAdminList(){
 
             </div>
 
-            <button
-                class="toggle-btn"
+            <button class="toggle-btn"
                 onclick="togglePromo(${promo.id})">
 
                 ${promo.active ? "Ocultar":"Mostrar"}
 
             </button>
 
-            <button
-                class="delete-btn"
+            <button class="delete-btn"
                 onclick="deletePromo(${promo.id})">
 
                 Eliminar
@@ -227,11 +200,25 @@ function loadAdminList(){
 
 }
 
-/* ==========================
+/* ==========================================
    PUBLICAR PROMOCIÓN
-========================== */
+========================================== */
 
-publishPromo.onclick = function(){
+if(publishButton){
+
+publishButton.onclick = ()=>{
+
+    if(
+        !promoTitle.value ||
+        !promoPrice.value ||
+        !promoDescription.value
+    ){
+
+        alert("Completa todos los campos.");
+
+        return;
+
+    }
 
     if(!promoImage.files.length){
 
@@ -243,23 +230,23 @@ publishPromo.onclick = function(){
 
     const reader = new FileReader();
 
-    reader.onload = function(event){
+    reader.onload = async function(e){
 
         promotions.unshift({
 
-            id: Date.now(),
+            id:Date.now(),
 
-            title: promoTitle.value,
+            title:promoTitle.value,
 
-            description: promoDescription.value,
+            description:promoDescription.value,
 
-            price: promoPrice.value,
+            price:promoPrice.value,
 
-            image: event.target.result,
+            image:e.target.result,
 
-            active: promoActive.checked,
+            active:promoActive.checked,
 
-            date: new Date().toISOString()
+            date:new Date().toISOString()
 
         });
 
@@ -267,9 +254,9 @@ publishPromo.onclick = function(){
 
         loadAdminList();
 
-        savePromotionsGitHub();
-
         clearForm();
+
+        await savePromotions();
 
     }
 
@@ -277,31 +264,63 @@ publishPromo.onclick = function(){
 
 }
 
-/* ==========================
-   LIMPIAR
-========================== */
+}
 
-function clearForm(){
+/* ==========================================
+   GUARDAR EN CLOUDFLARE WORKER
+========================================== */
 
-    promoTitle.value="";
-    promoPrice.value="";
-    promoDescription.value="";
-    promoImage.value="";
-    promoActive.checked=true;
+async function savePromotions(){
+
+    try{
+
+        const response = await fetch(WORKER_URL,{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify(promotions)
+
+        });
+
+        const result = await response.json();
+
+        if(result.success){
+
+            toast("✅ Promoción publicada correctamente.");
+
+        }else{
+
+            toast("❌ Error al publicar.");
+
+            console.error(result.error);
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        toast("❌ No se pudo conectar con Cloudflare.");
+
+    }
 
 }
 
-/* ==========================
-   MOSTRAR / OCULTAR
-========================== */
+/* ==========================================
+   ACTIVAR / DESACTIVAR
+========================================== */
 
-window.togglePromo = function(id){
+window.togglePromo = async function(id){
 
     promotions = promotions.map(item=>{
 
         if(item.id===id){
 
-            item.active=!item.active;
+            item.active = !item.active;
 
         }
 
@@ -313,94 +332,72 @@ window.togglePromo = function(id){
 
     loadAdminList();
 
-    savePromotionsGitHub();
+    await savePromotions();
 
 }
 
-/* ==========================
+/* ==========================================
    ELIMINAR
-========================== */
+========================================== */
 
-window.deletePromo = function(id){
+window.deletePromo = async function(id){
 
     if(!confirm("¿Eliminar promoción?")) return;
 
-    promotions =
-        promotions.filter(item=>item.id!==id);
+    promotions = promotions.filter(item=>item.id!==id);
 
     renderPromotions();
 
     loadAdminList();
 
-    savePromotionsGitHub();
+    await savePromotions();
 
 }
 
-/* ==========================
-   GUARDAR EN GITHUB
-========================== */
+/* ==========================================
+   LIMPIAR FORMULARIO
+========================================== */
 
-async function savePromotionsGitHub(){
+function clearForm(){
 
-    const url =
-`https://api.github.com/repos/${GITHUB.owner}/${GITHUB.repo}/contents/${GITHUB.file}`;
+    promoTitle.value = "";
+    promoPrice.value = "";
+    promoDescription.value = "";
+    promoImage.value = "";
+    promoActive.checked = true;
 
-    try{
+}
 
-        const current = await fetch(url,{
-            headers:{
-                Authorization:"Bearer "+GITHUB.token
-            }
-        });
+/* ==========================================
+   TOAST
+========================================== */
 
-        const file = await current.json();
+function toast(message){
 
-        const body = {
+    const toastBox = document.getElementById("toast");
+    const toastMessage = document.getElementById("toastMessage");
 
-            message:"Actualizar promociones Technical Center",
+    if(!toastBox || !toastMessage){
 
-            branch:GITHUB.branch,
+        alert(message);
 
-            sha:file.sha,
-
-            content:btoa(
-                unescape(
-                    encodeURIComponent(
-                        JSON.stringify(promotions,null,2)
-                    )
-                )
-            )
-
-        };
-
-        await fetch(url,{
-
-            method:"PUT",
-
-            headers:{
-                Authorization:"Bearer "+GITHUB.token,
-                "Content-Type":"application/json"
-            },
-
-            body:JSON.stringify(body)
-
-        });
-
-        console.log("GitHub actualizado.");
-
-    }catch(error){
-
-        console.error(error);
-
-        alert("Error al actualizar GitHub.");
+        return;
 
     }
 
+    toastMessage.textContent = message;
+
+    toastBox.classList.add("show");
+
+    setTimeout(()=>{
+        toastBox.classList.remove("show");
+    },2500);
+
 }
 
-/* ==========================
+/* ==========================================
    RESPALDO JSON
-========================== */
+========================================== */
 
 window.exportPromotions = function(){
 
@@ -413,7 +410,7 @@ window.exportPromotions = function(){
 
     link.href = URL.createObjectURL(blob);
 
-    link.download = "promociones_tc.json";
+    link.download = "promociones_technical_center.json";
 
     link.click();
 
@@ -423,18 +420,18 @@ window.importPromotions = function(file){
 
     const reader = new FileReader();
 
-    reader.onload = function(event){
+    reader.onload = async function(e){
 
-        promotions = JSON.parse(event.target.result);
+        promotions = JSON.parse(e.target.result);
 
         renderPromotions();
 
         loadAdminList();
 
-        savePromotionsGitHub();
+        await savePromotions();
 
     }
 
     reader.readAsText(file);
 
-}
+};
