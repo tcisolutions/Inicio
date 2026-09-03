@@ -1,19 +1,128 @@
 
-:root{--bg:#020617;--surface:#0F172A;--blue:#009BFF;--cyan:#38BDF8;--text:#F8FAFC}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#082f49,#020617);color:var(--text);font-family:Inter,Arial,sans-serif}
-.navbar{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;padding:18px 32px;background:rgba(2,6,23,.6);backdrop-filter:blur(16px)}
+:root{
+ --bg:#020617;
+ --surface:#0f172a;
+ --primary:#009BFF;
+ --cyan:#38BDF8;
+ --text:#F8FAFC;
+}
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Inter,Arial,sans-serif;
+ background:radial-gradient(circle at top,#082f49,#020617);
+ color:var(--text);
+}
+.navbar{
+ position:fixed;top:0;width:100%;
+ display:flex;justify-content:space-between;align-items:center;
+ padding:18px 28px;
+ background:rgba(2,6,23,.55);
+ backdrop-filter:blur(18px);
+ z-index:999;
+}
 .navbar a{color:white;text-decoration:none;margin-left:18px}
-.hero{padding:140px 20px;text-align:center}
-.hero-card{max-width:900px;margin:auto;padding:40px;border-radius:28px;background:rgba(15,23,42,.7);border:1px solid rgba(56,189,248,.25)}
-.hero h1{font-size:72px;margin:0;background:linear-gradient(90deg,#fff,#38BDF8);-webkit-background-clip:text;color:transparent}
-.btn{display:inline-block;margin-top:20px;padding:16px 28px;border-radius:16px;background:linear-gradient(90deg,#009BFF,#2563EB);color:white;text-decoration:none;font-weight:bold}
-.section{max-width:1200px;margin:auto;padding:70px 20px}
-.cards,.promo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
-.wallet{padding:28px;border-radius:26px;color:white}
+.hero{
+ min-height:100vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:120px 20px;
+}
+.glass{
+ background:rgba(15,23,42,.75);
+ border:1px solid rgba(56,189,248,.25);
+ border-radius:28px;
+ backdrop-filter:blur(20px);
+}
+.hero-panel{
+ max-width:900px;
+ padding:50px;
+ text-align:center;
+}
+.hero h1{
+ font-size:68px;
+ margin:0;
+ background:linear-gradient(90deg,#fff,#38BDF8);
+ -webkit-background-clip:text;
+ color:transparent;
+}
+.hero-buttons{
+ display:flex;
+ justify-content:center;
+ gap:18px;
+ flex-wrap:wrap;
+ margin-top:30px;
+}
+.btn,.wallet button,.mercado button,.qr-card button{
+ border:none;
+ border-radius:16px;
+ padding:14px 22px;
+ font-weight:bold;
+ cursor:pointer;
+}
+.primary{
+ background:linear-gradient(90deg,#009BFF,#2563EB);
+ color:white;
+}
+.secondary{
+ background:#12243D;
+ color:white;
+}
+.section{
+ max-width:1200px;
+ margin:auto;
+ padding:70px 20px;
+}
+.wallet-grid,.promo-grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+ gap:24px;
+}
+.wallet{
+ padding:28px;
+ border-radius:26px;
+ color:white;
+}
 .nu{background:linear-gradient(135deg,#4C1D95,#7C3AED)}
 .mifel{background:linear-gradient(135deg,#1D4ED8,#0284C7)}
-.qr-box{display:grid;grid-template-columns:1fr 300px;gap:28px;background:rgba(15,23,42,.8);padding:30px;border-radius:28px}
-.qr-placeholder{height:300px;border:2px dashed #38BDF8;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:40px;color:#38BDF8}
-.card{background:rgba(15,23,42,.8);padding:24px;border-radius:20px;border:1px solid rgba(56,189,248,.2)}
-input,textarea{width:100%;padding:12px;margin:10px 0;border-radius:12px;background:#081221;color:white;border:1px solid #1E40AF}
-footer{text-align:center;padding:40px;color:#94A3B8}
+.qr-card{
+ display:grid;
+ grid-template-columns:1fr 320px;
+ gap:28px;
+ padding:28px;
+}
+.qr-placeholder{
+ height:300px;
+ border:2px dashed #38BDF8;
+ border-radius:22px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:34px;
+ color:#38BDF8;
+}
+.mercado{
+ margin-top:32px;
+ padding:28px;
+ text-align:center;
+}
+.promo{
+ padding:22px;
+ background:#13233B;
+ border-radius:22px;
+}
+.footer{
+ text-align:center;
+ padding:50px 20px;
+ color:#94A3B8;
+}
+input,textarea{
+ width:100%;
+ margin:12px 0;
+ padding:12px;
+ border-radius:12px;
+ background:#081221;
+ color:white;
+ border:1px solid #1E40AF;
+}

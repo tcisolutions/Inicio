@@ -1,13 +1,21 @@
 
-const promos=[
-["Cambio de Cristal iPhone 16 Pro Max","Desde $1,999 MXN"],
-["Cambio de Batería Samsung","Desde $699 MXN"],
-["Pantallas OLED iPhone","Desde $1,299 MXN"],
-["Centro de Carga Tipo C","Desde $550 MXN"],
-["Limpieza por Humedad","$450 MXN"],
-["Reemplazo de Cámara iPhone","Cotiza por WhatsApp"]
+const promociones=[
+{titulo:"Cambio de Cristal iPhone 16 Pro Max",precio:"Desde $1,999 MXN"},
+{titulo:"Cambio de Batería Samsung Serie A",precio:"Desde $699 MXN"},
+{titulo:"Pantallas OLED iPhone",precio:"Desde $1,299 MXN"},
+{titulo:"Limpieza por Humedad",precio:"$450 MXN"},
+{titulo:"Centro de Carga Tipo C",precio:"Desde $550 MXN"},
+{titulo:"Cámaras iPhone",precio:"Cotiza por WhatsApp"}
 ];
-const grid=document.getElementById("promoContainer");
+
+const grid=document.getElementById("promoGrid");
 if(grid){
-grid.innerHTML=promos.map(p=>`<div class="card"><h3>${p[0]}</h3><p>${p[1]}</p><a class="btn" href="https://wa.me/524431922958" target="_blank">Solicitar</a></div>`).join("");
+ grid.innerHTML=promociones.map(p=>`
+ <div class="promo">
+   <h3>${p.titulo}</h3>
+   <p>${p.precio}</p>
+   <button onclick="window.open('https://wa.me/524431922958','_blank')">
+     Solicitar promoción
+   </button>
+ </div>`).join("");
 }
