@@ -1,1 +1,68 @@
-[]
+[
+  {
+    "id": 1,
+    "titulo": "Cristal iPhone 16 Pro Max",
+    "descripcion": "Cristal OCA Premium con garantía de instalación.",
+    "precioAnterior": 2699,
+    "precio": 1999,
+    "descuento": 25,
+    "imagen": "assets/promos/iphone16-cristal.webp",
+    "categoria": "iPhone",
+    "activo": true
+  },
+  {
+    "id": 2,
+    "titulo": "Pantallas OLED iPhone",
+    "descripcion": "Pantallas originales y OLED de alta calidad.",
+    "precioAnterior": 1799,
+    "precio": 1399,
+    "descuento": 20,
+    "imagen": "assets/promos/oled-iphone.webp",
+    "categoria": "iPhone",
+    "activo": true
+  },
+  {
+    "id": 3,
+    "titulo": "Baterías Samsung",
+    "descripcion": "Reemplazo de batería con garantía.",
+    "precioAnterior": 899,
+    "precio": 699,
+    "descuento": 22,
+    "imagen": "assets/promos/bateria-samsung.webp",
+    "categoria": "Samsung",
+    "activo": true
+  },
+  {
+    "id": 4,
+    "titulo": "Centro de Carga Tipo-C",
+    "descripcion": "Reemplazo de centro de carga Samsung, Xiaomi y Motorola.",
+    "precioAnterior": 750,
+    "precio": 550,
+    "descuento": 27,
+    "imagen": "assets/promos/centro-carga.webp",
+    "categoria": "Android",
+    "activo": true
+  },
+  {
+    "id": 5,
+    "titulo": "Limpieza por Humedad",
+    "descripcion": "Servicio especializado de recuperación por humedad.",
+    "precioAnterior": 600,
+    "precio": 450,
+    "descuento": 25,
+    "imagen": "assets/promos/humedad.webp",
+    "categoria": "Servicio",
+    "activo": true
+  },
+  {
+    "id": 6,
+    "titulo": "Cambio de Cámara iPhone",
+    "descripcion": "Cámaras traseras y frontales con garantía.",
+    "precioAnterior": 1200,
+    "precio": 950,
+    "descuento": 20,
+    "imagen": "assets/promos/camara-iphone.webp",
+    "categoria": "iPhone",
+    "activo": true
+  }
+]
