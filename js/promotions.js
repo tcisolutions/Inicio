@@ -1,15 +1,1 @@
-
-const promos=[
- {title:"Cambio de Cristal iPhone 16 Pro Max",price:"$1,999 MXN"},
- {title:"Cambio de batería Samsung",price:"Desde $699 MXN"},
- {title:"Pantallas OLED iPhone",price:"Promoción Septiembre"}
-];
-const box=document.getElementById('promoContainer');
-if(box){
- box.innerHTML=promos.map(p=>`
-  <div class="promo">
-    <h3>${p.title}</h3>
-    <p>${p.price}</p>
-    <button onclick="window.open('https://wa.me/524431922958','_blank')">Solicitar promoción</button>
-  </div>`).join('');
-}
+const promos=[{t:'Cambio de Cristal iPhone 16 Pro Max',p:'$1,999 MXN'},{t:'Cambio de batería Samsung',p:'Desde $699 MXN'},{t:'Pantallas OLED iPhone',p:'Promoción vigente'}];const c=document.getElementById('promoContainer');if(c){c.innerHTML=promos.map(x=>`<div class=promo><h3>${x.t}</h3><p>${x.p}</p></div>`).join('')}

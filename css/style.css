@@ -1,13 +1,1 @@
-
-body{margin:0;font-family:Inter,Arial;background:#020617;color:#fff}
-.navbar{position:sticky;top:0;background:#061A2B;padding:18px 28px;display:flex;justify-content:space-between;align-items:center}
-.navbar a{color:#dbeafe;text-decoration:none;margin-left:18px}
-.hero{padding:90px 20px;text-align:center;background:linear-gradient(#07203b,#020617)}
-.hero h1{font-size:56px;color:#38bdf8}
-.btn{display:inline-block;margin-top:18px;padding:14px 24px;border-radius:14px;background:#009BFF;color:#fff;text-decoration:none}
-.container{max-width:1100px;margin:auto;padding:60px 20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-.card{background:#0F172A;border:1px solid #1D4ED8;padding:24px;border-radius:22px}
-#promoContainer{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-.promo{background:#13233B;padding:20px;border-radius:20px}
-footer{padding:40px;text-align:center;color:#94A3B8}
+body{margin:0;font-family:Arial,sans-serif;background:#020617;color:#fff}header{display:flex;justify-content:space-between;padding:18px;background:#061A2B;position:sticky;top:0}nav a{color:#9ddcff;margin-left:14px;text-decoration:none}.hero{padding:80px 20px;text-align:center;background:linear-gradient(180deg,#0b2747,#020617)}.card{background:#0F172A;border:1px solid #2563EB;padding:20px;border-radius:18px;margin:20px}.promo{background:#12243d;padding:18px;border-radius:18px;margin:12px 0}button{padding:12px 18px;background:#009BFF;color:white;border:none;border-radius:10px;cursor:pointer}
