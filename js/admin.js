@@ -142,23 +142,11 @@ guardarBtn?.addEventListener("click",()=>{
 
 });
 
-const promo={
-
-    titulo:titulo.value,
-    descripcion:descripcion.value,
-
-    precioAnterior:Number(precioAnterior.value),
-    precio:Number(precioNuevo.value),
-
-    descuento:descuento.value,
-    categoria:categoria.value,
-
-    imagen:imagenBase64 || "assets/promos/default.webp",
-
-    activa:document.getElementById("promoActiva").checked,
-
-    color:document.getElementById("promoColor").value
-
+const config = {
+    whatsapp: document.getElementById("configWhatsapp")?.value || "",
+    mercadoPago: document.getElementById("configMP")?.value || "",
+    nu: document.getElementById("configNu")?.value || "",
+    mifel: document.getElementById("configMifel")?.value || ""
 };
 
 /* ==========================================================
@@ -403,14 +391,24 @@ async function publicarGitHub() {
    BOTÓN PUBLICAR GITHUB
 ========================================================== */
 
+/* ==========================================
+   BOTONES PRINCIPALES
+========================================== */
+
 window.addEventListener("DOMContentLoaded", () => {
 
-    const publicarGitHubBtn =
-        document.getElementById("publicarGitHubBtn");
+    const guardarBtn = document.getElementById("guardarPromo");
+    const publicarBtn = document.getElementById("publicarGitHubBtn");
 
-    if (publicarGitHubBtn) {
-        publicarGitHubBtn.addEventListener("click", publicarGitHub);
+    if (guardarBtn) {
+        guardarBtn.onclick = () => guardarPromocion();
     }
+
+    if (publicarBtn) {
+        publicarBtn.onclick = () => publicarGitHub();
+    }
+
+    console.log("✅ Botones del panel conectados.");
 
 });
 /* ==========================================================
@@ -453,21 +451,27 @@ const configMP = document.getElementById("configMP");
 function guardarConfig(){
 
     const config = {
-        whatsapp: configWhatsapp.value,
-        mercadoPago: configMP.value,
-        nu:{
-            titular:"Bryant Dylan León Durán",
-            cuenta:configNu.value
+
+        whatsapp: document.getElementById("configWhatsapp")?.value || "",
+
+        mercadoPago: document.getElementById("configMP")?.value || "",
+
+        nu: {
+            titular: "Bryant Dylan León Durán",
+            cuenta: document.getElementById("configNu")?.value || ""
         },
-        mifel:{
-            titular:"Bryant Dylan León Durán",
-            clabe:configMifel.value
+
+        mifel: {
+            titular: "Bryant Dylan León Durán",
+            clabe: document.getElementById("configMifel")?.value || ""
         }
+
     };
 
     localStorage.setItem("tc_config", JSON.stringify(config));
 
-    toast("Configuración guardada correctamente.");
+    toast("✅ Configuración guardada.");
+
 }
 
 /* Botón Guardar Configuración */
@@ -512,55 +516,76 @@ async function verificarSistema(){
 
 verificarSistema();
 
-function actualizarVistaPrevia(){
 
-    if(!previewCard) return;
+function actualizarVistaPrevia() {
+
+    const tituloInput = document.getElementById("titulo");
+    const descripcionInput = document.getElementById("descripcion");
+    const precioAnteriorInput = document.getElementById("precioAnterior");
+    const precioNuevoInput = document.getElementById("precioNuevo");
+    const descuentoInput = document.getElementById("descuento");
+    const categoriaInput = document.getElementById("categoria");
+    const previewCard = document.getElementById("promoPreviewCard");
+
+    if (!previewCard) return;
+
+    const titulo = tituloInput?.value || "Cambio de Pantalla iPhone";
+    const descripcion = descripcionInput?.value || "Servicio Express con garantía.";
+    const precioAnterior = precioAnteriorInput?.value || "2000";
+    const precioNuevo = precioNuevoInput?.value || "1500";
+    const descuento = descuentoInput?.value || "25%";
+    const categoria = categoriaInput?.value || "iphone";
 
     previewCard.innerHTML = `
+        <div class="promo-preview">
 
-    ${imagenBase64 ? `<img src="${imagenBase64}">` : ""}
+            <div class="promo-badge">${descuento}</div>
 
-    <div class="preview-category">
-        ${categoria.value.toUpperCase()}
-    </div>
+            const imagenPreview = imagenBase64
+    ? imagenBase64
+    : "assets/logo/logo.png";
+            alt="Promoción">
 
-    <h2 class="preview-title">
-        ${titulo.value || "Título de la promoción"}
-    </h2>
+            <div class="promo-content">
 
-    <div class="preview-badge">
-        ${descuento.value || "-0%"}
-    </div>
+                <span class="promo-category">
+                    ${categoria.toUpperCase()}
+                </span>
 
-    <p class="preview-desc">
-        ${descripcion.value || "Descripción de la promoción..."}
-    </p>
+                <h3>${titulo}</h3>
 
-    <div class="preview-old">
-        $${precioAnterior.value || 0} MXN
-    </div>
+                <p>${descripcion}</p>
 
-    <div class="preview-price" style="color:${promoColor?.value || "#22C55E"}">
-        $${precioNuevo.value || 0} MXN
-    </div>
+                <div class="promo-price">
 
+                    <span class="old-price">$${precioAnterior}</span>
+
+                    <span class="new-price">$${precioNuevo}</span>
+
+                </div>
+
+            </div>
+
+        </div>
     `;
 
 }
 
-[
- titulo,
- descripcion,
- precioAnterior,
- precioNuevo,
- descuento,
- categoria
-].forEach(input=>{
+["titulo","descripcion","precioAnterior","precioNuevo","descuento","categoria"]
+.forEach(id => {
 
-    input?.addEventListener("input",actualizarVistaPrevia);
+    const input = document.getElementById(id);
+
+    input?.addEventListener("input", actualizarVistaPrevia);
 
 });
+    
 
 promoColor?.addEventListener("input",actualizarVistaPrevia);
 
-actualizarVistaPrevia();
+window.addEventListener("DOMContentLoaded", () => {
+    actualizarVistaPrevia();
+});
+
+document.getElementById("guardarConfigBtn")
+    ?.addEventListener("click", guardarConfig);

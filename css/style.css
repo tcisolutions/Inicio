@@ -1656,3 +1656,108 @@ line-height:24px;
 .promo-body .btn{
     margin-top:10px;
 }
+
+
+/* =====================================================
+   TECHNICAL CENTER V11 — NAVBAR PREMIUM
+===================================================== */
+
+.navbar{
+
+    position:sticky;
+    top:12px;
+    z-index:1000;
+
+    padding:0 18px;
+
+}
+
+.nav-container{
+
+    max-width:1300px;
+    margin:auto;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:14px 22px;
+
+    border-radius:22px;
+
+    background:rgba(5,16,35,.75);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(0,155,255,.15);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.35),
+        inset 0 0 0 1px rgba(255,255,255,.03);
+
+}
+
+.logo-navbar{
+
+    height:52px;
+    width:auto;
+    object-fit:contain;
+
+    filter:
+        drop-shadow(0 0 8px rgba(0,155,255,.45));
+
+}
+
+.nav-menu{
+
+    display:flex;
+    gap:34px;
+
+}
+
+.nav-menu a{
+
+    color:#E8F2FF;
+
+    text-decoration:none;
+
+    font-size:15px;
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.nav-menu a:hover{
+
+    color:#00B7FF;
+
+}
+
+.btn-whatsapp{
+
+    background:linear-gradient(135deg,#009BFF,#0058FF);
+
+    color:white;
+
+    padding:14px 24px;
+
+    border-radius:16px;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    transition:.25s;
+
+    box-shadow:0 8px 20px rgba(0,155,255,.35);
+
+}
+
+.btn-whatsapp:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 26px rgba(0,155,255,.45);
+
+}
