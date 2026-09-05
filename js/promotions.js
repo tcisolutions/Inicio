@@ -1,14 +1,9 @@
-/* ==========================================
-   TECHNICAL CENTER PAY V10.9
-   promotions.js
-========================================== */
 
 let promociones = [];
 
-/* Cargar promociones desde GitHub Pages */
-async function cargarPromociones() {
+async function cargarPromociones(){
 
-    try {
+    try{
 
         const response = await fetch(
             `data/promociones.json?v=${Date.now()}`
@@ -18,87 +13,96 @@ async function cargarPromociones() {
 
         renderPromociones();
 
-    } catch (error) {
+    }catch(error){
 
-        console.error("Error cargando promociones:", error);
-
-        const contenedor = document.getElementById("contenedorPromociones");
-
-        if (contenedor) {
-            contenedor.innerHTML = `
-                <div class="error-card">
-                    No se pudieron cargar las promociones.
-                </div>
-            `;
-        }
+        console.error(error);
 
     }
 
 }
 
-/* Dibujar promociones */
-function renderPromociones() {
+function renderPromociones(){
 
-    const contenedor = document.getElementById("contenedorPromociones");
+    const contenedor =
+        document.getElementById("contenedorPromociones");
 
-    if (!contenedor) return;
+    if(!contenedor) return;
 
-    contenedor.innerHTML = "";
-
-    if (!promociones.length) {
-
-        contenedor.innerHTML = `
-            <div class="promo-empty">
-                No hay promociones disponibles.
-            </div>
-        `;
-
-        return;
-    }
+    contenedor.innerHTML="";
 
     promociones
-        .filter(p => p.activa !== false)
-        .forEach(promo => {
+    .filter(p=>p.activa!==false)
+    .forEach(promo=>{
 
-            contenedor.innerHTML += `
-                <div class="promo-card">
+        const imagen =
+            promo.imagen || "assets/logo/logo.png";
 
-                    <img src="${promo.imagen}" alt="${promo.titulo}">
+        contenedor.innerHTML += `
 
-                    <div class="promo-info">
+        <article class="promo-card-v11">
 
-                        <span class="promo-cat">
-                            ${promo.categoria.toUpperCase()}
-                        </span>
+            <div class="promo-image">
 
-                        <h3>${promo.titulo}</h3>
+                <img src="${imagen}"
+                     alt="${promo.titulo}">
 
-                        <p>${promo.descripcion}</p>
+                <div class="promo-badge-v11">
+                    ${promo.descuento}
+                </div>
 
-                        <div class="promo-prices">
+            </div>
 
-                            <span class="old">
-                                $${promo.precioAnterior}
-                            </span>
+            <div class="promo-info-v11">
 
-                            <span class="new">
-                                $${promo.precio}
-                            </span>
+                <span class="promo-category-v11">
+                    ${promo.categoria}
+                </span>
 
-                        </div>
+                <h3>${promo.titulo}</h3>
 
-                        <div class="promo-discount">
-                            ${promo.descuento}
-                        </div>
+                <p>${promo.descripcion}</p>
 
-                    </div>
+                <div class="promo-price-v11">
+
+                    <span class="old-price">
+                        $${promo.precioAnterior}
+                    </span>
+
+                    <span class="new-price">
+                        $${promo.precio}
+                    </span>
 
                 </div>
-            `;
 
-        });
+                <div class="promo-features-v11">
+
+                    <span>🛡 Garantía</span>
+
+                    <span>⚡ Express</span>
+
+                    <span>✔ Calidad Premium</span>
+
+                </div>
+
+                <a class="promo-btn-v11"
+                   target="_blank"
+                   href="https://wa.me/524431922958?text=Hola%20Technical%20Center,%20quiero%20cotizar%20${encodeURIComponent(promo.titulo)}">
+
+                   Cotizar por WhatsApp
+
+                </a>
+
+            </div>
+
+        </article>
+
+        `;
+
+    });
 
 }
 
-/* Cargar al abrir la página */
-window.addEventListener("DOMContentLoaded", cargarPromociones);
+window.addEventListener(
+    "DOMContentLoaded",
+    cargarPromociones
+);

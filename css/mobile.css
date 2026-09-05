@@ -509,3 +509,165 @@ nav{
     }
 
 }
+
+
+/* =====================================================
+   HERO RESPONSIVE V11
+====================================================== */
+
+@media (max-width:768px){
+
+.hero-v11{
+
+    min-height:auto;
+
+    padding:40px 18px 55px;
+
+}
+
+.hero-content{
+
+    grid-template-columns:1fr;
+
+    gap:35px;
+
+}
+
+.hero-left{
+
+    order:2;
+
+}
+
+.hero-right{
+
+    order:1;
+
+}
+
+.hero-left h1{
+
+    font-size:36px;
+
+    text-align:center;
+
+}
+
+.hero-left p{
+
+    text-align:center;
+
+    font-size:16px;
+
+}
+
+.hero-badge{
+
+    margin:auto;
+    display:flex;
+    justify-content:center;
+
+}
+
+.hero-buttons{
+
+    justify-content:center;
+
+}
+
+.hero-features{
+
+    justify-content:center;
+
+}
+
+.hero-features div{
+
+    width:100%;
+
+    text-align:center;
+
+}
+
+.hero-image{
+
+    max-width:320px;
+
+}
+
+}
+
+
+/* =====================================================
+   PROMOCIONES MOBILE V11
+====================================================== */
+
+@media(max-width:768px){
+
+.promo-section-v11{
+
+    padding:60px 18px;
+
+}
+
+.section-title h2{
+
+    font-size:30px;
+
+}
+
+.promo-grid-v11{
+
+    grid-template-columns:1fr;
+
+    gap:26px;
+
+}
+
+.promo-card-v11{
+
+    border-radius:22px;
+
+}
+
+.promo-image{
+
+    height:250px;
+
+}
+
+.promo-info-v11{
+
+    padding:20px;
+
+}
+
+.promo-info-v11 h3{
+
+    font-size:23px;
+
+}
+
+.new-price{
+
+    font-size:30px;
+
+}
+
+.promo-features-v11{
+
+    gap:8px;
+
+}
+
+.promo-features-v11 span{
+
+    width:100%;
+
+    justify-content:center;
+
+    display:flex;
+
+}
+
+}

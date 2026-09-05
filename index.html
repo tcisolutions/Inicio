@@ -70,47 +70,81 @@
 
 </header>
 
-<section class="hero" id="inicio">
 
-    <canvas id="particles"></canvas>
+<!-- =====================================================
+     HERO PREMIUM V11
+====================================================== -->
 
-    <div class="hero-content fade-up">
+<section class="hero-v11">
 
-        <span class="hero-location">
-            📍 Morelia, Michoacán
-        </span>
+    <div class="hero-overlay"></div>
 
-        <h1>
-            TECHNICAL CENTER <span>PAY</span>
-        </h1>
+    <div class="hero-content">
 
-        <p>
-            Pagos oficiales para reparaciones Apple, Samsung, Xiaomi,
-            Motorola y Tablets.
-        </p>
+        <div class="hero-left">
 
-        <div class="hero-buttons">
+            <span class="hero-badge">
+                ⚡ Servicio Express • Garantía 90 días
+            </span>
 
-            <a href="#pagos" class="btn primary">
-                Realizar Pago
-            </a>
+            <h1>
+                Reparación Profesional de
+                <span>iPhone, Samsung y Android</span>
+            </h1>
 
-            <a href="#promociones" class="btn secondary">
-                Ver Promociones
-            </a>
+            <p>
+                Pantallas, baterías, centros de carga, tapas,
+                Face ID, cámaras y microsoldadura.
+                Calidad Premium en Morelia.
+            </p>
 
-            <button id="installApp" class="btn install" style="display:none;">
-                Instalar App
-            </button>
+            <div class="hero-buttons">
+
+                <a href="https://wa.me/524431922958?text=Hola%20Technical%20Center,%20quiero%20cotizar%20mi%20celular."
+                   target="_blank"
+                   class="btn-primary-hero">
+
+                    Cotizar por WhatsApp
+
+                </a>
+
+                <a href="#promociones"
+                   class="btn-secondary-hero">
+
+                    Ver promociones
+
+                </a>
+
+            </div>
+
+            <div class="hero-features">
+
+                <div>
+                    <strong>+2500</strong>
+                    Equipos reparados.
+                </div>
+
+                <div>
+                    <strong>90 días</strong>
+                    Garantía escrita.
+                </div>
+
+                <div>
+                    <strong>Express</strong>
+                    Reparaciones en minutos.
+                </div>
+
+            </div>
 
         </div>
 
-    </div>
+        <div class="hero-right">
 
-    <div class="hero-device fade-up">
+            <img src="assets/banner/hero-phones.png"
+                 alt="iPhone Samsung"
+                 class="hero-image">
 
-        <img src="https://images.openai.com/static-rsc-3/AKQrOfMUsAKhVMQs3od9nb5zk.png"
-     alt="iPhone 16 Pro Max">
+        </div>
 
     </div>
 
@@ -219,36 +253,31 @@
 
 </section>
 
-<section class="promotions" id="promociones">
 
-    <div class="promo-header fade-up">
+<!-- =====================================================
+     PROMOCIONES PREMIUM V11
+====================================================== -->
 
-    <span class="promo-tag">OFERTAS DEL TALLER</span>
+<section id="promociones" class="promo-section-v11">
 
-    <h2>Promociones Especiales</h2>
+    <div class="section-title">
 
-    <div class="promo-line"></div>
+        <span>PROMOCIONES TECHNICAL CENTER</span>
 
-    <p>
-        Aprovecha nuestras promociones en pantallas, baterías,
-        centros de carga y microelectrónica.
-    </p>
+        <h2>Ofertas disponibles esta semana</h2>
 
-</div>
-
-    <div class="promo-filters fade-up">
-
-        <button onclick="filterPromotions('Todos')" class="active">Todos</button>
-        <button onclick="filterPromotions('iPhone')">iPhone</button>
-        <button onclick="filterPromotions('Samsung')">Samsung</button>
-        <button onclick="filterPromotions('Android')">Android</button>
-        <button onclick="filterPromotions('Servicio')">Servicio</button>
+        <p>
+            Reparaciones premium con garantía y servicio express.
+        </p>
 
     </div>
 
-    <section id="promociones" class="promos-section">
+    <div id="contenedorPromociones"
+         class="promo-grid-v11">
 
-    <div id="contenedorPromociones" class="promos-grid"></div>
+        <!-- promotions.js las genera aquí -->
+
+    </div>
 
 </section>
 
