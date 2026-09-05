@@ -1,27 +1,31 @@
 /* ==========================================================
-   TECHNICAL CENTER PAY V9
-   admin.js
+   TECHNICAL CENTER PAY V11 ENTERPRISE
+   ADMIN.JS - PARTE 1/4
 ========================================================== */
 
 const LOGIN_USER = "BryantTC";
-const LOGIN_PASS = "TC2026@Morelia";
+const LOGIN_PASS = "TC2026Admin!";
 
-const STORAGE_KEY = "technical_center_promos";
+/* ==========================================
+   VARIABLES GLOBALES
+========================================== */
 
-let promociones = JSON.parse(
-    localStorage.getItem("tc_promociones")
-) || [];
-let editIndex = null;
+let promociones = JSON.parse(localStorage.getItem("tc_promociones") || "[]");
+let imagenBase64 = "";
+let bannerBase64 = "";
+
+/* ==========================================
+   ELEMENTOS
+========================================== */
 
 const loginScreen = document.getElementById("loginScreen");
 const dashboard = document.getElementById("dashboard");
 const loginForm = document.getElementById("loginForm");
 const loginError = document.getElementById("loginError");
 
-const listaPromociones = document.getElementById("listaPromociones");
-const statPromos = document.getElementById("statPromos");
-
-const previewContainer = document.getElementById("previewContainer");
+const guardarBtn = document.getElementById("guardarPromo");
+const publicarBtn = document.getElementById("publicarGitHubBtn");
+const logoutBtn = document.getElementById("logoutBtn");
 
 const titulo = document.getElementById("tituloPromo");
 const descripcion = document.getElementById("descripcionPromo");
@@ -29,409 +33,117 @@ const precioAnterior = document.getElementById("precioAnterior");
 const precioNuevo = document.getElementById("precioNuevo");
 const descuento = document.getElementById("descuentoPromo");
 const categoria = document.getElementById("categoriaPromo");
-const imagenInput = document.getElementById("imagenPromo");
-
-const guardarBtn = document.getElementById("guardarPromo");
-
-const logoutBtn = document.getElementById("logoutBtn");
-const previewCard = document.getElementById("promoPreviewCard");
 const promoColor = document.getElementById("promoColor");
+const promoActiva = document.getElementById("promoActiva");
 
-let imagenBase64 = "";
+const imagenInput = document.getElementById("imagenInput");
+const previewContainer = document.getElementById("previewContainer");
+const previewCard = document.getElementById("promoPreviewCard");
 
-/* ==========================================================
+const listaPromociones = document.getElementById("listaPromociones");
+const statPromos = document.getElementById("statPromos");
+
+const bannerInput = document.getElementById("bannerInput");
+const bannerPreview = document.getElementById("bannerPreview");
+
+/* ==========================================
+   TOAST
+========================================== */
+
+function toast(texto){
+
+    const t = document.createElement("div");
+
+    t.className = "tc-toast show";
+    t.innerText = texto;
+
+    document.body.appendChild(t);
+
+    setTimeout(()=>{
+        t.classList.remove("show");
+
+        setTimeout(()=>{
+            t.remove();
+        },300);
+
+    },2200);
+
+}
+
+/* ==========================================
    LOGIN
-========================================================== */
+========================================== */
 
-if(localStorage.getItem("tc_admin_login") === "true"){
+if(localStorage.getItem("tc_admin_login")==="true"){
     abrirDashboard();
 }
 
-loginForm?.addEventListener("submit", e=>{
+loginForm?.addEventListener("submit",(e)=>{
+
     e.preventDefault();
 
     const user = document.getElementById("user").value.trim();
     const pass = document.getElementById("pass").value.trim();
 
     if(user===LOGIN_USER && pass===LOGIN_PASS){
+
         localStorage.setItem("tc_admin_login","true");
+
         abrirDashboard();
+
+        toast("Bienvenido Lic Bryant.");
+
     }else{
-        loginError.innerText="Usuario o contraseña incorrectos.";
+
+        loginError.innerText = "Usuario o contraseña incorrectos.";
+
     }
+
 });
 
 logoutBtn?.addEventListener("click",()=>{
+
     localStorage.removeItem("tc_admin_login");
+
     location.reload();
+
 });
 
 function abrirDashboard(){
+
     loginScreen.classList.add("hidden");
     dashboard.classList.remove("hidden");
-    renderPromociones();
-}
 
-/* ==========================================================
-   PREVIEW IMAGEN
-========================================================== */
+    actualizarEstadisticas();
 
-imagenInput?.addEventListener("change",e=>{
-
-    const file=e.target.files[0];
-
-    if(!file)return;
-
-    const reader=new FileReader();
-
-    reader.onload=function(ev){
-
-        imagenBase64=ev.target.result;
-
-        previewContainer.innerHTML=`
-            <img src="${imagenBase64}">
-        `;
-    }
-
-    reader.readAsDataURL(file);
-
-});
-
-
-/* ==========================================================
-   GUARDAR PROMOCIÓN
-========================================================== */
-
-/* ==========================================================
-   CREAR / EDITAR PROMOCIÓN
-========================================================== */
-
-guardarBtn?.addEventListener("click",()=>{
-
-    if(titulo.value.trim()===""){
-        toast("Escribe un título.");
-        return;
-    }
-
-    const promo={
-        titulo:titulo.value,
-        descripcion:descripcion.value,
-        precioAnterior:Number(precioAnterior.value),
-        precio:Number(precioNuevo.value),
-        descuento:descuento.value,
-        categoria:categoria.value,
-        imagen:imagenBase64 || "assets/promos/default.webp",
-        activa:true
-    }
-
-    if(editIndex===null){
-        promociones.unshift(promo);
-        toast("Promoción publicada correctamente.");
-    }else{
-        promociones[editIndex]=promo;
-        toast("Promoción actualizada.");
-        editIndex=null;
-        guardarBtn.innerText="Publicar Promoción";
-    }
-
-    guardarLocal();
-    limpiarFormulario();
     renderPromociones();
 
-
-
-});
-
-const config = {
-    whatsapp: document.getElementById("configWhatsapp")?.value || "",
-    mercadoPago: document.getElementById("configMP")?.value || "",
-    nu: document.getElementById("configNu")?.value || "",
-    mifel: document.getElementById("configMifel")?.value || ""
-};
-
-/* ==========================================================
-   RENDER PROMOCIONES
-========================================================== */
-
-function renderPromociones(){
-
-    listaPromociones.innerHTML="";
-
-    const activas=promociones.filter(p=>p.activa!==false).length;
-
-    statPromos.innerText=activas;
-
-    if(promociones.length===0){
-
-        listaPromociones.innerHTML=`
-        <div style="padding:40px;text-align:center;color:#94A3B8">
-            No hay promociones todavía.
-        </div>`;
-
-        return;
-    }
-
-    promociones.forEach((promo,index)=>{
-
-        // (el resto de tu código permanece igual)
-
-    });
-}
-
-/* ==========================================================
-   EDITAR
-========================================================== */
-
-window.editarPromo=function(index){
-
-    const p=promociones[index];
-
-    titulo.value=p.titulo;
-    descripcion.value=p.descripcion;
-    precioAnterior.value=p.precioAnterior;
-    precioNuevo.value=p.precio;
-    descuento.value=p.descuento;
-    categoria.value=p.categoria;
-
-    imagenBase64=p.imagen;
-
-    previewContainer.innerHTML=`<img src="${p.imagen}">`;
-
-    editIndex=index;
-
-    guardarBtn.innerText="Guardar Cambios";
-
-    window.scrollTo({top:0,behavior:"smooth"});
+    actualizarVistaPrevia();
 
 }
-
-/* ==========================================================
-   ELIMINAR
-========================================================== */
-
-window.eliminarPromo=function(index){
-
-    if(confirm("¿Eliminar esta promoción?")){
-
-        promociones.splice(index,1);
-
-        guardarLocal();
-        renderPromociones();
-
-        toast("Promoción eliminada.");
-
-    }
-
-}
-
-/* ==========================================================
-   LOCAL STORAGE
-========================================================== */
-
-function guardarLocal(){
-    localStorage.setItem("tc_promociones",JSON.stringify(promociones));
-}
-
-/* ==========================================================
-   LIMPIAR
-========================================================== */
-
-function limpiarFormulario(){
-
-    titulo.value="";
-    descripcion.value="";
-    precioAnterior.value="";
-    precioNuevo.value="";
-    descuento.value="";
-    categoria.value="iphone";
-
-    imagenInput.value="";
-    imagenBase64="";
-
-    previewContainer.innerHTML="";
-
-}
-
-/* ==========================================================
-   TOAST IOS
-========================================================== */
-
-function toast(texto){
-
-    const t=document.createElement("div");
-
-    t.className="toast-admin";
-
-    t.innerText=texto;
-
-    document.body.appendChild(t);
-
-    setTimeout(()=>t.classList.add("show"),100);
-
-    setTimeout(()=>{
-        t.classList.remove("show");
-        setTimeout(()=>t.remove(),400);
-    },2200);
-
-}
-
-/* ==========================================================
-   ESTILO TOAST (inyectado)
-========================================================== */
-
-const style=document.createElement("style");
-style.innerHTML=`
-.toast-admin{
-position:fixed;
-top:30px;
-left:50%;
-transform:translateX(-50%) translateY(-30px);
-background:linear-gradient(90deg,#009BFF,#2563EB);
-color:white;
-padding:15px 26px;
-border-radius:16px;
-font-weight:600;
-opacity:0;
-transition:.35s;
-z-index:99999;
-box-shadow:0 10px 30px rgba(0,155,255,.35);
-}
-.toast-admin.show{
-opacity:1;
-transform:translateX(-50%) translateY(0px);
-}
-`;
-document.head.appendChild(style);
 
 /* ==========================================
-   EXPORTAR JSON
+   IMAGEN PROMOCIÓN
 ========================================== */
 
-function exportarPromociones(){
-
-    const blob = new Blob(
-        [JSON.stringify(promociones,null,2)],
-        {type:"application/json"}
-    );
-
-    const url = URL.createObjectURL(blob);
-
-    const a=document.createElement("a");
-
-    a.href=url;
-    a.download="promociones.json";
-
-    a.click();
-
-    URL.revokeObjectURL(url);
-
-    toast("Archivo promociones.json generado.");
-
-}
-
-/* ==========================================================
-   PUBLICAR EN GITHUB (Preparado para Cloudflare)
-========================================================== */
-
-
-async function publicarGitHub() {
-
-    promociones = JSON.parse(localStorage.getItem("tc_promociones")) || [];
-
-    if(promociones.length===0){
-        toast("⚠️ No hay promociones para publicar.");
-        return;
-    }
-
-    toast("☁️ Publicando cambios...");
-
-    try {
-
-        const response = await fetch(window.TC_CONFIG.workerURL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(promociones)
-        });
-
-        const result = await response.json();
-
-        console.log("Respuesta Worker:", result);
-
-        // GitHub responde con {content:{}, commit:{}}
-        if (response.ok && (result.commit || result.content || result.success)) {
-
-            toast("✅ Promociones publicadas correctamente.");
-
-            // Guardar también localmente para que no se pierdan en el panel
-            localStorage.setItem(
-                "tc_promociones",
-                JSON.stringify(promociones)
-            );
-
-            return;
-
-        }
-
-        toast("❌ Error al publicar.");
-
-        console.error(result);
-
-    } catch (error) {
-
-        console.error(error);
-        toast("❌ No se pudo conectar con GitHub.");
-
-    }
-
-}
-
-/* ==========================================================
-   BOTÓN PUBLICAR GITHUB
-========================================================== */
-
-/* ==========================================
-   BOTONES PRINCIPALES
-========================================== */
-
-window.addEventListener("DOMContentLoaded", () => {
-
-    const guardarBtn = document.getElementById("guardarPromo");
-    const publicarBtn = document.getElementById("publicarGitHubBtn");
-
-    if (guardarBtn) {
-        guardarBtn.onclick = () => guardarPromocion();
-    }
-
-    if (publicarBtn) {
-        publicarBtn.onclick = () => publicarGitHub();
-    }
-
-    console.log("✅ Botones del panel conectados.");
-
-});
-/* ==========================================================
-   VISTA PREVIA DEL BANNER
-========================================================== */
-
-const bannerInput = document.getElementById("bannerInput");
-const bannerPreview = document.getElementById("bannerPreview");
-
-bannerInput?.addEventListener("change", (e)=>{
+imagenInput?.addEventListener("change",(e)=>{
 
     const file = e.target.files[0];
+
     if(!file) return;
 
     const reader = new FileReader();
 
     reader.onload = (ev)=>{
 
-        bannerPreview.innerHTML = `
-            <img src="${ev.target.result}" style="width:100%;border-radius:18px;object-fit:cover;">
-        `;
+        imagenBase64 = ev.target.result;
 
-        toast("Banner listo para publicar.");
+        previewContainer.innerHTML =
+        `<img src="${imagenBase64}" class="preview-img">`;
+
+        actualizarVistaPrevia();
+
+        toast("Imagen cargada.");
 
     };
 
@@ -439,153 +151,710 @@ bannerInput?.addEventListener("change", (e)=>{
 
 });
 
-/* ==========================================================
-   GUARDAR CONFIGURACIÓN LOCAL
-========================================================== */
+/* ==========================================
+   BANNER
+========================================== */
 
-const configWhatsapp = document.getElementById("configWhatsapp");
-const configNu = document.getElementById("configNu");
-const configMifel = document.getElementById("configMifel");
-const configMP = document.getElementById("configMP");
+bannerInput?.addEventListener("change",(e)=>{
 
-function guardarConfig(){
+    const file = e.target.files[0];
 
-    const config = {
+    if(!file) return;
 
-        whatsapp: document.getElementById("configWhatsapp")?.value || "",
+    const reader = new FileReader();
 
-        mercadoPago: document.getElementById("configMP")?.value || "",
+    reader.onload=(ev)=>{
 
-        nu: {
-            titular: "Bryant Dylan León Durán",
-            cuenta: document.getElementById("configNu")?.value || ""
-        },
+        bannerBase64 = ev.target.result;
 
-        mifel: {
-            titular: "Bryant Dylan León Durán",
-            clabe: document.getElementById("configMifel")?.value || ""
-        }
+        bannerPreview.innerHTML =
+        `<img src="${bannerBase64}" class="preview-banner">`;
+
+        toast("Banner listo.");
 
     };
 
-    localStorage.setItem("tc_config", JSON.stringify(config));
+    reader.readAsDataURL(file);
 
-    toast("✅ Configuración guardada.");
-
-}
-
-/* Botón Guardar Configuración */
-document.querySelectorAll(".panel-card .primary-btn").forEach(btn=>{
-    if(btn.textContent.includes("Guardar Configuración")){
-        btn.addEventListener("click", guardarConfig);
-    }
 });
 
-/* ======================================================
-   ESTADO DEL SISTEMA
-====================================================== */
+/* ==========================================
+   VISTA PREVIA EN TIEMPO REAL
+========================================== */
 
-const statusDot=document.querySelector(".status-dot");
-const statusText=document.getElementById("statusText");
+[
+ titulo,
+ descripcion,
+ precioAnterior,
+ precioNuevo,
+ descuento,
+ categoria,
+ promoColor
+].forEach(input=>{
 
-async function verificarSistema(){
+    input?.addEventListener("input",actualizarVistaPrevia);
 
-    statusText.innerText="Verificando conexión...";
+    input?.addEventListener("change",actualizarVistaPrevia);
 
-    try{
+});
 
-        const res=await fetch("data/config.json");
+function actualizarVistaPrevia(){
 
-        if(!res.ok) throw new Error();
+    if(!previewCard) return;
 
-        statusDot.classList.remove("offline");
-        statusDot.classList.add("online");
-
-        statusText.innerText="Sistema listo para publicar promociones.";
-
-    }catch(e){
-
-        statusDot.classList.remove("online");
-        statusDot.classList.add("offline");
-
-        statusText.innerText="No se pudo cargar la configuración.";
-
-    }
-
-}
-
-verificarSistema();
-
-
-function actualizarVistaPrevia() {
-
-    const tituloInput = document.getElementById("titulo");
-    const descripcionInput = document.getElementById("descripcion");
-    const precioAnteriorInput = document.getElementById("precioAnterior");
-    const precioNuevoInput = document.getElementById("precioNuevo");
-    const descuentoInput = document.getElementById("descuento");
-    const categoriaInput = document.getElementById("categoria");
-    const previewCard = document.getElementById("promoPreviewCard");
-
-    if (!previewCard) return;
-
-    const titulo = tituloInput?.value || "Cambio de Pantalla iPhone";
-    const descripcion = descripcionInput?.value || "Servicio Express con garantía.";
-    const precioAnterior = precioAnteriorInput?.value || "2000";
-    const precioNuevo = precioNuevoInput?.value || "1500";
-    const descuento = descuentoInput?.value || "25%";
-    const categoria = categoriaInput?.value || "iphone";
+    const img = imagenBase64 || "assets/logo/logo.png";
 
     previewCard.innerHTML = `
-        <div class="promo-preview">
+    <div class="promo-preview">
 
-            <div class="promo-badge">${descuento}</div>
+        <div class="promo-badge">${descuento.value || "-0%"}</div>
 
-            const imagenPreview = imagenBase64
-    ? imagenBase64
-    : "assets/logo/logo.png";
-            alt="Promoción">
+        <img src="${img}" alt="Promoción">
 
-            <div class="promo-content">
+        <div class="promo-content">
 
-                <span class="promo-category">
-                    ${categoria.toUpperCase()}
+            <span class="promo-category">
+                ${(categoria.value || "IPHONE").toUpperCase()}
+            </span>
+
+            <h3>${titulo.value || "Título de la promoción"}</h3>
+
+            <p>${descripcion.value || "Descripción de la promoción."}</p>
+
+            <div class="promo-price">
+
+                <span class="old-price">
+                    $${precioAnterior.value || "0"}
                 </span>
 
-                <h3>${titulo}</h3>
-
-                <p>${descripcion}</p>
-
-                <div class="promo-price">
-
-                    <span class="old-price">$${precioAnterior}</span>
-
-                    <span class="new-price">$${precioNuevo}</span>
-
-                </div>
+                <span class="new-price">
+                    $${precioNuevo.value || "0"}
+                </span>
 
             </div>
 
+            <button
+                style="background:${promoColor.value};width:100%;padding:14px;border:none;border-radius:14px;color:white;font-weight:700;margin-top:20px;">
+
+                Cotizar por WhatsApp
+
+            </button>
+
         </div>
+
+    </div>
     `;
 
 }
 
-["titulo","descripcion","precioAnterior","precioNuevo","descuento","categoria"]
-.forEach(id => {
+/* ==========================================
+   ESTADÍSTICAS
+========================================== */
 
-    const input = document.getElementById(id);
+function actualizarEstadisticas(){
 
-    input?.addEventListener("input", actualizarVistaPrevia);
+    if(statPromos)
+        statPromos.innerText = promociones.length;
 
-});
-    
+}
 
-promoColor?.addEventListener("input",actualizarVistaPrevia);
+console.log("✅ ADMIN V11 PARTE 1 CARGADA");
 
-window.addEventListener("DOMContentLoaded", () => {
+/* ==========================================================
+   PARTE 2/4
+   CRUD DE PROMOCIONES
+========================================================== */
+
+/* ==========================================
+   GUARDAR PROMOCIÓN
+========================================== */
+
+guardarBtn?.addEventListener("click", guardarPromocion);
+
+function guardarPromocion(){
+
+    const nuevaPromo = {
+
+        id: Date.now(),
+
+        titulo: titulo.value.trim(),
+
+        descripcion: descripcion.value.trim(),
+
+        categoria: categoria.value,
+
+        precioAnterior: precioAnterior.value,
+
+        precio: precioNuevo.value,
+
+        descuento: descuento.value || "-0%",
+
+        color: promoColor.value,
+
+        imagen: imagenBase64 || "assets/logo/logo.png",
+
+        activa: promoActiva.checked,
+
+        fecha: new Date().toLocaleString("es-MX")
+
+    };
+
+    if(!nuevaPromo.titulo){
+
+        toast("Escribe un título para la promoción.");
+
+        titulo.focus();
+
+        return;
+
+    }
+
+    promociones.unshift(nuevaPromo);
+
+    guardarPromocionesLocal();
+
+    renderPromociones();
+
+    actualizarEstadisticas();
+
+    limpiarFormulario();
+
+    toast("✅ Promoción publicada.");
+
+}
+
+/* ==========================================
+   GUARDAR LOCAL STORAGE
+========================================== */
+
+function guardarPromocionesLocal(){
+
+    localStorage.setItem(
+        "tc_promociones",
+        JSON.stringify(promociones)
+    );
+
+}
+
+/* ==========================================
+   RENDER PROMOCIONES
+========================================== */
+
+function renderPromociones(){
+
+    if(!listaPromociones) return;
+
+    listaPromociones.innerHTML = "";
+
+    if(promociones.length===0){
+
+        listaPromociones.innerHTML = `
+
+        <div class="empty-card">
+
+            <h3>No hay promociones.</h3>
+
+            <p>Crea tu primera promoción.</p>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+    promociones.forEach((promo,index)=>{
+
+        listaPromociones.innerHTML += `
+
+        <article class="admin-promo-card">
+
+            <img
+                class="admin-promo-img"
+                src="${promo.imagen}">
+
+            <div class="admin-promo-info">
+
+                <span>${promo.categoria.toUpperCase()}</span>
+
+                <h3>${promo.titulo}</h3>
+
+                <p>${promo.descripcion}</p>
+
+                <div class="prices">
+
+                    <small>$${promo.precioAnterior}</small>
+
+                    <strong>$${promo.precio}</strong>
+
+                </div>
+
+                <text class="promo-date">
+                    ${promo.fecha}
+                </text>
+
+            </div>
+
+            <div class="admin-actions">
+
+                <button
+                    class="edit-btn"
+                    onclick="editarPromocion(${index})">
+
+                    ✏ Editar
+
+                </button>
+
+                <button
+                    class="delete-btn"
+                    onclick="eliminarPromocion(${index})">
+
+                    🗑 Eliminar
+
+                </button>
+
+            </div>
+
+        </article>
+
+        `;
+
+    });
+
+}
+
+/* ==========================================
+   EDITAR PROMOCIÓN
+========================================== */
+
+window.editarPromocion = function(index){
+
+    const promo = promociones[index];
+
+    titulo.value = promo.titulo;
+
+    descripcion.value = promo.descripcion;
+
+    precioAnterior.value = promo.precioAnterior;
+
+    precioNuevo.value = promo.precio;
+
+    descuento.value = promo.descuento;
+
+    categoria.value = promo.categoria;
+
+    promoColor.value = promo.color || "#009BFF";
+
+    promoActiva.checked = promo.activa;
+
+    imagenBase64 = promo.imagen;
+
+    previewContainer.innerHTML = `
+        <img src="${promo.imagen}" class="preview-img">
+    `;
+
+    promociones.splice(index,1);
+
+    guardarPromocionesLocal();
+
+    renderPromociones();
+
     actualizarVistaPrevia();
+
+    toast("Editando promoción...");
+
+}
+
+/* ==========================================
+   ELIMINAR PROMOCIÓN
+========================================== */
+
+window.eliminarPromocion = function(index){
+
+    const confirmar = confirm(
+        "¿Eliminar esta promoción?"
+    );
+
+    if(!confirmar) return;
+
+    promociones.splice(index,1);
+
+    guardarPromocionesLocal();
+
+    renderPromociones();
+
+    actualizarEstadisticas();
+
+    toast("Promoción eliminada.");
+
+}
+
+/* ==========================================
+   LIMPIAR FORMULARIO
+========================================== */
+
+function limpiarFormulario(){
+
+    titulo.value = "";
+
+    descripcion.value = "";
+
+    precioAnterior.value = "";
+
+    precioNuevo.value = "";
+
+    descuento.value = "";
+
+    categoria.value = "iphone";
+
+    promoColor.value = "#009BFF";
+
+    promoActiva.checked = true;
+
+    imagenBase64 = "";
+
+    previewContainer.innerHTML = "";
+
+    actualizarVistaPrevia();
+
+}
+
+/* ==========================================
+   CONTADOR DE PROMOCIONES
+========================================== */
+
+function actualizarEstadisticas(){
+
+    if(statPromos){
+
+        statPromos.innerText = promociones.length;
+
+    }
+
+    const ultima = document.getElementById("ultimaPublicacion");
+
+    if(ultima){
+
+        if(promociones.length){
+
+            ultima.innerText = promociones[0].fecha;
+
+        }else{
+
+            ultima.innerText = "--";
+
+        }
+
+    }
+
+}
+
+/* ==========================================
+   INICIALIZACIÓN
+========================================== */
+
+window.addEventListener("DOMContentLoaded",()=>{
+
+    renderPromociones();
+
+    actualizarVistaPrevia();
+
+    actualizarEstadisticas();
+
 });
 
-document.getElementById("guardarConfigBtn")
-    ?.addEventListener("click", guardarConfig);
+
+/* ==========================================================
+   PARTE 3/4
+   PUBLICAR GITHUB + CLOUDFLARE
+========================================================== */
+
+/* ==========================================
+   PUBLICAR PROMOCIONES
+========================================== */
+
+publicarBtn?.addEventListener("click", publicarGitHub);
+
+async function publicarGitHub(){
+
+    toast("Publicando cambios...");
+
+    const datos = {
+
+        promociones: promociones,
+
+        config: obtenerConfiguracion(),
+
+        banner: bannerBase64 || null
+
+    };
+
+    try{
+
+        const response = await fetch(
+            window.GITHUB.workerURL,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify(datos)
+            }
+        );
+
+        const resultado = await response.json();
+
+        console.log(resultado);
+
+        if(resultado.success){
+
+            toast("🚀 Sitio publicado correctamente.");
+
+            actualizarEstadoGitHub(true);
+
+            localStorage.setItem(
+                "ultima_publicacion",
+                new Date().toLocaleString("es-MX")
+            );
+
+        }else{
+
+            toast("Error al publicar.");
+
+            actualizarEstadoGitHub(false);
+
+            console.error(resultado);
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        toast("Cloudflare Worker no responde.");
+
+        actualizarEstadoGitHub(false);
+
+    }
+
+}
+
+
+/* ==========================================
+   CONFIGURACIÓN PAGOS
+========================================== */
+
+const guardarConfigBtn =
+    document.getElementById("guardarConfigBtn");
+
+guardarConfigBtn?.addEventListener(
+    "click",
+    guardarConfiguracion
+);
+
+function obtenerConfiguracion(){
+
+    return{
+
+        whatsapp:
+            document.getElementById("configWhatsapp").value,
+
+        mercadoPago:
+            document.getElementById("configMP").value,
+
+        nu:{
+            titular:"Bryant Dylan León Durán",
+            cuenta:
+                document.getElementById("configNu").value
+        },
+
+        mifel:{
+            titular:"Bryant Dylan León Durán",
+            clabe:
+                document.getElementById("configMifel").value
+        }
+
+    };
+
+}
+
+function guardarConfiguracion(){
+
+    localStorage.setItem(
+        "tc_config",
+        JSON.stringify(obtenerConfiguracion())
+    );
+
+    toast("Configuración guardada.");
+
+}
+
+
+/* ==========================================
+   ESTADO DEL SISTEMA
+========================================== */
+
+const statusText =
+    document.getElementById("statusText");
+
+const githubStatus =
+    document.getElementById("githubStatus");
+
+function actualizarEstadoGitHub(ok){
+
+    if(statusText){
+
+        statusText.innerText = ok
+            ? "Conectado con GitHub Pages."
+            : "Sin conexión con GitHub.";
+
+    }
+
+    if(githubStatus){
+
+        githubStatus.innerText = ok
+            ? "ONLINE"
+            : "OFFLINE";
+
+    }
+
+}
+
+actualizarEstadoGitHub(true);
+
+
+/* ==========================================
+   BANNER PRINCIPAL
+========================================== */
+
+const actualizarBannerBtn =
+    document.getElementById("actualizarBannerBtn");
+
+actualizarBannerBtn?.addEventListener(
+    "click",
+    async()=>{
+
+        if(!bannerBase64){
+
+            toast("Selecciona un banner.");
+
+            return;
+
+        }
+
+        try{
+
+            const response = await fetch(
+                window.GITHUB.workerURL,
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+
+                    body:JSON.stringify({
+                        banner:bannerBase64
+                    })
+                }
+            );
+
+            const json = await response.json();
+
+            if(json.success){
+
+                toast("Banner actualizado.");
+
+            }else{
+
+                toast("Error al actualizar banner.");
+
+            }
+
+        }catch(error){
+
+            console.error(error);
+
+            toast("No se pudo conectar.");
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   SINCRONIZAR PROMOCIONES
+========================================== */
+
+async function sincronizarPromociones(){
+
+    try{
+
+        const response = await fetch(
+            "data/promociones.json?v="+Date.now()
+        );
+
+        const data = await response.json();
+
+        if(Array.isArray(data) && data.length){
+
+            promociones = data;
+
+            guardarPromocionesLocal();
+
+            renderPromociones();
+
+            actualizarEstadisticas();
+
+        }
+
+    }catch(error){
+
+        console.warn("Usando promociones locales.");
+
+    }
+
+}
+
+window.addEventListener(
+    "load",
+    sincronizarPromociones
+);
+
+
+/* ==========================================
+   VERIFICAR WORKER
+========================================== */
+
+async function verificarWorker(){
+
+    try{
+
+        const response = await fetch(
+            window.GITHUB.workerURL
+        );
+
+        if(response.ok){
+
+            actualizarEstadoGitHub(true);
+
+        }else{
+
+            actualizarEstadoGitHub(false);
+
+        }
+
+    }catch{
+
+        actualizarEstadoGitHub(false);
+
+    }
+
+}
+
+verificarWorker();
+

@@ -671,3 +671,37 @@ nav{
 }
 
 }
+
+
+/* ==========================================
+   UPLOAD MOBILE
+========================================== */
+
+@media(max-width:768px){
+
+.upload-content{
+
+    padding:28px 14px;
+
+}
+
+.upload-icon{
+
+    font-size:46px;
+
+}
+
+.banner-placeholder{
+
+    min-height:180px;
+
+}
+
+.preview-container img,
+.banner-preview img{
+
+    border-radius:18px;
+
+}
+
+}

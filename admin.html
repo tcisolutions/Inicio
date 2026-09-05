@@ -1,76 +1,66 @@
 <!DOCTYPE html>
 <html lang="es-MX">
 <head>
-<div class="system-status" id="systemStatus">
-
-    <span class="status-dot"></span>
-
-    <div>
-        <strong>Estado del sistema</strong>
-        <p id="statusText">Verificando conexión...</p>
-    </div>
-
-</div>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Panel Administrativo | Technical Center</title>
 
-<!-- Technical Center Icon Pack -->
-<link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="assets/logo/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/logo/apple-touch-icon.png">
-
+<link rel="icon" href="assets/logo/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
 
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/mobile.css">
 <link rel="stylesheet" href="css/admin.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 </head>
 
 <body class="admin-body">
 
 <div class="admin-bg"></div>
 
+<div class="system-status" id="systemStatus">
+
+    <span class="status-dot"></span>
+
+    <div>
+
+        <strong>Estado del sistema</strong>
+
+        <p id="statusText">Conectado con GitHub Pages.</p>
+
+    </div>
+
+</div>
+
 <!-- LOGIN -->
+
 <section id="loginScreen" class="login-screen">
 
     <div class="login-card">
 
         <img src="assets/logo/logo.png" class="login-logo">
 
-        <span class="login-tag">
-            PANEL PRIVADO
-        </span>
+        <span class="login-tag">PANEL PRIVADO</span>
 
         <h1>Technical Center Admin</h1>
 
         <p>
-            Acceso exclusivo para administrar promociones,
-            cuentas bancarias y configuración de Technical Center Pay.
+            Acceso exclusivo para administrar promociones y pagos.
         </p>
 
         <form id="loginForm">
 
             <label>Usuario</label>
 
-            <input
-                id="user"
-                type="text"
-                placeholder="BryantTC"
-                required
-            >
+            <input id="user" type="text" required>
 
             <label>Contraseña</label>
 
-            <input
-                id="pass"
-                type="password"
-                placeholder="********"
-                required
-            >
+            <input id="pass" type="password" required>
 
             <button class="login-btn" type="submit">
                 Ingresar al Panel
@@ -84,80 +74,96 @@
 
 </section>
 
-<!-- PANEL -->
+<!-- DASHBOARD -->
+
 <section id="dashboard" class="dashboard hidden">
 
 <header class="admin-header">
 
-    <div class="admin-brand">
+  <div class="admin-brand">
 
-        <img src="assets/logo/logo.png">
+      <img src="assets/logo/logo.png" class="brand-logo">
 
-        <div>
+      <div>
 
-            <h2>TECHNICAL CENTER</h2>
+          <h2>TECHNICAL CENTER</h2>
 
-            <span>Administrador de Promociones</span>
+          <span>Panel Administrativo V11 Enterprise</span>
 
-        </div>
+      </div>
 
-    </div>
+  </div>
 
-    <button id="logoutBtn" class="logout-btn">
-        Cerrar Sesión
-    </button>
+  <div class="header-actions">
+
+      <button id="syncGithubBtn" class="icon-btn">
+          ☁️ GitHub
+      </button>
+
+      <button id="logoutBtn" class="logout-btn">
+          Cerrar sesión
+      </button>
+
+  </div>
 
 </header>
 
-<!-- TARJETAS -->
+<!-- TARJETAS SUPERIORES -->
+
 <section class="stats-grid">
 
 <div class="stat-card blue">
-<h3>Promociones</h3>
-<h1 id="statPromos">0</h1>
-<span>Publicadas actualmente</span>
+
+    <h3>Promociones</h3>
+
+    <h1 id="statPromos">0</h1>
+
+    <span>Publicadas.</span>
+
 </div>
 
 <div class="stat-card green">
-<h3>WhatsApp</h3>
-<h1>443 192 2958</h1>
-<span>Número principal</span>
+
+    <h3>Banner</h3>
+
+    <h1 id="bannerStatus">1</h1>
+
+    <span>Activo.</span>
+
 </div>
 
 <div class="stat-card orange">
-<h3>Bancos</h3>
-<h1>3</h1>
-<span>NU, Mifel y Mercado Pago</span>
+
+    <h3>GitHub</h3>
+
+    <h1 id="githubStatus">ONLINE</h1>
+
+    <span>Cloudflare Worker.</span>
+
 </div>
 
 <div class="stat-card purple">
-<h3>Estado</h3>
-<h1>ONLINE</h1>
-<span>Landing activa</span>
+
+    <h3>Última publicación</h3>
+
+    <h1 id="ultimaPublicacion">--</h1>
+
+    <span>Sincronización.</span>
+
 </div>
 
 </section>
 
 <!-- NUEVA PROMOCIÓN -->
-<div class="editor-options">
-
-    <label>
-        <input type="checkbox" id="promoActiva" checked>
-        Promoción activa.
-    </label>
-
-    <label>
-        Color del botón.
-        <input type="color" id="promoColor" value="#009BFF">
-    </label>
-
-</div>
 
 <section class="panel-card">
 
 <div class="panel-title">
+
 <h2>Nueva Promoción</h2>
-<p>Publica promociones sin escribir código.</p>
+
+<p>Crea promociones sin escribir código.</p>
+
 </div>
 
 <div class="promo-form">
@@ -188,7 +194,10 @@
 
 <div class="double-input">
 
-
+<div class="input-group">
+<label>Descuento</label>
+<input id="descuentoPromo" placeholder="-25%">
+</div>
 
 <div class="input-group">
 <label>Categoría</label>
@@ -206,30 +215,64 @@
 
 </div>
 
+<div class="editor-options">
+
+<label>
+<input type="checkbox" id="promoActiva" checked>
+Promoción activa
+</label>
+
+<label>
+
+Color del botón
+
+<input type="color" id="promoColor" value="#009BFF">
+
+</label>
+
+</div>
+
+<!-- IMAGEN -->
+
 <div class="input-group">
 
 <label>Imagen de la promoción</label>
 
-<input id="imagenPromo" type="file" accept="image/*">
+<input id="imagenInput" type="file" accept="image/*">
 
 </div>
 
 <div id="previewContainer" class="preview-image"></div>
 
 <button id="guardarPromo" class="primary-btn">
-Publicar Promoción
+📢 Publicar Promoción
 </button>
 
 <button id="publicarGitHubBtn" class="primary-btn secondary-btn">
-    ☁️ Publicar cambios en la página
+☁️ Publicar cambios en la página
 </button>
 
-<!-- VISTA PREVIA EN TIEMPO REAL -->
-<div class="live-preview">
+</div>
 
-    <h3>Vista previa de la promoción</h3>
+</section>
 
-    <div id="promoPreviewCard" class="preview-card"></div>
+<!-- VISTA PREVIA -->
+
+<section class="panel-card">
+
+<div class="panel-title">
+
+<h2>Vista previa</h2>
+
+<p>Así verá el cliente la promoción.</p>
+
+</div>
+
+<div id="promoPreviewCard" class="preview-card">
+
+<div class="preview-empty">
+
+Completa los datos para ver la promoción.
 
 </div>
 
@@ -237,34 +280,38 @@ Publicar Promoción
 
 </section>
 
-<!-- PROMOCIONES -->
+<!-- PROMOCIONES PUBLICADAS -->
+
 <section class="panel-card">
 
 <div class="panel-title">
+
 <h2>Promociones Publicadas</h2>
+
 <p>Edita o elimina promociones.</p>
-</div>
-
-<div id="listaPromociones" class="admin-promos">
-
-<!-- Se cargan automáticamente -->
 
 </div>
+
+<div id="listaPromociones" class="admin-promos"></div>
 
 </section>
 
-<!-- CONFIGURACIÓN PAGOS -->
+<!-- CONFIGURACIÓN DE PAGOS -->
+
 <section class="panel-card">
 
 <div class="panel-title">
+
 <h2>Configuración de Pagos</h2>
-<p>Actualiza cuentas y enlaces.</p>
+
+<p>Actualiza tus cuentas bancarias.</p>
+
 </div>
 
 <div class="config-grid">
 
 <div class="input-group">
-<label>Número WhatsApp</label>
+<label>WhatsApp</label>
 <input id="configWhatsapp" value="4431922958">
 </div>
 
@@ -274,7 +321,7 @@ Publicar Promoción
 </div>
 
 <div class="input-group">
-<label>CLABE Banco Mifel</label>
+<label>CLABE Mifel</label>
 <input id="configMifel" value="042180010088161897">
 </div>
 
@@ -285,30 +332,29 @@ Publicar Promoción
 
 </div>
 
-<div class="input-group">
-<label>QR Oficial</label>
-<input id="qrInput" type="file" accept="image/*">
-</div>
-
 <button id="guardarConfigBtn" class="primary-btn">
-    Guardar Configuración
+Guardar Configuración
 </button>
 
 </section>
 
 <!-- BANNER -->
+
 <section class="panel-card">
 
 <div class="panel-title">
+
 <h2>Banner Principal</h2>
-<p>Cambia la imagen principal de la Landing.</p>
+
+<p>Cambia el banner principal.</p>
+
 </div>
 
 <input id="bannerInput" type="file" accept="image/*">
 
 <div id="bannerPreview" class="banner-preview"></div>
 
-<button class="primary-btn">
+<button id="actualizarBannerBtn" class="primary-btn">
 Actualizar Banner
 </button>
 
@@ -318,9 +364,7 @@ Actualizar Banner
 
 <img src="assets/logo/logo.png">
 
-<p>
-Technical Center Pay — Panel Administrativo 2026
-</p>
+<p>Technical Center Pay — Panel Administrativo 2026</p>
 
 </footer>
 
@@ -330,8 +374,8 @@ Technical Center Pay — Panel Administrativo 2026
 <script src="js/admin.js"></script>
 
 <script>
-if('serviceWorker' in navigator){
-   navigator.serviceWorker.register('sw.js');
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js");
 }
 </script>
 
