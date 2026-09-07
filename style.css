@@ -882,3 +882,98 @@ footer p{
     }
 
 }
+
+/* ==========================================================
+   ICONOS PROFESIONALES DE SERVICIOS
+   ========================================================== */
+
+.service{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:24px;
+    padding:28px 16px;
+    text-align:center;
+    transition:.35s ease;
+    backdrop-filter:blur(20px);
+}
+
+.service:hover{
+    transform:translateY(-8px);
+    border-color:#0A84FF;
+    box-shadow:0 15px 35px rgba(10,132,255,.20);
+}
+
+.service-icon{
+    width:64px;
+    height:64px;
+    object-fit:contain;
+    margin-bottom:16px;
+    filter:drop-shadow(0 0 12px rgba(10,132,255,.25));
+    transition:.3s ease;
+}
+
+.service:hover .service-icon{
+    transform:scale(1.08);
+}
+
+.service h4{
+    color:#FFFFFF;
+    font-size:.9rem;
+    font-weight:600;
+    margin-top:8px;
+}
+
+/* ===========================================
+   SERVICIOS PREMIUM TECHNICAL CENTER
+=========================================== */
+
+.services{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:22px;
+}
+
+.service{
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:28px;
+    padding:28px 24px;
+    text-align:center;
+    transition:.35s ease;
+    box-shadow:0 20px 40px rgba(0,0,0,.30);
+}
+
+.service:hover{
+    transform:translateY(-8px);
+    border-color:#0A84FF;
+    box-shadow:0 25px 60px rgba(10,132,255,.22);
+}
+
+.service-icon{
+    width:88px;
+    height:88px;
+    object-fit:contain;
+    margin:0 auto 18px;
+    display:block;
+    filter:drop-shadow(0 0 15px rgba(10,132,255,.45));
+}
+
+.service h4{
+    color:#FFFFFF;
+    font-size:1.15rem;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.service p{
+    color:#CBD5E1;
+    font-size:.92rem;
+    line-height:1.6;
+}
+
+@media (min-width:768px){
+    .services{
+        grid-template-columns:repeat(3,1fr);
+    }
+}

@@ -105,7 +105,7 @@ if(dia >= 1 && dia <= 5){
 
 }else if(dia === 6){
 
-    abierto = horaActual >= 10 && horaActual < 17;
+    abierto = horaActual >= 10 && horaActual < 14;
 
 }
 
