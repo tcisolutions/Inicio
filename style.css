@@ -1,0 +1,4 @@
+body{margin:0;font-family:Inter,Arial;background:#020617;color:#fff}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px;text-align:center;background:linear-gradient(#0A84FF33,#020617)}
+.logo{width:180px;border-radius:24px}
+.btn{display:inline-block;background:#0A84FF;color:#fff;padding:16px 24px;border-radius:18px;text-decoration:none;margin-top:20px}
