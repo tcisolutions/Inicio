@@ -1,0 +1,287 @@
+
+/* ==========================================================
+   TECHNICAL CENTER MORELIA
+   APPLE PREMIUM EFFECTS V1
+   ========================================================== */
+
+/* ---------- EFECTO CRISTAL PREMIUM ---------- */
+
+.wallet,
+.card,
+.contact-card,
+.review,
+.receipt{
+    position:relative;
+    overflow:hidden;
+}
+
+.wallet::after,
+.card::after,
+.contact-card::after,
+.review::after,
+.receipt::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    pointer-events:none;
+    background:linear-gradient(
+        135deg,
+        rgba(255,255,255,.20),
+        rgba(255,255,255,0) 40%
+    );
+}
+
+/* ---------- REFLEJO APPLE ---------- */
+
+.wallet::before{
+    animation:shine 8s infinite linear;
+}
+
+/* ---------- BRILLO BOTONES ---------- */
+
+.btn-primary,
+.btn-white,
+.btn-whatsapp{
+    position:relative;
+    overflow:hidden;
+}
+
+.btn-primary::before,
+.btn-white::before,
+.btn-whatsapp::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    transform:translateX(-120%);
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,.35),
+        transparent
+    );
+}
+
+.btn-primary:hover::before,
+.btn-white:hover::before,
+.btn-whatsapp:hover::before{
+    animation:buttonShine .9s linear;
+}
+
+/* ---------- HOVER TARJETAS ---------- */
+
+.wallet:hover,
+.card:hover,
+.service:hover{
+    transform:translateY(-8px) scale(1.02);
+    transition:.35s ease;
+}
+
+/* ---------- FONDO CON MOVIMIENTO ---------- */
+
+.background{
+    animation:bgMove 18s ease-in-out infinite alternate;
+}
+
+.background::before{
+    animation:blob1 20s infinite alternate ease-in-out;
+}
+
+.background::after{
+    animation:blob2 18s infinite alternate ease-in-out;
+}
+
+/* ---------- LOGO RESPIRANDO ---------- */
+
+.logo{
+    animation:
+      floatLogo 5s ease-in-out infinite,
+      glowLogo 4s ease-in-out infinite;
+}
+
+/* ---------- BOTÓN FLOTANTE ---------- */
+
+.floating-whatsapp:hover{
+    transform:scale(1.12);
+}
+
+/* ---------- TARJETAS SERVICIOS ---------- */
+
+.service{
+    cursor:pointer;
+}
+
+.service:hover{
+    background:rgba(10,132,255,.12);
+}
+
+/* ---------- SCROLL INDICATOR ---------- */
+
+body::before{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    height:3px;
+    width:0%;
+    background:linear-gradient(90deg,#22D3EE,#0A84FF);
+    z-index:99999;
+    animation:scrollBar linear forwards;
+    animation-timeline:scroll();
+}
+
+/* ---------- SOMBRAS PREMIUM ---------- */
+
+.wallet.nu{
+    box-shadow:0 25px 60px rgba(126,34,206,.35);
+}
+
+.wallet.mifel{
+    box-shadow:0 25px 60px rgba(0,122,255,.30);
+}
+
+.wallet.mercado{
+    box-shadow:0 25px 60px rgba(0,174,239,.28);
+}
+
+/* ---------- ANIMACIÓN ENTRADA HERO ---------- */
+
+.hero h1{
+    animation:fadeUp .9s ease forwards;
+}
+
+.subtitle{
+    opacity:0;
+    animation:fadeUp 1.2s ease forwards;
+    animation-delay:.3s;
+}
+
+.chip{
+    opacity:0;
+    animation:fadeUp 1s ease forwards;
+    animation-delay:.15s;
+}
+
+/* ---------- TÍTULOS ---------- */
+
+.section h2{
+    position:relative;
+    padding-bottom:12px;
+}
+
+.section h2::after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:0;
+
+    width:70px;
+    height:4px;
+
+    border-radius:20px;
+
+    background:linear-gradient(90deg,#22D3EE,#0A84FF);
+}
+
+/* ---------- EFECTO PULSO GOOGLE ---------- */
+
+.stars{
+    animation:pulseGold 2.5s infinite;
+}
+
+/* ---------- TABLA HORARIOS ---------- */
+
+table tr:hover td{
+    color:white;
+}
+
+/* ---------- FOOTER ---------- */
+
+footer{
+    position:relative;
+}
+
+footer::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:140px;
+    height:2px;
+    background:linear-gradient(90deg,#22D3EE,#0A84FF);
+}
+
+/* ==========================================================
+   KEYFRAMES
+   ========================================================== */
+
+@keyframes shine{
+    0%{transform:translateX(-140%)}
+    100%{transform:translateX(140%)}
+}
+
+@keyframes buttonShine{
+    from{transform:translateX(-120%)}
+    to{transform:translateX(120%)}
+}
+
+@keyframes bgMove{
+    0%{transform:scale(1)}
+    100%{transform:scale(1.08)}
+}
+
+@keyframes blob1{
+    0%{transform:translate(0,0)}
+    100%{transform:translate(80px,60px)}
+}
+
+@keyframes blob2{
+    0%{transform:translate(0,0)}
+    100%{transform:translate(-70px,-50px)}
+}
+
+@keyframes glowLogo{
+    0%,100%{
+        filter:
+        drop-shadow(0 0 18px rgba(34,211,238,.25))
+        drop-shadow(0 0 30px rgba(10,132,255,.35));
+    }
+    50%{
+        filter:
+        drop-shadow(0 0 28px rgba(34,211,238,.45))
+        drop-shadow(0 0 50px rgba(10,132,255,.55));
+    }
+}
+
+@keyframes pulseGold{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.08);
+    }
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+/* ---------- IPHONE SAFE AREA ---------- */
+
+@supports(padding:max(0px)){
+    body{
+        padding-bottom:max(0px,env(safe-area-inset-bottom));
+    }
+
+    .floating-whatsapp{
+        bottom:calc(22px + env(safe-area-inset-bottom));
+    }
+}

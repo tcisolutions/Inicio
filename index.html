@@ -1,18 +1,335 @@
 <!DOCTYPE html>
-<html lang='es-MX'>
+<html lang="es-MX">
 <head>
-<meta charset='UTF-8'>
-<meta name='viewport' content='width=device-width,initial-scale=1'>
-<title>Technical Center Morelia</title>
-<link rel='stylesheet' href='style.css'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <title>Technical Center Morelia</title>
+
+  <meta name="theme-color" content="#005BFF">
+  <meta name="description" content="Especialistas en reparación Apple, Android y Microsoldadura en Morelia.">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="extras.css">
 </head>
+
 <body>
-<div class='hero'>
-  <img src='assets/logo.png' class='logo' alt='Technical Center Morelia'>
-  <h1>Technical Center Morelia</h1>
-  <p>Especialistas en reparación Apple, Android y Microsoldadura.</p>
-  <a class='btn' href='https://wa.me/524431922958'>Enviar comprobante por WhatsApp</a>
+
+<div class="background"></div>
+
+<!-- Splash -->
+<div id="splashScreen">
+  <img src="assets/logo.png" alt="Technical Center Morelia">
+  <div class="loader"><div class="loader-bar"></div></div>
+  <p>Cargando experiencia...</p>
 </div>
-<script src='script.js'></script>
+
+<!-- HERO -->
+<header class="hero">
+
+  <img src="assets/logo.png" alt="Technical Center Morelia" class="logo">
+
+  <span class="chip">📍 Morelia, Michoacán</span>
+
+  <h1>Technical Center Morelia</h1>
+
+  <p class="subtitle">
+    Especialistas en reparación Apple, Android y Microsoldadura.
+  </p>
+
+  <div id="estadoTienda" class="store-status"></div>
+
+  <a href="#pagos" class="btn-primary">
+    💳 Ver métodos de pago
+  </a>
+
+</header>
+
+<!-- MÉTODOS DE PAGO -->
+<section class="section" id="pagos">
+
+  <h2>Métodos de Pago</h2>
+
+  <article class="wallet nu">
+    <div class="wallet-header">
+      🟣 <span>Banco NU</span>
+    </div>
+
+    <small>Titular</small>
+    <h3>Bryant Dylan León Durán</h3>
+
+    <small>Cuenta</small>
+
+    <div class="account" id="nuCuenta">
+      638180010196712539
+    </div>
+
+    <button class="copy-btn" data-copy="nuCuenta">
+      Copiar cuenta NU
+    </button>
+  </article>
+
+  <article class="wallet mifel">
+    <div class="wallet-header">
+      🔵 <span>Banco MIFEL</span>
+    </div>
+
+    <small>Titular</small>
+    <h3>Bryant Dylan León Durán</h3>
+
+    <small>CLABE</small>
+
+    <div class="account" id="mifelCuenta">
+      042180010088161897
+    </div>
+
+    <button class="copy-btn" data-copy="mifelCuenta">
+      Copiar CLABE
+    </button>
+  </article>
+
+  <article class="wallet mercado">
+    <div class="wallet-header">
+      💙 <span>Mercado Pago</span>
+    </div>
+
+    <small>Titular</small>
+    <h3>Bryant Dylan León Durán</h3>
+
+    <small>Cuenta</small>
+
+    <div class="account">
+      722969010599155778
+    </div>
+
+    <a href="https://link.mercadopago.com.mx/technicalcenter"
+       target="_blank"
+       class="btn-white">
+
+      Abrir Mercado Pago
+
+    </a>
+  </article>
+
+</section>
+
+<!-- WHATSAPP -->
+<section class="section">
+
+  <article class="receipt">
+
+    <div class="receipt-icon">📲</div>
+
+    <h2>¿Ya realizaste tu transferencia?</h2>
+
+    <p>
+      Envíanos tu comprobante y confirmaremos tu reparación.
+    </p>
+
+    <a id="whatsappPago"
+       target="_blank"
+       class="btn-whatsapp">
+
+      Enviar comprobante por WhatsApp
+
+    </a>
+
+  </article>
+
+</section>
+
+<!-- GOOGLE REVIEWS -->
+<section class="section">
+
+  <article class="review">
+
+    <div class="stars">★★★★★</div>
+
+    <h2>Déjanos una reseña</h2>
+
+    <p>
+      Obtén un descuento en tu siguiente reparación al calificarnos en Google.
+    </p>
+
+    <a target="_blank"
+       href="https://search.google.com/local/writereview?placeid=ChIJB_FjlZwPLYQRVhZtGAcf1yY"
+       class="btn-white">
+
+      Calificarnos en Google
+
+    </a>
+
+  </article>
+
+</section>
+
+<!-- SERVICIOS -->
+<section class="section">
+
+  <h2>Servicios</h2>
+
+  <div class="services">
+
+    <article class="service">
+      <span>🍎</span>
+      <h4>Reparación Apple</h4>
+    </article>
+
+    <article class="service">
+      <span>🤖</span>
+      <h4>Reparación Android</h4>
+    </article>
+
+    <article class="service">
+      <span>🔬</span>
+      <h4>Microsoldadura</h4>
+    </article>
+
+  </div>
+
+</section>
+
+<!-- HORARIOS -->
+<section class="section">
+
+  <h2>Horario</h2>
+
+  <article class="card">
+
+    <table>
+      <tr><td>Lunes</td><td>10:00 AM – 7:00 PM</td></tr>
+      <tr><td>Martes</td><td>10:00 AM – 7:00 PM</td></tr>
+      <tr><td>Miércoles</td><td>10:00 AM – 7:00 PM</td></tr>
+      <tr><td>Jueves</td><td>10:00 AM – 7:00 PM</td></tr>
+      <tr><td>Viernes</td><td>10:00 AM – 7:00 PM</td></tr>
+      <tr><td>Sábado</td><td>10:00 AM – 5:00 PM</td></tr>
+      <tr><td>Domingo</td><td>Cerrado</td></tr>
+    </table>
+
+    <div id="mensajeHorario" class="status-box"></div>
+
+  </article>
+
+</section>
+
+<!-- UBICACIÓN -->
+<section class="section">
+
+  <h2>Ubicación</h2>
+
+  <article class="card">
+
+    <h3>Technical Center Morelia</h3>
+
+    <p>Calle Atmosférica 147</p>
+    <p>Col. Eduardo Ruíz</p>
+    <p>Morelia, Michoacán.</p>
+
+    <a class="btn-primary"
+       target="_blank"
+       href="https://maps.app.goo.gl/wYafe5Nq5tD3ekKBA?g_st=ic">
+
+      📍 Cómo llegar
+
+    </a>
+
+  </article>
+
+</section>
+
+<!-- REDES -->
+<section class="section">
+
+  <h2>Síguenos</h2>
+
+  <div class="socials">
+
+    <a class="instagram"
+       target="_blank"
+       href="https://www.instagram.com/especialistas_en_iphone?stkn=dDg3d3AzcmxpcXBw&utm_source=qr">
+       Instagram
+    </a>
+
+    <a class="facebook"
+       target="_blank"
+       href="https://www.facebook.com/share/18CXeHVo5p/?mibextid=wwXIfr">
+       Facebook
+    </a>
+
+    <a class="tiktok"
+       target="_blank"
+       href="https://www.tiktok.com/@tcisolutions?_r=1&_t=ZS-99VDj36Hs4A">
+       TikTok
+    </a>
+
+  </div>
+
+</section>
+
+<!-- CONTACTO -->
+<section class="section">
+
+  <article class="contact-card">
+
+    <h2>Contáctanos</h2>
+
+    <a href="tel:+524431922958" class="btn-primary">
+      📞 Llamar 443 192 2958
+    </a>
+
+    <a href="assets/Technical%20Center%20Morelia.vcf"
+       download
+       class="btn-white">
+
+      📇 Guardar contacto
+
+    </a>
+
+  </article>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+  <img src="assets/logo.png"
+       class="footer-logo"
+       alt="Technical Center Morelia">
+
+  <h3>Technical Center Morelia</h3>
+
+  <p>Especialistas en reparación Apple • Android • Microsoldadura.</p>
+
+  <p>📞 443 192 2958</p>
+
+  <p>Calle Atmosférica 147, Col. Eduardo Ruíz, Morelia, Michoacán.</p>
+
+</footer>
+
+<!-- WhatsApp flotante -->
+<a id="floatingWhatsApp"
+   class="floating-whatsapp"
+   target="_blank">💬</a>
+
+<div id="toast"></div>
+
+<script src="script.js"></script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
+</script>
+
 </body>
 </html>

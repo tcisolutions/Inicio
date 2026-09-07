@@ -1,5 +1,16 @@
 BEGIN:VCARD
 VERSION:3.0
+N:Technical Center Morelia;;;;
 FN:Technical Center Morelia
-TEL:+524431922958
+ORG:Technical Center Morelia
+TITLE:Especialistas en Reparación Apple, Android y Microsoldadura
+TEL;TYPE=CELL,VOICE:+52 443 192 2958
+TEL;TYPE=WORK:+52 443 192 2958
+ADR;TYPE=WORK:;;Calle Atmosférica 147;Morelia;Michoacán;;México
+URL:https://maps.app.goo.gl/wYafe5Nq5tD3ekKBA?g_st=ic
+URL:https://search.google.com/local/writereview?placeid=ChIJB_FjlZwPLYQRVhZtGAcf1yY
+URL:https://www.facebook.com/share/18CXeHVo5p/?mibextid=wwXIfr
+URL:https://www.instagram.com/especialistas_en_iphone?stkn=dDg3d3AzcmxpcXBw&utm_source=qr
+URL:https://www.tiktok.com/@tcisolutions?_r=1&_t=ZS-99VDj36Hs4A
+NOTE:WhatsApp 443 192 2958 | Reparación Apple • Android • Microsoldadura | Métodos de pago: NU, MIFEL y Mercado Pago.
 END:VCARD
