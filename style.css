@@ -980,24 +980,22 @@ footer p{
 
 
 
-/* ==========================================================
-   CARRUSEL PREMIUM TECHNICAL CENTER - MOBILE FIX
-========================================================== */
+/* ===== BANNERS DEL CARRUSEL ===== */
 
 .promo-carousel{
     width:100%;
-    margin:20px 0 28px;
+    margin:24px 0;
     overflow:hidden;
 }
 
 .promo-track{
     display:flex;
-    gap:12px;
     overflow-x:auto;
+    gap:14px;
     scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
     scroll-behavior:smooth;
-    padding-bottom:6px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
 }
 
 .promo-track::-webkit-scrollbar{
@@ -1005,20 +1003,20 @@ footer p{
 }
 
 .promo-slide{
-    min-width:100%;
     flex:0 0 100%;
-    scroll-snap-align:start;
-    border-radius:22px;
+    scroll-snap-align:center;
     overflow:hidden;
-    background:#000;
+    border-radius:24px;
+    background:#020617;
 }
 
 .promo-slide img{
-    width:100%;
     display:block;
-    aspect-ratio:16/9;
+    width:100%;
+    height:auto;
+    aspect-ratio:16 / 9;
     object-fit:cover;
-    border-radius:22px;
+    border-radius:24px;
 }
 
 /* Indicadores */

@@ -370,56 +370,61 @@ setTimeout(()=>{
 
 
 
-// ==========================================================
-// CARRUSEL TECHNICAL CENTER (CORREGIDO CELULAR)
-// ==========================================================
+// =====================================================
+// CARRUSEL DE PROMOCIONES (VERSIÓN ESTABLE)
+// =====================================================
 
 const track = document.getElementById("promoTrack");
 const dots = document.querySelectorAll(".promo-dots .dot");
 
-let current = 0;
+if(track){
 
-function slideWidth(){
-    return track.querySelector(".promo-slide").clientWidth + 12;
-}
+    let current = 0;
 
-function goSlide(index){
+    function moverCarrusel(indice){
 
-    current = index;
+        const slide = track.querySelector(".promo-slide");
 
-    track.scrollTo({
-        left: slideWidth() * index,
-        behavior:"smooth"
-    });
+        if(!slide) return;
 
-    dots.forEach((dot,i)=>{
-        dot.classList.toggle("active", i===index);
-    });
+        current = indice;
 
-}
+        track.scrollTo({
+            left: slide.offsetWidth * indice,
+            behavior: "smooth"
+        });
 
-setInterval(()=>{
+        dots.forEach((dot,i)=>{
+            dot.classList.toggle("active", i===indice);
+        });
 
-    current++;
-
-    if(current>=dots.length){
-        current=0;
     }
 
-    goSlide(current);
+    setInterval(()=>{
 
-},4000);
+        current++;
 
-// Detectar swipe en celular
+        if(current >= dots.length){
+            current = 0;
+        }
 
-track.addEventListener("scroll",()=>{
+        moverCarrusel(current);
 
-    const index = Math.round(track.scrollLeft / slideWidth());
+    },5000);
 
-    dots.forEach((dot,i)=>{
-        dot.classList.toggle("active", i===index);
+    track.addEventListener("scroll",()=>{
+
+        const slide = track.querySelector(".promo-slide");
+        if(!slide) return;
+
+        const indice = Math.round(track.scrollLeft / slide.offsetWidth);
+
+        dots.forEach((dot,i)=>{
+            dot.classList.toggle("active", i===indice);
+        });
+
+        current = indice;
+
     });
 
-    current=index;
-
-});
+}
