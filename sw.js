@@ -1,15 +1,14 @@
+
 // ==========================================================
 // TECHNICAL CENTER MORELIA
-// SERVICE WORKER V1.0
+// SERVICE WORKER V2.0 (GitHub Pages Fix)
 // ==========================================================
 
-const CACHE_NAME = "technical-center-morelia-v1";
+const CACHE_NAME = "technical-center-morelia-v2.0.0";
 
-const ARCHIVOS = [
+// Archivos que sí queremos guardar en caché
+const STATIC_ASSETS = [
   "./",
-  "./index.html",
-  "./style.css",
-  "./script.js",
   "./manifest.json",
 
   "./assets/logo.png",
@@ -18,80 +17,118 @@ const ARCHIVOS = [
   "./assets/icon-192.png",
   "./assets/icon-512.png",
   "./assets/hero-bg.webp",
-  "./assets/Technical Center Morelia.vcf"
+  "./assets/Technical Center Morelia.vcf",
+
+  "./assets/icons/apple.png",
+  "./assets/icons/android.png",
+  "./assets/icons/microsoldadura.png",
+
+  "./assets/banners/bateria.png",
+  "./assets/banners/pantalla.png",
+  "./assets/banners/microsoldadura.png",
+  "./assets/banners/resena-google.png",
+  "./assets/banners/promo-agosto.png"
 ];
 
-// ----------------------------
+// ============================
 // INSTALACIÓN
-// ----------------------------
+// ============================
 
 self.addEventListener("install", (event) => {
 
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ARCHIVOS);
-    })
-  );
-
   self.skipWaiting();
+
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
+  );
 
 });
 
-// ----------------------------
+// ============================
 // ACTIVACIÓN
-// ----------------------------
+// ============================
 
 self.addEventListener("activate", (event) => {
 
   event.waitUntil(
+
     caches.keys().then((keys) =>
+
       Promise.all(
+
         keys.map((key) => {
+
           if (key !== CACHE_NAME) {
             return caches.delete(key);
           }
+
         })
+
       )
+
     )
+
   );
 
   self.clients.claim();
 
 });
 
-// ----------------------------
+// ============================
 // FETCH
-// ----------------------------
+// ============================
 
 self.addEventListener("fetch", (event) => {
 
-  event.respondWith(
+  const request = event.request;
 
-    caches.match(event.request).then((response) => {
+  // HTML, CSS y JS SIEMPRE desde internet primero
+  if (
+    request.destination === "document" ||
+    request.destination === "script" ||
+    request.destination === "style"
+  ) {
 
-      if (response) {
-        return response;
-      }
+    event.respondWith(
 
-      return fetch(event.request)
-        .then((networkResponse) => {
+      fetch(request)
+        .then((response) => {
 
-          const responseClone = networkResponse.clone();
+          const clone = response.clone();
 
           caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
+            cache.put(request, clone);
           });
 
-          return networkResponse;
+          return response;
 
         })
-        .catch(() => {
+        .catch(() => caches.match(request))
 
-          if (event.request.mode === "navigate") {
-            return caches.match("./index.html");
-          }
+    );
 
+    return;
+
+  }
+
+  // Imágenes y recursos estáticos: caché primero
+  event.respondWith(
+
+    caches.match(request).then((cached) => {
+
+      if (cached) return cached;
+
+      return fetch(request).then((response) => {
+
+        const clone = response.clone();
+
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(request, clone);
         });
+
+        return response;
+
+      });
 
     })
 
