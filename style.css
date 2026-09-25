@@ -979,150 +979,25 @@ footer p{
 }
 
 
-/* ==========================================================
-   CARRUSEL DE PROMOCIONES - TECHNICAL CENTER
-   ========================================================== */
-
-.promo-carousel{
-    margin:28px 0 34px;
-}
-
-.promo-track{
-    display:flex;
-    overflow-x:auto;
-    scroll-snap-type:x mandatory;
-    scroll-behavior:smooth;
-    gap:18px;
-
-    scrollbar-width:none;
-}
-
-.promo-track::-webkit-scrollbar{
-    display:none;
-}
-
-.promo-slide{
-    flex: 0 0 92%;
-    padding-left: 4%;
-padding-right: 4%;
-    scroll-snap-align:center;
-
-    border-radius:30px;
-
-    padding:28px;
-
-    color:white;
-
-    min-height:230px;
-
-    position:relative;
-
-    overflow:hidden;
-
-    box-shadow:0 20px 50px rgba(0,0,0,.35);
-}
-
-.promo-slide::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
-        120deg,
-        transparent,
-        rgba(255,255,255,.14),
-        transparent
-    );
-    transform:translateX(-120%);
-    animation:shinePromo 6s infinite;
-}
-
-.promo-blue{
-    background:linear-gradient(135deg,#005BFF,#0EA5E9);
-}
-
-.promo-dark{
-    background:linear-gradient(135deg,#020617,#1E40AF);
-}
-
-.promo-gold{
-    background:linear-gradient(135deg,#A16207,#F59E0B);
-}
-
-.promo-badge{
-    display:inline-block;
-    padding:8px 14px;
-    border-radius:999px;
-    background:rgba(255,255,255,.18);
-
-    font-size:.72rem;
-    font-weight:700;
-    letter-spacing:.08rem;
-}
-
-.promo-slide h3{
-    margin-top:18px;
-    font-size:1.6rem;
-    line-height:1.2;
-}
-
-.promo-slide p{
-    margin-top:14px;
-    line-height:1.7;
-    color:#E5F3FF;
-}
-
-.promo-slide small{
-    display:block;
-    margin-top:18px;
-    color:#DDEBFF;
-    line-height:1.5;
-}
-
-.promo-dots{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin-top:18px;
-}
-
-.dot{
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    background:#475569;
-    transition:.3s;
-}
-
-.dot.active{
-    width:28px;
-    border-radius:20px;
-    background:#0A84FF;
-}
-
-@keyframes shinePromo{
-    0%{transform:translateX(-120%)}
-    100%{transform:translateX(120%)}
-}
-
 
 /* ==========================================================
-   CARRUSEL PREMIUM TECHNICAL CENTER (RESPONSIVE APPLE STYLE)
+   CARRUSEL PREMIUM TECHNICAL CENTER - MOBILE FIX
 ========================================================== */
 
 .promo-carousel{
     width:100%;
-    margin:24px 0 30px;
+    margin:20px 0 28px;
     overflow:hidden;
 }
 
 .promo-track{
     display:flex;
-    gap:14px;
+    gap:12px;
     overflow-x:auto;
     scroll-snap-type:x mandatory;
-    scroll-behavior:smooth;
-    scrollbar-width:none;
     -webkit-overflow-scrolling:touch;
+    scroll-behavior:smooth;
+    padding-bottom:6px;
 }
 
 .promo-track::-webkit-scrollbar{
@@ -1130,77 +1005,55 @@ padding-right: 4%;
 }
 
 .promo-slide{
+    min-width:100%;
     flex:0 0 100%;
-    scroll-snap-align:center;
-    border-radius:26px;
+    scroll-snap-align:start;
+    border-radius:22px;
     overflow:hidden;
     background:#000;
-    box-shadow:0 18px 45px rgba(0,0,0,.35);
 }
 
 .promo-slide img{
     width:100%;
-    height:auto;
+    display:block;
     aspect-ratio:16/9;
     object-fit:cover;
-    display:block;
-    border-radius:26px;
+    border-radius:22px;
 }
 
-/* Puntitos */
+/* Indicadores */
+
 .promo-dots{
     display:flex;
     justify-content:center;
     gap:8px;
-    margin-top:16px;
+    margin-top:15px;
 }
 
 .dot{
     width:8px;
     height:8px;
     border-radius:50%;
-    background:#475569;
-    transition:.3s;
+    background:#64748B;
 }
 
 .dot.active{
-    width:24px;
+    width:22px;
     border-radius:20px;
     background:#0A84FF;
 }
 
-/* ========= CELULAR ========= */
+/* Celular */
 
 @media (max-width:768px){
 
     .promo-carousel{
-        margin:18px 0 24px;
-    }
-
-    .promo-track{
-        gap:10px;
+        margin:18px 0;
     }
 
     .promo-slide{
-        border-radius:18px;
-    }
-
-    .promo-slide img{
-        aspect-ratio:16/9;
-        width:100%;
-        height:auto;
-        border-radius:18px;
-    }
-
-}
-
-/* ========= ESCRITORIO ========= */
-
-@media (min-width:769px){
-
-    .promo-carousel{
-        max-width:980px;
-        margin:30px auto;
+        min-width:92%;
+        flex:0 0 92%;
     }
 
 }

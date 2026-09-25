@@ -369,43 +369,57 @@ setTimeout(()=>{
 // =========================================================
 
 
+
 // ==========================================================
-// CARRUSEL AUTOMÁTICO DE PROMOCIONES
+// CARRUSEL TECHNICAL CENTER (CORREGIDO CELULAR)
 // ==========================================================
 
-const promoTrack = document.getElementById("promoTrack");
-const promoDots = document.querySelectorAll(".promo-dots .dot");
+const track = document.getElementById("promoTrack");
+const dots = document.querySelectorAll(".promo-dots .dot");
 
-let promoActual = 0;
+let current = 0;
 
-function moverCarrusel(){
+function slideWidth(){
+    return track.querySelector(".promo-slide").clientWidth + 12;
+}
 
-    promoActual = (promoActual + 1) % promoDots.length;
+function goSlide(index){
 
-    promoTrack.scrollTo({
-        left: promoActual * promoTrack.offsetWidth,
-        behavior: "smooth"
+    current = index;
+
+    track.scrollTo({
+        left: slideWidth() * index,
+        behavior:"smooth"
     });
 
-    promoDots.forEach((dot,index)=>{
-        dot.classList.toggle("active", index === promoActual);
+    dots.forEach((dot,i)=>{
+        dot.classList.toggle("active", i===index);
     });
 
 }
 
-setInterval(moverCarrusel, 4500);
+setInterval(()=>{
 
-// Cambiar indicadores cuando el usuario deslice
-promoTrack.addEventListener("scroll", ()=>{
+    current++;
 
-    const index = Math.round(
-        promoTrack.scrollLeft / promoTrack.offsetWidth
-    );
+    if(current>=dots.length){
+        current=0;
+    }
 
-    promoDots.forEach((dot,i)=>{
-        dot.classList.toggle("active", i === index);
+    goSlide(current);
+
+},4000);
+
+// Detectar swipe en celular
+
+track.addEventListener("scroll",()=>{
+
+    const index = Math.round(track.scrollLeft / slideWidth());
+
+    dots.forEach((dot,i)=>{
+        dot.classList.toggle("active", i===index);
     });
 
-    promoActual = index;
+    current=index;
 
 });
