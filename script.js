@@ -109,23 +109,26 @@ if(dia >= 1 && dia <= 5){
 
 }
 
-if(abierto){
+if (abierto){
 
-    estado.innerHTML = "🟢 Abierto hoy hasta las 7:00 PM";
+    if (dia === 6) {
+        estado.innerHTML = "🟢 Abierto hoy hasta las 2:00 PM";
+    } else {
+        estado.innerHTML = "🟢 Abierto hoy hasta las 7:00 PM";
+    }
 
     horario.innerHTML =
     "🟢 Estamos abiertos en este momento. ¡Te esperamos!";
 
-}else{
+} else {
 
     estado.classList.add("closed");
-
     estado.innerHTML = "🔴 En este momento estamos cerrados";
-
     horario.innerHTML =
     "🔴 En este momento el taller está cerrado.";
 
 }
+
 
 // ----------------------------
 // ANIMACIONES AL HACER SCROLL
@@ -319,4 +322,4 @@ setTimeout(()=>{
 
 // ==========================================================
 // FIN DEL SCRIPT
-// ==========================================================
+// =========================================================
