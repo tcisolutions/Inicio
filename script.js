@@ -370,60 +370,111 @@ setTimeout(()=>{
 
 
 
+
 // =====================================================
-// CARRUSEL DE PROMOCIONES (VERSIÓN ESTABLE)
+// CARRUSEL APPLE STORE TECHNICAL CENTER V12
 // =====================================================
 
-const track = document.getElementById("promoTrack");
-const dots = document.querySelectorAll(".promo-dots .dot");
+document.addEventListener("DOMContentLoaded", () => {
 
-if(track){
+    const track = document.getElementById("promoTrack");
+    const slides = document.querySelectorAll(".promo-slide");
+    const dots = document.querySelectorAll(".promo-dots .dot");
+
+    if (!track || slides.length === 0) return;
 
     let current = 0;
+    let autoplay;
 
-    function moverCarrusel(indice){
+    function moverCarrusel(index){
 
-        const slide = track.querySelector(".promo-slide");
+        current = index;
 
-        if(!slide) return;
-
-        current = indice;
+        const ancho = slides[0].getBoundingClientRect().width + 14;
 
         track.scrollTo({
-            left: slide.offsetWidth * indice,
+            left: ancho * index,
             behavior: "smooth"
         });
 
         dots.forEach((dot,i)=>{
-            dot.classList.toggle("active", i===indice);
+            dot.classList.toggle("active", i === index);
         });
 
     }
 
-    setInterval(()=>{
+    function siguienteBanner(){
 
         current++;
 
-        if(current >= dots.length){
+        if(current >= slides.length){
             current = 0;
         }
 
         moverCarrusel(current);
 
-    },5000);
+    }
+
+    autoplay = setInterval(siguienteBanner,4000);
+
+    // Swipe manual
 
     track.addEventListener("scroll",()=>{
 
-        const slide = track.querySelector(".promo-slide");
-        if(!slide) return;
+        const ancho = slides[0].getBoundingClientRect().width + 14;
 
-        const indice = Math.round(track.scrollLeft / slide.offsetWidth);
+        const index = Math.round(track.scrollLeft / ancho);
 
-        dots.forEach((dot,i)=>{
-            dot.classList.toggle("active", i===indice);
+        if(index !== current){
+
+            current = index;
+
+            dots.forEach((dot,i)=>{
+                dot.classList.toggle("active", i===index);
+            });
+
+        }
+
+    });
+
+    // Reiniciar autoplay al tocar el carrusel
+
+    track.addEventListener("touchstart",()=>{
+        clearInterval(autoplay);
+    });
+
+    track.addEventListener("touchend",()=>{
+        autoplay = setInterval(siguienteBanner,4000);
+    });
+
+    // Click en los puntitos
+
+    dots.forEach((dot,index)=>{
+
+        dot.addEventListener("click",()=>{
+
+            clearInterval(autoplay);
+
+            moverCarrusel(index);
+
+            autoplay = setInterval(siguienteBanner,4000);
+
         });
 
-        current = indice;
+    });
+
+});
+
+
+// =====================================================
+// ACTUALIZAR SERVICE WORKER AUTOMÁTICAMENTE
+// =====================================================
+
+if ("serviceWorker" in navigator) {
+
+    navigator.serviceWorker.getRegistrations().then((regs)=>{
+
+        regs.forEach((reg)=>reg.update());
 
     });
 
