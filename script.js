@@ -82,51 +82,95 @@ document.querySelectorAll(".copy-btn").forEach((btn)=>{
 
 });
 
-// ----------------------------
-// HORARIO AUTOMÁTICO
-// ----------------------------
+
+// ==========================================================
+// HORARIO AUTOMÁTICO - TECHNICAL CENTER MORELIA
+// ==========================================================
 
 const estado = document.getElementById("estadoTienda");
 const horario = document.getElementById("mensajeHorario");
 
 const ahora = new Date();
 
-const dia = ahora.getDay();
+const dia = ahora.getDay();      // 0=Domingo, 6=Sábado
 const hora = ahora.getHours();
 const minuto = ahora.getMinutes();
 
-const horaActual = hora + minuto/60;
+const horaActual = hora + (minuto / 60);
+
+// Horarios del taller
+const horarioTaller = {
+    lunesViernes: { abre: 10, cierra: 19 }, // 10 AM - 7 PM
+    sabado: { abre: 10, cierra: 14 }         // 10 AM - 2 PM
+};
 
 let abierto = false;
+let mensajeEstado = "";
+let mensajeHorario = "";
 
-if(dia >= 1 && dia <= 5){
+if (dia >= 1 && dia <= 5) {
 
-    abierto = horaActual >= 10 && horaActual < 19;
+    // Lunes a Viernes
+    if (horaActual >= horarioTaller.lunesViernes.abre &&
+        horaActual < horarioTaller.lunesViernes.cierra) {
 
-}else if(dia === 6){
+        abierto = true;
+        mensajeEstado = "🟢 Abierto ahora · Cierra a las 7:00 PM";
+        mensajeHorario = "Estamos abiertos y listos para recibir tu equipo.";
 
-    abierto = horaActual >= 10 && horaActual < 14;
+    } else if (horaActual < horarioTaller.lunesViernes.abre) {
 
-}
+        mensajeEstado = "🔴 Cerrado · Abre hoy a las 10:00 AM";
+        mensajeHorario = "Nuestro horario es de 10:00 AM a 7:00 PM.";
 
-if (abierto){
-
-    if (dia === 6) {
-        estado.innerHTML = "🟢 Abierto hoy hasta las 2:00 PM";
     } else {
-        estado.innerHTML = "🟢 Abierto hoy hasta las 7:00 PM";
+
+        mensajeEstado = "🔴 Cerrado · Abrimos mañana a las 10:00 AM";
+        mensajeHorario = "Nuestro horario es de 10:00 AM a 7:00 PM.";
+
     }
 
-    horario.innerHTML =
-    "🟢 Estamos abiertos en este momento. ¡Te esperamos!";
+} else if (dia === 6) {
+
+    // Sábado
+    if (horaActual >= horarioTaller.sabado.abre &&
+        horaActual < horarioTaller.sabado.cierra) {
+
+        abierto = true;
+        mensajeEstado = "🟢 Abierto ahora · Cierra a las 2:00 PM";
+        mensajeHorario = "Hoy sábado atendemos de 10:00 AM a 2:00 PM.";
+
+    } else if (horaActual < horarioTaller.sabado.abre) {
+
+        mensajeEstado = "🔴 Cerrado · Abre hoy a las 10:00 AM";
+        mensajeHorario = "Hoy sábado atendemos hasta las 2:00 PM.";
+
+    } else {
+
+        mensajeEstado = "🔴 Cerrado · Abrimos el lunes a las 10:00 AM";
+        mensajeHorario = "Los domingos permanecemos cerrados.";
+
+    }
 
 } else {
 
-    estado.classList.add("closed");
-    estado.innerHTML = "🔴 En este momento estamos cerrados";
-    horario.innerHTML =
-    "🔴 En este momento el taller está cerrado.";
+    // Domingo
+    mensajeEstado = "🔴 Cerrado · Abrimos el lunes a las 10:00 AM";
+    mensajeHorario = "Nuestro horario es de lunes a sábado.";
 
+}
+
+// Mostrar mensajes
+estado.innerHTML = mensajeEstado;
+horario.innerHTML = mensajeHorario;
+
+// Cambiar color según estado
+if (abierto) {
+    estado.classList.remove("closed");
+    horario.classList.remove("closed");
+} else {
+    estado.classList.add("closed");
+    horario.classList.add("closed");
 }
 
 
