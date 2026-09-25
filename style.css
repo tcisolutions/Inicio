@@ -977,3 +977,187 @@ footer p{
         grid-template-columns:repeat(3,1fr);
     }
 }
+
+
+/* ==========================================================
+   CARRUSEL DE PROMOCIONES - TECHNICAL CENTER
+   ========================================================== */
+
+.promo-carousel{
+    margin:28px 0 34px;
+}
+
+.promo-track{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    gap:18px;
+
+    scrollbar-width:none;
+}
+
+.promo-track::-webkit-scrollbar{
+    display:none;
+}
+
+.promo-slide{
+    flex:0 0 100%;
+    scroll-snap-align:center;
+
+    border-radius:30px;
+
+    padding:28px;
+
+    color:white;
+
+    min-height:230px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+}
+
+.promo-slide::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,.14),
+        transparent
+    );
+    transform:translateX(-120%);
+    animation:shinePromo 6s infinite;
+}
+
+.promo-blue{
+    background:linear-gradient(135deg,#005BFF,#0EA5E9);
+}
+
+.promo-dark{
+    background:linear-gradient(135deg,#020617,#1E40AF);
+}
+
+.promo-gold{
+    background:linear-gradient(135deg,#A16207,#F59E0B);
+}
+
+.promo-badge{
+    display:inline-block;
+    padding:8px 14px;
+    border-radius:999px;
+    background:rgba(255,255,255,.18);
+
+    font-size:.72rem;
+    font-weight:700;
+    letter-spacing:.08rem;
+}
+
+.promo-slide h3{
+    margin-top:18px;
+    font-size:1.6rem;
+    line-height:1.2;
+}
+
+.promo-slide p{
+    margin-top:14px;
+    line-height:1.7;
+    color:#E5F3FF;
+}
+
+.promo-slide small{
+    display:block;
+    margin-top:18px;
+    color:#DDEBFF;
+    line-height:1.5;
+}
+
+.promo-dots{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:18px;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#475569;
+    transition:.3s;
+}
+
+.dot.active{
+    width:28px;
+    border-radius:20px;
+    background:#0A84FF;
+}
+
+@keyframes shinePromo{
+    0%{transform:translateX(-120%)}
+    100%{transform:translateX(120%)}
+}
+
+
+/* ==========================================================
+   CARRUSEL PREMIUM TECHNICAL CENTER
+   ========================================================== */
+
+.promo-carousel{
+    margin:30px 0;
+}
+
+.promo-track{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    gap:16px;
+
+    scrollbar-width:none;
+}
+
+.promo-track::-webkit-scrollbar{
+    display:none;
+}
+
+.promo-slide{
+    flex:0 0 100%;
+    scroll-snap-align:center;
+
+    border-radius:28px;
+    overflow:hidden;
+
+    box-shadow:0 25px 60px rgba(0,0,0,.40);
+}
+
+.promo-slide img{
+    width:100%;
+    display:block;
+    border-radius:28px;
+}
+
+.promo-dots{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:18px;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#475569;
+    transition:.3s;
+}
+
+.dot.active{
+    width:28px;
+    border-radius:20px;
+    background:#0A84FF;
+}

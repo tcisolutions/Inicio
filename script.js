@@ -367,3 +367,45 @@ setTimeout(()=>{
 // ==========================================================
 // FIN DEL SCRIPT
 // =========================================================
+
+
+// ==========================================================
+// CARRUSEL AUTOMÁTICO DE PROMOCIONES
+// ==========================================================
+
+const promoTrack = document.getElementById("promoTrack");
+const promoDots = document.querySelectorAll(".promo-dots .dot");
+
+let promoActual = 0;
+
+function moverCarrusel(){
+
+    promoActual = (promoActual + 1) % promoDots.length;
+
+    promoTrack.scrollTo({
+        left: promoActual * promoTrack.offsetWidth,
+        behavior: "smooth"
+    });
+
+    promoDots.forEach((dot,index)=>{
+        dot.classList.toggle("active", index === promoActual);
+    });
+
+}
+
+setInterval(moverCarrusel, 4500);
+
+// Cambiar indicadores cuando el usuario deslice
+promoTrack.addEventListener("scroll", ()=>{
+
+    const index = Math.round(
+        promoTrack.scrollLeft / promoTrack.offsetWidth
+    );
+
+    promoDots.forEach((dot,i)=>{
+        dot.classList.toggle("active", i === index);
+    });
+
+    promoActual = index;
+
+});
