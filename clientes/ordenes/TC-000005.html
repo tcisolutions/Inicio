@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#081f34"><title>Seguimiento de reparación | Technical Center</title>
+<style>
+:root{--navy:#081f34;--blue:#1677ff;--ink:#142235;--muted:#64748b;--line:#e2e8f0;--bg:#f4f7fb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:var(--navy);color:white;padding:18px max(20px,calc((100% - 850px)/2));font-weight:800;letter-spacing:.08em}
+main{max-width:850px;margin:28px auto;padding:0 18px}.card{background:white;border:1px solid var(--line);border-radius:16px;padding:24px;margin:16px 0;box-shadow:0 6px 18px #0f172a08}
+.eyebrow{font-size:.75rem;color:var(--blue);font-weight:800;letter-spacing:.12em}h1{font-size:clamp(1.7rem,4vw,2.4rem);margin:.25em 0}h2{margin:0}p{margin:.4em 0}.muted{color:var(--muted)}.status{display:inline-block;padding:7px 12px;border-radius:99px;background:#dbeafe;color:#1d4ed8;font-weight:800}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.label{color:var(--muted);font-size:.88rem}.value{font-weight:700;overflow-wrap:anywhere}.row{margin:12px 0}.doclinks{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.doclinks a{display:inline-block;padding:10px 14px;border-radius:9px;background:#1677ff;color:white;text-decoration:none;font-weight:700}.notice{background:#eff6ff;padding:14px;border-radius:12px;color:#1e40af}footer{text-align:center;color:var(--muted);font-size:.85rem;padding:22px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.card{padding:18px}}
+</style></head><body><header>TECHNICAL CENTER <span style="font-weight:400;letter-spacing:0"> · Portal de seguimiento</span></header>
+<main><section class="card"><p class="eyebrow">SEGUIMIENTO DE SERVICIO</p><h1 id="folio">Orden de servicio</h1><p id="equipo" class="muted"></p><p><span class="status" id="estado"></span></p><p id="actualizado" class="muted"></p></section>
+<div class="grid"><section class="card"><h2>Información del equipo</h2><div class="row"><div class="label">Marca</div><div class="value" id="marca"></div></div><div class="row"><div class="label">Modelo</div><div class="value" id="modelo"></div></div><div class="row"><div class="label">Falla reportada</div><div class="value" id="falla"></div></div></section>
+<section class="card"><h2>Presupuesto y pagos</h2><div class="row"><div class="label">Costo total</div><div class="value" id="costo"></div></div><div class="row"><div class="label">Total pagado</div><div class="value" id="pagado"></div></div><div class="row"><div class="label">Saldo pendiente</div><div class="value" id="saldo"></div></div><div class="row"><div class="label">Garantía</div><div class="value" id="garantia"></div></div></section></div>
+<section class="card"><h2>Detalles del seguimiento</h2><p id="descripcion"></p><p id="entrega" class="muted"></p></section>
+<section class="card"><h2>Documentos de tu servicio</h2>
+<p class="muted">Abre un documento y usa "Imprimir / Guardar como PDF" para conservarlo.</p>
+<div class="doclinks">
+<a id="docRecepcion" href="../documentos/TC-000005-recepcion.html">Comprobante de recepción</a>
+<a id="docPago" href="../documentos/TC-000005-pago.html">Resumen de pagos</a>
+<a id="docGarantia" href="../documentos/TC-000005-garantia.html">Constancia de garantía</a>
+</div></section>
+<p class="notice">Esta página muestra únicamente información de seguimiento autorizada para consulta pública. No incluye datos personales ni información de desbloqueo.</p>
+<footer>Technical Center · Servicio técnico profesional</footer></main>
+<script>
+const o={"folio":"TC-000005","marca":"Apple","modelo":"12 Pro Max","falla":"No enciende","estado":"RECIBIDO","costo":1800.0,"totalPagado":0.0,"saldo":1800.0,"garantiaDias":30,"fechaRecepcion":"2026-10-18T00:14:49.843141","fechaEntrega":null,"actualizado":"2026-10-18T00:16:25.640893"};
+const el=id=>document.getElementById(id);
+const safe=v=>(v===null||v===undefined||String(v).trim()==='')?'No disponible':String(v);
+const money=v=>Number(v||0).toLocaleString('es-MX',{style:'currency',currency:'MXN'});
+const date=v=>{if(!v)return 'No disponible';const d=new Date(v);return Number.isNaN(d.getTime())?String(v):d.toLocaleString('es-MX')};
+el('folio').textContent='Folio '+safe(o.folio);el('equipo').textContent=[o.marca,o.modelo].filter(Boolean).join(' ')||'Equipo en servicio';
+el('estado').textContent=safe(o.estado);el('marca').textContent=safe(o.marca);el('modelo').textContent=safe(o.modelo);el('falla').textContent=safe(o.falla);
+el('costo').textContent=money(o.costo);el('pagado').textContent=money(o.totalPagado);el('saldo').textContent=money(o.saldo);
+el('garantia').textContent=Number(o.garantiaDias)>0?o.garantiaDias+' días':'Consulta las condiciones de garantía con el taller.';
+el('actualizado').textContent='Última actualización: '+date(o.actualizado);el('entrega').textContent=o.fechaEntrega?'Fecha de entrega: '+date(o.fechaEntrega):'Fecha de recepción: '+date(o.fechaRecepcion);
+const d={'RECIBIDO':'Recibimos tu equipo. El taller revisará la falla reportada.','PENDIENTE DE AUTORIZACIÓN':'El presupuesto está pendiente de autorización. Contacta al taller para confirmar.','EN PROCESO':'Tu equipo se encuentra en proceso de reparación.','LISTO PARA ENTREGA':'Tu equipo está listo. Verifica el saldo pendiente antes de acudir.','ENTREGADO':'La orden figura como entregada.'};
+el('descripcion').textContent=d[o.estado]||'Para más información sobre tu reparación, comunícate directamente con Technical Center.';
+</script></body></html>
